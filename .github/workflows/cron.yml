@@ -16,3 +16,11 @@ jobs:
           cache: pip
       - run: pip install -r requirements.txt
       - run: python top_issues.py ${{ secrets.DISCORD_TOKEN }}
+
+  workflow-keepalive:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - uses: liskin/gh-workflow-keepalive@v1
