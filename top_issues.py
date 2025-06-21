@@ -311,7 +311,7 @@ def process_digest(channel_id: int, issues: List[Issue], this_emoji):
 
         if activities:
             activity = ', '.join(activities)
-            lines.append(f'({activity}) {format_issue(issue, this_emoji)}')
+            lines.append(f'{format_issue(issue, this_emoji)} ({activity})')
 
     if len(lines) == 1:
         lines.append('none')
