@@ -3,6 +3,7 @@ import json
 import os
 import re
 import sys
+import time
 
 from dataclasses import dataclass
 from datetime import datetime, timedelta
@@ -10,6 +11,7 @@ from pathlib import Path
 from typing import List, Union
 
 import discord
+import pytz
 
 from discord.ext import commands
 
@@ -22,6 +24,13 @@ CHANNELS_TO_SUMMARIZE = {
     # Top feature requests.
     1021385902708248637: 1286512335829336146,
 }
+DRY_RUN = False
+
+
+@dataclass
+class Tag:
+    name: str
+    emoji: str
 
 
 @dataclass
@@ -31,7 +40,8 @@ class Issue:
     status: Union['open', 'closed', 'pending', 'unknown']
     url: str
     votes: int
-    tags: List[discord.channel.ForumTag]
+    tags: List[Tag]
+    message_count: int
 
     def get_tag_str(self):
         return ' '.join(
@@ -40,6 +50,12 @@ class Issue:
 
     def has_tag(self, name: str):
         return next((t for t in self.tags if t.name == name), None) != None
+
+
+def json_encode_value(x):
+    if dataclasses.is_dataclass(x):
+        return dataclasses.asdict(x)
+    return x
 
 
 def create_bot():
@@ -64,7 +80,7 @@ def is_upvote_reaction(reaction: discord.Reaction):
     if isinstance(reaction.emoji, str):
         return False
 
-    return reaction.emoji.name in ['this', 'heart', 'thumbsup']
+    return reaction.emoji in ['this', 'heart', 'thumbsup']
 
 
 async def get_issues_from_channel(
@@ -116,7 +132,8 @@ async def get_issues_from_channel(
                 status=status,
                 url=thread.jump_url,
                 votes=votes,
-                tags=thread.applied_tags,
+                tags=[Tag(tag.name, tag.emoji.name) for tag in thread.applied_tags],
+                message_count=thread.message_count,
             )
         )
         # if len(issues) > 25:
@@ -138,10 +155,15 @@ def split_message_content(content: str):
     return chunks
 
 
+def format_issue(issue: Issue, this_emoji) -> str:
+    return f'`{str(issue.votes).rjust(2, " ")}` {this_emoji} [{issue.name}]({issue.url}) {issue.get_tag_str()}'
+
+
 def create_section(label: str, issues: List[Issue], this_emoji) -> str:
     content = f'# {label} ({len(issues)})\n'
     for issue in issues:
-        content += f'`{str(issue.votes).rjust(2, " ")}` {this_emoji} [{issue.name}]({issue.url}) {issue.get_tag_str()}\n'
+        content += format_issue(issue, this_emoji)
+        content += '\n'
     if not issues:
         return 'None\n'
     return content
@@ -161,8 +183,6 @@ async def process_channel(bot: commands.Bot, channel_id: int, summary_thread_id:
     for thread in await get_issues_from_channel(bot, channel, summary_thread):
         issues.append(thread)
     issues = sorted(issues, key=lambda issue: -issue.votes)
-
-    print('done collecting issues')
 
     open_issues = []
     pending_issues = []
@@ -187,6 +207,10 @@ async def process_channel(bot: commands.Bot, channel_id: int, summary_thread_id:
 
     content = ''
 
+    digest = process_digest(channel_id, issues, this_emoji)
+    if digest:
+        content += f'{digest}\n'
+
     if pending_issues:
         content += create_section('Pending', pending_issues, this_emoji)
     if highprio_issues:
@@ -201,7 +225,8 @@ async def process_channel(bot: commands.Bot, channel_id: int, summary_thread_id:
     # content += f'# Fixed in the last month ({len(pending_issues)})\n'
 
     print(content)
-    # sys.exit(1)
+    if DRY_RUN:
+        return
 
     chunks = split_message_content(content)
     print(f'update content: {len(chunks)} messages needed')
@@ -231,8 +256,84 @@ async def process_channel(bot: commands.Bot, channel_id: int, summary_thread_id:
     print(f'done updating content')
 
 
+def load_last_run(channel_id: int):
+    path = Path(f'./last_run/{channel_id}.json')
+    if path.exists():
+        last_run_json = json.loads(path.read_text('utf-8'))
+        last_run_json['issues'] = [Issue(**issue) for issue in last_run_json['issues']]
+        return last_run_json
+
+    return None
+
+
+def save_run(channel_id: int, issues: List[Issue]):
+    path = Path(f'./last_run/{channel_id}.json')
+    path.parent.mkdir(exist_ok=True)
+    data = {
+        'time': time.time(),
+        'issues': issues,
+    }
+    j = json.dumps(data, default=json_encode_value, indent=2)
+    path.write_text(j)
+
+
+def process_digest(channel_id: int, issues: List[Issue], this_emoji):
+    last_run = load_last_run(channel_id)
+    if last_run == None:
+        print('No last run, will process digest next time')
+        save_run(channel_id, issues)
+        return None
+
+    print('processing digest')
+
+    last_issue_by_id = {}
+    for issue in last_run['issues']:
+        last_issue_by_id[issue.id] = issue
+
+    last_time_str = datetime.fromtimestamp(
+        last_run['time'], pytz.timezone("US/Pacific")
+    ).strftime('%Y-%m-%d %H:%M %Z')
+    lines = [f'# Digest (activity since {last_time_str})']
+
+    for issue in issues:
+        last_issue = last_issue_by_id.get(issue.id)
+        activities = []
+
+        if not last_issue:
+            activities.append('NEW')
+        elif issue.status == 'closed' and last_issue.status != 'closed':
+            activities.append('CLOSED')
+
+        last_issue_message_count = last_issue.message_count if last_issue else 0
+        if last_issue_message_count < issue.message_count:
+            new_comments = issue.message_count - last_issue_message_count
+            activities.append(f'+{new_comments} COMMENTS')
+
+        if activities:
+            activity = ', '.join(activities)
+            lines.append(f'({activity}) {format_issue(issue, this_emoji)}')
+
+    if len(lines) == 1:
+        lines.append('none')
+
+    # Update the last run every 3 days.
+    MS_PER_HOUR = 3600000
+    MS_PER_DAY = 86400000
+    DIGEST_DURATION = 3 * MS_PER_DAY
+    # Give some lee-way since the cron won't always finish at the same time.
+    if time.time() - last_run['time'] > MS_PER_DAY - MS_PER_HOUR:
+        save_run(channel_id, issues)
+
+    print('finished digest')
+    return '\n'.join(lines)
+
+
 @bot.event
 async def on_ready():
+    print('starting')
+    if DRY_RUN:
+        print('DRY RUN!')
+
     for channel_id, summary_thread_id in CHANNELS_TO_SUMMARIZE.items():
         print(f'processing channel {channel_id}')
         await process_channel(bot, channel_id, summary_thread_id)
