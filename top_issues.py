@@ -80,7 +80,7 @@ def is_upvote_reaction(reaction: discord.Reaction):
     if isinstance(reaction.emoji, str):
         return False
 
-    return reaction.emoji in ['this', 'heart', 'thumbsup']
+    return reaction.emoji.name in ['this', 'heart', 'thumbsup']
 
 
 async def get_issues_from_channel(
