@@ -15,11 +15,11 @@ jobs:
           python-version: '3.11.4'
           cache: pip
       - run: pip install -r requirements.txt
-      - name: Cache last run
+      - name: Cache snapshots
         uses: actions/cache@v4
         with:
-          path: last_run
-          key: ${{ runner.os }}-last-run
+          path: snapshots
+          key: ${{ runner.os }}-snapshots
       - run: python top_issues.py ${{ secrets.DISCORD_TOKEN }}
 
   workflow-keepalive:

@@ -71,8 +71,8 @@ bot = create_bot()
 async def get_all_threads(channel: discord.ForumChannel):
     threads = []
     threads.extend(channel.threads)
-    async for thread in channel.archived_threads(limit=None):
-        threads.append(thread)
+    # async for thread in channel.archived_threads(limit=None):
+    #     threads.append(thread)
     return threads
 
 
@@ -256,42 +256,63 @@ async def process_channel(bot: commands.Bot, channel_id: int, summary_thread_id:
     print(f'done updating content')
 
 
-def load_last_run(channel_id: int):
-    path = Path(f'./last_run/{channel_id}.json')
+MS_PER_HOUR = 3600000
+MS_PER_DAY = 86400000
+DIGEST_DURATION = 3 * MS_PER_DAY
+
+
+@dataclass
+class Snapshot:
+    time: int
+    issues: List[Issue]
+
+
+def load_snapshots(channel_id: int) -> List[Snapshot]:
+    path = Path(f'./snapshots/{channel_id}.json')
     if path.exists():
-        last_run_json = json.loads(path.read_text('utf-8'))
-        last_run_json['issues'] = [Issue(**issue) for issue in last_run_json['issues']]
-        return last_run_json
+        snapshots_json = json.loads(path.read_text('utf-8'))
+        snapshots = [Snapshot(**s) for s in snapshots_json]
+        for snapshot in snapshots:
+            snapshot.issues = [Issue(**i) for i in snapshot.issues]
+        return snapshots
 
-    return None
+    return []
 
 
-def save_run(channel_id: int, issues: List[Issue]):
-    path = Path(f'./last_run/{channel_id}.json')
+def save_snapshots(
+    existing_snapshots: List[Snapshot], channel_id: int, issues: List[Issue]
+):
+    path = Path(f'./snapshots/{channel_id}.json')
     path.parent.mkdir(exist_ok=True)
-    data = {
-        'time': time.time(),
-        'issues': issues,
-    }
-    j = json.dumps(data, default=json_encode_value, indent=2)
+    now = time.time()
+    snapshot = Snapshot(now, issues)
+    existing_snapshots.append(snapshot)
+    existing_snapshots = [
+        s for s in existing_snapshots if now - s.time < DIGEST_DURATION * 1.1
+    ]
+    j = json.dumps(existing_snapshots, default=json_encode_value, indent=2)
     path.write_text(j)
 
 
 def process_digest(channel_id: int, issues: List[Issue], this_emoji):
-    last_run = load_last_run(channel_id)
-    if last_run == None:
-        print('No last run, will process digest next time')
-        save_run(channel_id, issues)
+    snapshots = load_snapshots(channel_id)
+    if not snapshots:
+        print('No snapshot, will process digest next time')
+        save_snapshots(snapshots, channel_id, issues)
         return None
 
     print('processing digest')
 
+    # Find snapshot closest to target start time.
+    now = time.time()
+    snapshot = min(snapshots, key=lambda s: abs(now - s.time - DIGEST_DURATION))
+
     last_issue_by_id = {}
-    for issue in last_run['issues']:
+    for issue in snapshot.issues:
         last_issue_by_id[issue.id] = issue
 
     last_time_str = datetime.fromtimestamp(
-        last_run['time'], pytz.timezone("US/Pacific")
+        snapshot.time, pytz.timezone("US/Pacific")
     ).strftime('%Y-%m-%d %H:%M %Z')
     lines = [f'# Digest (activity since {last_time_str})']
 
@@ -316,13 +337,7 @@ def process_digest(channel_id: int, issues: List[Issue], this_emoji):
     if len(lines) == 1:
         lines.append('none')
 
-    # Update the last run every 3 days.
-    MS_PER_HOUR = 3600000
-    MS_PER_DAY = 86400000
-    DIGEST_DURATION = 3 * MS_PER_DAY
-    # Give some lee-way since the cron won't always finish at the same time.
-    if time.time() - last_run['time'] > MS_PER_DAY - MS_PER_HOUR:
-        save_run(channel_id, issues)
+    save_snapshots(snapshots, channel_id, issues)
 
     print('finished digest')
     return '\n'.join(lines)
