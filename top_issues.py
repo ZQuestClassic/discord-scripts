@@ -316,23 +316,45 @@ def process_digest(channel_id: int, issues: List[Issue], this_emoji):
     ).strftime('%Y-%m-%d %H:%M %Z')
     lines = [f'# Digest (activity since {last_time_str})']
 
+    new_section = []
+    closed_section = []
+    other_section = []
+
     for issue in issues:
         last_issue = last_issue_by_id.get(issue.id)
-        activities = []
-
-        if not last_issue:
-            activities.append('NEW')
-        elif issue.status == 'closed' and last_issue.status != 'closed':
-            activities.append('CLOSED')
 
         last_issue_message_count = last_issue.message_count if last_issue else 0
+        new_comments = 0
         if last_issue_message_count < issue.message_count:
             new_comments = issue.message_count - last_issue_message_count
-            activities.append(f'+{new_comments} COMMENTS')
 
-        if activities:
-            activity = ', '.join(activities)
-            lines.append(f'{format_issue(issue, this_emoji)} ({activity})')
+        if not last_issue:
+            new_section.append((issue, new_comments))
+        elif issue.status == 'closed' and last_issue.status != 'closed':
+            closed_section.append((issue, new_comments))
+        elif new_comments:
+            other_section.append((issue, new_comments))
+
+    if new_section:
+        lines.append(f'__new__ ({len(new_section)})\n')
+        for issue, new_comments in new_section:
+            suffix = f' (+{new_comments} COMMENTS)' if new_comments else ''
+            lines.append(f'{format_issue(issue, this_emoji)}{suffix}')
+        lines.append('')
+
+    if closed_section:
+        lines.append(f'__closed__ ({len(closed_section)})\n')
+        for issue, new_comments in closed_section:
+            suffix = f' (+{new_comments} COMMENTS)' if new_comments else ''
+            lines.append(f'{format_issue(issue, this_emoji)}{suffix}')
+        lines.append('')
+
+    if other_section:
+        lines.append(f'__comments__ ({len(other_section)})\n')
+        for issue, new_comments in other_section:
+            suffix = f' (+{new_comments} COMMENTS)' if new_comments else ''
+            lines.append(f'{format_issue(issue, this_emoji)}{suffix}')
+        lines.append('')
 
     if len(lines) == 1:
         lines.append('none')
