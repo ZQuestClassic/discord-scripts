@@ -71,8 +71,8 @@ bot = create_bot()
 async def get_all_threads(channel: discord.ForumChannel):
     threads = []
     threads.extend(channel.threads)
-    # async for thread in channel.archived_threads(limit=None):
-    #     threads.append(thread)
+    async for thread in channel.archived_threads(limit=None):
+        threads.append(thread)
     return threads
 
 
