@@ -291,7 +291,7 @@ def save_snapshots(
         s for s in existing_snapshots if now - s.time < DIGEST_DURATION * 1.1
     ]
     j = json.dumps(existing_snapshots, default=json_encode_value, indent=2)
-    path.write_text(j)
+    path.write_text(j, 'utf-8')
 
 
 def process_digest(channel_id: int, issues: List[Issue], this_emoji):
