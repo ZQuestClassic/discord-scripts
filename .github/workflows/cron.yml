@@ -20,7 +20,7 @@ jobs:
         with:
           path: snapshots
           key: ${{ runner.os }}-snapshots-${{ github.run_id }}
-          restore-keys: ${{ runner.os }}-snapshots
+          restore-keys: ${{ runner.os }}-snapshots-
       - run: python top_issues.py ${{ secrets.DISCORD_TOKEN }}
 
   workflow-keepalive:
