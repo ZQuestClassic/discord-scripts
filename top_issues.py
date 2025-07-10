@@ -208,8 +208,8 @@ async def process_channel(bot: commands.Bot, channel_id: int, summary_thread_id:
     content = ''
 
     digest = process_digest(channel_id, issues, this_emoji)
-    if digest:
-        content += f'{digest}\n'
+    # if digest:
+    #     content += f'{digest}\n'
 
     if pending_issues:
         content += create_section('Pending', pending_issues, this_emoji)
