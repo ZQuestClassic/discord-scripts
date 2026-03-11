@@ -185,12 +185,15 @@ async def process_channel(bot: commands.Bot, channel_id: int, summary_thread_id:
     issues = sorted(issues, key=lambda issue: -issue.votes)
 
     open_issues = []
+    blocker_issues = []
     pending_issues = []
     unknown_issues = []
     highprio_issues = []
     lowprio_issues = []
     for issue in issues:
-        if issue.status == 'pending':
+        if issue.has_tag('Blocker'):
+            blocker_issues.append(issue)
+        elif issue.status == 'pending':
             pending_issues.append(issue)
         elif issue.status == 'unknown':
             unknown_issues.append(issue)
@@ -211,6 +214,8 @@ async def process_channel(bot: commands.Bot, channel_id: int, summary_thread_id:
     # if digest:
     #     content += f'{digest}\n'
 
+    if blocker_issues:
+        content += create_section('Blockers', blocker_issues, this_emoji)
     if pending_issues:
         content += create_section('Pending', pending_issues, this_emoji)
     if highprio_issues:
