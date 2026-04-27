@@ -279,8 +279,6 @@ def load_snapshots(channel_id: int) -> List[Snapshot]:
     path = Path(f'./snapshots/{channel_id}.json')
     if path.exists():
         snapshots_json = json.loads(path.read_text('utf-8'))
-        print(channel_id)
-        print(json.dumps(snapshots_json, indent=2))
         snapshots = [Snapshot(**s) for s in snapshots_json]
         for snapshot in snapshots:
             snapshot.issues = [Issue(**i) for i in snapshot.issues]
@@ -437,12 +435,11 @@ async def on_ready():
 
     for channel_id, summary_thread_id in CHANNELS_TO_SUMMARIZE.items():
         print(f'processing channel {channel_id}')
-        # issues = await process_channel(bot, channel_id, summary_thread_id)
-        # name = id_to_name.get(channel_id, str(channel_id))
-        # issues_per_channel[name] = issues
-        load_snapshots(channel_id)
+        issues = await process_channel(bot, channel_id, summary_thread_id)
+        name = id_to_name.get(channel_id, str(channel_id))
+        issues_per_channel[name] = issues
 
-    # update_summary(issues_per_channel)
+    update_summary(issues_per_channel)
 
     print('done')
     await bot.close()
