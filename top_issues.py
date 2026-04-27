@@ -206,9 +206,6 @@ async def process_channel(bot: commands.Bot, channel_id: int, summary_thread_id:
                 lowprio_issues.append(issue)
             else:
                 open_issues.append(issue)
-                issue.tags = [
-                    t for t in issue.tags if t.name != 'Open' and t.name != 'Unassigned'
-                ]
 
     content = ''
 
