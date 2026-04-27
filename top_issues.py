@@ -406,6 +406,10 @@ def update_summary(issues_per_channel: dict[str, List[Issue]]):
         print('Summary unchanged, skipping update.')
         return
 
+    if DRY_RUN:
+        print('DRY_RUN, skipping summary.json update.')
+        return
+
     now = datetime.now()
     date_str = now.isoformat()
     new_entry = {
@@ -433,11 +437,12 @@ async def on_ready():
 
     for channel_id, summary_thread_id in CHANNELS_TO_SUMMARIZE.items():
         print(f'processing channel {channel_id}')
-        issues = await process_channel(bot, channel_id, summary_thread_id)
-        name = id_to_name.get(channel_id, str(channel_id))
-        issues_per_channel[name] = issues
+        # issues = await process_channel(bot, channel_id, summary_thread_id)
+        # name = id_to_name.get(channel_id, str(channel_id))
+        # issues_per_channel[name] = issues
+        load_snapshots(channel_id)
 
-    update_summary(issues_per_channel)
+    # update_summary(issues_per_channel)
 
     print('done')
     await bot.close()
