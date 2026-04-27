@@ -280,7 +280,7 @@ def load_snapshots(channel_id: int) -> List[Snapshot]:
     if path.exists():
         snapshots_json = json.loads(path.read_text('utf-8'))
         print(channel_id)
-        print(snapshots_json)
+        print(json.dumps(snapshots_json, indent=2))
         snapshots = [Snapshot(**s) for s in snapshots_json]
         for snapshot in snapshots:
             snapshot.issues = [Issue(**i) for i in snapshot.issues]
