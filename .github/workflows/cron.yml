@@ -22,6 +22,13 @@ jobs:
           key: ${{ runner.os }}-snapshots-${{ github.run_id }}
           restore-keys: ${{ runner.os }}-snapshots-
       - run: python top_issues.py ${{ secrets.DISCORD_TOKEN }}
+      - name: Commit summary
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add summary.json
+          git commit -m "Update summary.json" || exit 0
+          git push
 
   workflow-keepalive:
     if: github.event_name == 'schedule'

@@ -71,7 +71,8 @@ bot = create_bot()
 async def get_all_threads(channel: discord.ForumChannel):
     threads = []
     threads.extend(channel.threads)
-    async for thread in channel.archived_threads(limit=None):
+    archived_limit = 10 if DRY_RUN else None
+    async for thread in channel.archived_threads(limit=archived_limit):
         threads.append(thread)
     return threads
 
@@ -136,8 +137,9 @@ async def get_issues_from_channel(
                 message_count=thread.message_count,
             )
         )
-        # if len(issues) > 25:
-        #     break
+
+        if DRY_RUN and len(issues) >= 5:
+            break
 
     return issues
 
@@ -231,7 +233,7 @@ async def process_channel(bot: commands.Bot, channel_id: int, summary_thread_id:
 
     print(content)
     if DRY_RUN:
-        return
+        return issues
 
     chunks = split_message_content(content)
     print(f'update content: {len(chunks)} messages needed')
@@ -259,6 +261,7 @@ async def process_channel(bot: commands.Bot, channel_id: int, summary_thread_id:
         await m.delete()
 
     print(f'done updating content')
+    return issues
 
 
 MS_PER_HOUR = 3600000
@@ -370,15 +373,66 @@ def process_digest(channel_id: int, issues: List[Issue], this_emoji):
     return '\n'.join(lines)
 
 
+def update_summary(issues_per_channel: dict[str, List[Issue]]):
+    summary_path = root_dir / 'summary.json'
+    now = datetime.now()
+    date_str = now.isoformat()
+
+    channels_data = {}
+    for channel_name, issues in issues_per_channel.items():
+        status_counts = {}
+        tag_counts = {}
+
+        for issue in issues:
+            status_counts[issue.status] = status_counts.get(issue.status, 0) + 1
+            for tag in issue.tags:
+                tag_counts[tag.name] = tag_counts.get(tag.name, 0) + 1
+
+        channels_data[channel_name] = {
+            'total': len(issues),
+            'status': status_counts,
+            'tags': tag_counts,
+        }
+
+    new_entry = {
+        'date': date_str,
+        'channels': channels_data,
+    }
+
+    history = []
+    if summary_path.exists():
+        try:
+            history = json.loads(summary_path.read_text('utf-8'))
+        except Exception as e:
+            print(f'Error reading summary.json: {e}')
+            history = []
+
+    history.append(new_entry)
+
+    summary_path.write_text(json.dumps(history, indent=2), 'utf-8')
+    print(f'Summary updated in {summary_path}')
+
+
 @bot.event
 async def on_ready():
     print('starting')
     if DRY_RUN:
         print('DRY RUN!')
 
+    issues_per_channel = {}
+    # Map channel IDs to human readable names for the summary.
+    id_to_name = {
+        1021382849603051571: 'bugs',
+        1021385902708248637: 'features',
+    }
+
     for channel_id, summary_thread_id in CHANNELS_TO_SUMMARIZE.items():
         print(f'processing channel {channel_id}')
-        await process_channel(bot, channel_id, summary_thread_id)
+        issues = await process_channel(bot, channel_id, summary_thread_id)
+        name = id_to_name.get(channel_id, str(channel_id))
+        issues_per_channel[name] = issues
+
+    update_summary(issues_per_channel)
 
     print('done')
     await bot.close()
