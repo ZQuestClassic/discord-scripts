@@ -375,8 +375,6 @@ def process_digest(channel_id: int, issues: List[Issue], this_emoji):
 
 def update_summary(issues_per_channel: dict[str, List[Issue]]):
     summary_path = root_dir / 'summary.json'
-    now = datetime.now()
-    date_str = now.isoformat()
 
     channels_data = {}
     for channel_name, issues in issues_per_channel.items():
@@ -394,11 +392,6 @@ def update_summary(issues_per_channel: dict[str, List[Issue]]):
             'tags': tag_counts,
         }
 
-    new_entry = {
-        'date': date_str,
-        'channels': channels_data,
-    }
-
     history = []
     if summary_path.exists():
         try:
@@ -407,8 +400,18 @@ def update_summary(issues_per_channel: dict[str, List[Issue]]):
             print(f'Error reading summary.json: {e}')
             history = []
 
-    history.append(new_entry)
+    if history and history[-1].get('channels') == channels_data:
+        print('Summary unchanged, skipping update.')
+        return
 
+    now = datetime.now()
+    date_str = now.isoformat()
+    new_entry = {
+        'date': date_str,
+        'channels': channels_data,
+    }
+
+    history.append(new_entry)
     summary_path.write_text(json.dumps(history, indent=2), 'utf-8')
     print(f'Summary updated in {summary_path}')
 
