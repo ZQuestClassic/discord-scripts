@@ -1,3 +1,6 @@
+# Note: this script was used to backfill a bunch from 10 months of snapshots:
+# https://drive.google.com/file/d/1aNtJrWePYE-rHviTwUgT8b9Uf8c0jsf2/view?usp=drive_link
+
 import json
 
 from datetime import datetime

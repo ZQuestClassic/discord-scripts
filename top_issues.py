@@ -415,7 +415,6 @@ def update_summary(issues_per_channel: dict[str, List[Issue]]):
     history.append(new_entry)
     summary_path.write_text(json.dumps(history, indent=2), 'utf-8')
     print(f'Summary updated in {summary_path}')
-    # Note: backfilled a bunch from 10 months of snapshots https://drive.google.com/file/d/1aNtJrWePYE-rHviTwUgT8b9Uf8c0jsf2/view?usp=drive_link
 
 
 @bot.event
