@@ -24,6 +24,11 @@ CHANNELS_TO_SUMMARIZE = {
     # Top feature requests.
     1021385902708248637: 1286512335829336146,
 }
+# Map channel IDs to human readable names for the summary.
+CHANNEL_ID_TO_NAME = {
+    1021382849603051571: 'bugs',
+    1021385902708248637: 'features',
+}
 DRY_RUN = False
 
 
@@ -208,6 +213,10 @@ async def process_channel(bot: commands.Bot, channel_id: int, summary_thread_id:
                 open_issues.append(issue)
 
     content = ''
+
+    print(
+        f'[Dashboard](https://zquestclassic.github.io/discord-scripts/dashboard/?channel={CHANNEL_ID_TO_NAME[channel_id]}&mode=status)\n'
+    )
 
     digest = process_digest(channel_id, issues, this_emoji)
     # if digest:
@@ -424,16 +433,11 @@ async def on_ready():
         print('DRY RUN!')
 
     issues_per_channel = {}
-    # Map channel IDs to human readable names for the summary.
-    id_to_name = {
-        1021382849603051571: 'bugs',
-        1021385902708248637: 'features',
-    }
 
     for channel_id, summary_thread_id in CHANNELS_TO_SUMMARIZE.items():
         print(f'processing channel {channel_id}')
         issues = await process_channel(bot, channel_id, summary_thread_id)
-        name = id_to_name.get(channel_id, str(channel_id))
+        name = CHANNEL_ID_TO_NAME.get(channel_id, str(channel_id))
         issues_per_channel[name] = issues
 
     update_summary(issues_per_channel)
