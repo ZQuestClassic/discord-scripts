@@ -214,9 +214,7 @@ async def process_channel(bot: commands.Bot, channel_id: int, summary_thread_id:
 
     content = ''
 
-    print(
-        f'[Dashboard](https://zquestclassic.github.io/discord-scripts/dashboard/?channel={CHANNEL_ID_TO_NAME[channel_id]}&mode=status)\n'
-    )
+    content += f'[Dashboard](https://zquestclassic.github.io/discord-scripts/dashboard/?channel={CHANNEL_ID_TO_NAME[channel_id]}&mode=status)\n\n'
 
     digest = process_digest(channel_id, issues, this_emoji)
     # if digest:
