@@ -57,9 +57,27 @@ class Issue:
         return next((t for t in self.tags if t.name == name), None) != None
 
 
+@dataclass
+class Snapshot:
+    time: float
+    issues: List[Issue]
+
+
 def json_encode_value(x):
-    if dataclasses.is_dataclass(x):
-        return dataclasses.asdict(x)
+    if isinstance(x, Snapshot):
+        return {'time': x.time, 'issues': x.issues}
+    if isinstance(x, Issue):
+        return {
+            'id': x.id,
+            'name': x.name,
+            'status': x.status,
+            'url': x.url,
+            'votes': x.votes,
+            'tags': x.tags,
+            'message_count': x.message_count,
+        }
+    if isinstance(x, Tag):
+        return {'name': x.name, 'emoji': x.emoji}
     return x
 
 
@@ -268,24 +286,25 @@ async def process_channel(bot: commands.Bot, channel_id: int, summary_thread_id:
     return issues
 
 
-MS_PER_HOUR = 3600000
-MS_PER_DAY = 86400000
-DIGEST_DURATION = 3 * MS_PER_DAY
-
-
-@dataclass
-class Snapshot:
-    time: int
-    issues: List[Issue]
+SEC_PER_HOUR = 3600
+SEC_PER_DAY = 86400
+# TODO: change to 3 days, for now it doesn't really matter i guess.
+DIGEST_DURATION = 9999 * SEC_PER_DAY
 
 
 def load_snapshots(channel_id: int) -> List[Snapshot]:
     path = Path(f'./snapshots/{channel_id}.json')
     if path.exists():
         snapshots_json = json.loads(path.read_text('utf-8'))
-        snapshots = [Snapshot(**s) for s in snapshots_json]
-        for snapshot in snapshots:
-            snapshot.issues = [Issue(**i) for i in snapshot.issues]
+        snapshots = []
+        for s in snapshots_json:
+            issues = []
+            for i in s.get('issues', []):
+                tags = [Tag(**t) for t in i.get('tags', [])]
+                i_copy = dict(i)
+                i_copy['tags'] = tags
+                issues.append(Issue(**i_copy))
+            snapshots.append(Snapshot(time=s['time'], issues=issues))
         return snapshots
 
     return []
