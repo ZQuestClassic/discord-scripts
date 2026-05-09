@@ -1,5 +1,6 @@
 import dataclasses
 import json
+import logging
 import os
 import re
 import sys
@@ -14,6 +15,13 @@ import discord
 import pytz
 
 from discord.ext import commands
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s [%(levelname)s] %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S',
+)
+logger = logging.getLogger(__name__)
 
 root_dir = Path(os.path.dirname(os.path.realpath(__file__)))
 
@@ -202,7 +210,7 @@ async def process_channel(bot: commands.Bot, channel_id: int, summary_thread_id:
     summary_thread = channel.get_thread(summary_thread_id)
     this_emoji = guild.get_emoji(877358416992030731)
 
-    print('collecting issues')
+    logger.info('collecting issues')
 
     issues: List[Issue] = []
     for thread in await get_issues_from_channel(bot, channel, summary_thread):
@@ -258,7 +266,7 @@ async def process_channel(bot: commands.Bot, channel_id: int, summary_thread_id:
         return issues
 
     chunks = split_message_content(content)
-    print(f'update content: {len(chunks)} messages needed')
+    logger.info(f'update content: {len(chunks)} messages needed')
 
     existing_messages = [
         x
@@ -282,7 +290,7 @@ async def process_channel(bot: commands.Bot, channel_id: int, summary_thread_id:
     for m in existing_messages[len(chunks) :]:
         await m.delete()
 
-    print(f'done updating content')
+    logger.info(f'done updating content')
     return issues
 
 
@@ -328,11 +336,11 @@ def save_snapshots(
 def process_digest(channel_id: int, issues: List[Issue], this_emoji):
     snapshots = load_snapshots(channel_id)
     if not snapshots:
-        print('No snapshot, will process digest next time')
+        logger.warn('No snapshot, will process digest next time')
         save_snapshots(snapshots, channel_id, issues)
         return None
 
-    print('processing digest')
+    logger.info('processing digest')
 
     # Find snapshot closest to target start time.
     now = time.time()
@@ -392,7 +400,7 @@ def process_digest(channel_id: int, issues: List[Issue], this_emoji):
 
     save_snapshots(snapshots, channel_id, issues)
 
-    print('finished digest')
+    logger.info('finished digest')
     return '\n'.join(lines)
 
 
@@ -420,15 +428,15 @@ def update_summary(issues_per_channel: dict[str, List[Issue]]):
         try:
             history = json.loads(summary_path.read_text('utf-8'))
         except Exception as e:
-            print(f'Error reading summary.json: {e}')
+            logger.error(f'Error reading summary.json: {e}')
             history = []
 
     if history and history[-1].get('channels') == channels_data:
-        print('Summary unchanged, skipping update.')
+        logger.info('Summary unchanged, skipping update.')
         return
 
     if DRY_RUN:
-        print('DRY_RUN, skipping summary.json update.')
+        logger.info('DRY_RUN, skipping summary.json update.')
         return
 
     now = datetime.now()
@@ -440,26 +448,26 @@ def update_summary(issues_per_channel: dict[str, List[Issue]]):
 
     history.append(new_entry)
     summary_path.write_text(json.dumps(history, indent=2), 'utf-8')
-    print(f'Summary updated in {summary_path}')
+    logger.info(f'Summary updated in {summary_path}')
 
 
 @bot.event
 async def on_ready():
-    print('starting')
+    logger.info('starting')
     if DRY_RUN:
-        print('DRY RUN!')
+        logger.info('DRY RUN!')
 
     issues_per_channel = {}
 
     for channel_id, summary_thread_id in CHANNELS_TO_SUMMARIZE.items():
-        print(f'processing channel {channel_id}')
+        logger.info(f'processing channel {channel_id}')
         issues = await process_channel(bot, channel_id, summary_thread_id)
         name = CHANNEL_ID_TO_NAME.get(channel_id, str(channel_id))
         issues_per_channel[name] = issues
 
     update_summary(issues_per_channel)
 
-    print('done')
+    logger.info('done')
     await bot.close()
 
 
