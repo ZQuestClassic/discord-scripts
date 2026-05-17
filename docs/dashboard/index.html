@@ -9,8 +9,7 @@
     <script src='https://cdn.tailwindcss.com'></script>
     <style>
         .chart-container {
-            height: calc(100vh - 320px);
-            min-height: 500px;
+            height: 100%;
         }
 
         .dimmed {
@@ -20,38 +19,37 @@
     </style>
 </head>
 
-<body class='bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200'>
-    <div class='w-full px-4 py-4'>
-        <div class='grid grid-cols-1 md:grid-cols-4 gap-6 mb-8'>
-            <div class='bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700'>
-                <label class='block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3'>Channel</label>
-                <div class='flex flex-col gap-2'>
-                    <label
-                        class='inline-flex items-center gap-2 cursor-pointer text-sm text-gray-700 dark:text-gray-300'>
-                        <input type='checkbox' id='channelBugs' value='bugs' checked
-                            class='rounded border-gray-300 dark:border-gray-600 text-indigo-600 focus:ring-indigo-500'>
-                        Bugs
-                    </label>
-                    <label
-                        class='inline-flex items-center gap-2 cursor-pointer text-sm text-gray-700 dark:text-gray-300'>
-                        <input type='checkbox' id='channelFeatures' value='features' checked
-                            class='rounded border-gray-300 dark:border-gray-600 text-indigo-600 focus:ring-indigo-500'>
-                        Features
-                    </label>
+<body class='bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200 h-screen overflow-hidden flex flex-col'>
+    <div class='flex-none px-4 pt-4'>
+        <div class='grid grid-cols-1 md:grid-cols-4 gap-4 mb-4'>
+            <div class='bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col gap-5'>
+                <div>
+                    <label class='block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2'>View Mode</label>
+                    <select id='modeSelect'
+                        class='w-full border-gray-300 dark:border-gray-600 rounded-lg shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100'>
+                        <option value='status'>Status</option>
+                        <option value='tags'>Top Tags</option>
+                        <option value='total'>Total Issues</option>
+                    </select>
+                </div>
+                <div>
+                    <label class='block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2'>Channel</label>
+                    <div class='flex flex-col gap-2'>
+                        <label class='inline-flex items-center gap-2 cursor-pointer text-sm text-gray-700 dark:text-gray-300'>
+                            <input type='checkbox' id='channelBugs' value='bugs' checked
+                                class='rounded border-gray-300 dark:border-gray-600 text-indigo-600 focus:ring-indigo-500'>
+                            Bugs
+                        </label>
+                        <label class='inline-flex items-center gap-2 cursor-pointer text-sm text-gray-700 dark:text-gray-300'>
+                            <input type='checkbox' id='channelFeatures' value='features' checked
+                                class='rounded border-gray-300 dark:border-gray-600 text-indigo-600 focus:ring-indigo-500'>
+                            Features
+                        </label>
+                    </div>
                 </div>
             </div>
 
-            <div class='bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700'>
-                <label class='block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2'>View Mode</label>
-                <select id='modeSelect'
-                    class='w-full border-gray-300 dark:border-gray-600 rounded-lg shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100'>
-                    <option value='status'>Status</option>
-                    <option value='tags'>Top Tags</option>
-                    <option value='total'>Total Issues</option>
-                </select>
-            </div>
-
-            <div class='md:col-span-2'>
+            <div class='md:col-span-3'>
                 <div id='statusContainer'
                     class='hidden bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700'>
                     <div class='flex justify-between items-center mb-2'>
@@ -96,7 +94,7 @@
                         </div>
                     </div>
                     <div id='simpleTagsList'
-                        class='flex flex-wrap gap-2 p-2 border border-gray-200 dark:border-gray-600 rounded max-h-52 overflow-y-auto'>
+                        class='flex flex-col gap-1.5 p-2 border border-gray-200 dark:border-gray-600 rounded max-h-52 overflow-y-auto'>
                         <!-- Dynamic tag checkboxes -->
                     </div>
                     <div id='queryList' class='hidden space-y-2 max-h-52 overflow-y-auto'>
@@ -105,8 +103,10 @@
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class='bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700'>
+    <div class='flex-1 min-h-0 px-4 pb-4'>
+        <div class='bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 h-full'>
             <div id='chart' class='chart-container'></div>
         </div>
     </div>
@@ -321,24 +321,54 @@
         }
 
         function renderSimpleTags() {
+            const TAG_GROUPS = [
+                { label: 'Status',   tags: ['Open', 'Closed', 'Added', 'Fixed', 'Fixed: Needs Testing', 'Added: Needs testing', 'Already Exists', 'Denied', 'Duplicate', 'Solved (No Bug)', 'Stale'] },
+                { label: 'Priority', tags: ['Blocker', 'Crash', 'High Priority', 'Low Priority', 'Simple', 'Difficult to add'] },
+                { label: 'Process',  tags: ['Needs Backport', 'DevDiscussion', 'Needs More Info', 'See Pins', 'WIP'] },
+                { label: 'Assignee', tags: ['Connor', 'Deathrider', 'Deedee', 'Emily', 'Moosh', 'Unassigned'] },
+            ];
+
             simpleTagsList.innerHTML = '';
             const allTags = getAllTags();
-            allTags.forEach(tag => {
-                const label = document.createElement('label');
-                label.className = 'inline-flex items-center px-2 py-1 rounded bg-gray-100 dark:bg-gray-700 text-xs cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100 border border-transparent dark:border-gray-600';
-                const cb = document.createElement('input');
-                cb.type = 'checkbox';
-                cb.className = 'mr-1';
-                cb.value = tag;
-                cb.checked = selectedTags.includes(tag);
-                cb.onchange = () => {
-                    if (cb.checked) selectedTags = [...selectedTags, tag];
-                    else selectedTags = selectedTags.filter(t => t !== tag);
-                    updateChart();
-                    updateUrl();
-                };
-                label.append(cb, document.createTextNode(tag));
-                simpleTagsList.appendChild(label);
+            const knownTags = new Set(TAG_GROUPS.flatMap(g => g.tags));
+            const otherTags = allTags.filter(t => !knownTags.has(t));
+            const groups = otherTags.length
+                ? [...TAG_GROUPS, { label: 'Other', tags: otherTags }]
+                : TAG_GROUPS;
+
+            const CHIP_CLS = 'inline-flex items-center px-2 py-1 rounded bg-gray-100 dark:bg-gray-700 text-xs cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100 border border-transparent dark:border-gray-600';
+
+            groups.forEach(group => {
+                const present = group.tags.filter(t => allTags.includes(t));
+                if (!present.length) return;
+
+                const row = document.createElement('div');
+                row.className = 'flex items-center gap-1.5 flex-wrap';
+
+                const groupLabel = document.createElement('span');
+                groupLabel.className = 'text-xs text-gray-400 dark:text-gray-500 w-16 shrink-0 text-right pr-1 border-r border-gray-200 dark:border-gray-600';
+                groupLabel.textContent = group.label;
+                row.appendChild(groupLabel);
+
+                present.forEach(tag => {
+                    const label = document.createElement('label');
+                    label.className = CHIP_CLS;
+                    const cb = document.createElement('input');
+                    cb.type = 'checkbox';
+                    cb.className = 'mr-1';
+                    cb.value = tag;
+                    cb.checked = selectedTags.includes(tag);
+                    cb.onchange = () => {
+                        if (cb.checked) selectedTags = [...selectedTags, tag];
+                        else selectedTags = selectedTags.filter(t => t !== tag);
+                        updateChart();
+                        updateUrl();
+                    };
+                    label.append(cb, document.createTextNode(tag));
+                    row.appendChild(label);
+                });
+
+                simpleTagsList.appendChild(row);
             });
         }
 
