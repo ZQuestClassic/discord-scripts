@@ -304,6 +304,7 @@ def load_snapshots(channel_id: int) -> List[Snapshot]:
     path = Path(f'./snapshots/{channel_id}.json')
     if path.exists():
         snapshots_json = json.loads(path.read_text('utf-8'))
+        print(json.dumps(snapshots_json, indent=2))
         snapshots = []
         for s in snapshots_json:
             issues = []
