@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
 <html lang='en'>
+
 <head>
     <meta charset='UTF-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
@@ -8,42 +8,76 @@
     <script src='https://cdn.plot.ly/plotly-2.24.1.min.js'></script>
     <script src='https://cdn.tailwindcss.com'></script>
     <style>
-        .chart-container { min-height: 600px; }
-        .dimmed { opacity: 0.4; pointer-events: none; }
+        .chart-container {
+            height: calc(100vh - 320px);
+            min-height: 500px;
+        }
+
+        .dimmed {
+            opacity: 0.4;
+            pointer-events: none;
+        }
     </style>
 </head>
-<body class='bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200'>
-    <div class='max-w-7xl mx-auto px-4 py-8'>
-        <header class='mb-8'>
-            <h1 class='text-4xl font-extrabold text-indigo-600 dark:text-indigo-400'>Issue Tracker Dashboard</h1>
-            <p class='text-gray-600 dark:text-gray-400'>Interactive visualization of Discord bug and feature trends</p>
-        </header>
 
+<body class='bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200'>
+    <div class='w-full px-4 py-4'>
         <div class='grid grid-cols-1 md:grid-cols-4 gap-6 mb-8'>
             <div class='bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700'>
-                <label class='block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2'>Channel</label>
-                <select id='channelSelect' class='w-full border-gray-300 dark:border-gray-600 rounded-lg shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100'>
-                    <option value='bugs'>Bugs</option>
-                    <option value='features'>Features</option>
-                </select>
+                <label class='block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3'>Channel</label>
+                <div class='flex flex-col gap-2'>
+                    <label
+                        class='inline-flex items-center gap-2 cursor-pointer text-sm text-gray-700 dark:text-gray-300'>
+                        <input type='checkbox' id='channelBugs' value='bugs' checked
+                            class='rounded border-gray-300 dark:border-gray-600 text-indigo-600 focus:ring-indigo-500'>
+                        Bugs
+                    </label>
+                    <label
+                        class='inline-flex items-center gap-2 cursor-pointer text-sm text-gray-700 dark:text-gray-300'>
+                        <input type='checkbox' id='channelFeatures' value='features' checked
+                            class='rounded border-gray-300 dark:border-gray-600 text-indigo-600 focus:ring-indigo-500'>
+                        Features
+                    </label>
+                </div>
             </div>
-            
+
             <div class='bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700'>
                 <label class='block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2'>View Mode</label>
-                <select id='modeSelect' class='w-full border-gray-300 dark:border-gray-600 rounded-lg shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100'>
-                    <option value='status'>Active Status (Open/Pending)</option>
-                    <option value='tags'>Top Tags (Stacked)</option>
+                <select id='modeSelect'
+                    class='w-full border-gray-300 dark:border-gray-600 rounded-lg shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100'>
+                    <option value='status'>Status</option>
+                    <option value='tags'>Top Tags</option>
                     <option value='total'>Total Issues</option>
                 </select>
             </div>
 
-             <div id='tagsContainer' class='bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 md:col-span-2 transition-opacity duration-300'>
-                <div class='flex justify-between items-center mb-2'>
-                    <label class='block text-sm font-semibold text-gray-700 dark:text-gray-300'>Tags Filter (for Tag Mode)</label>
-                    <button id='resetTagsBtn' class='text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-medium'>Reset to Default</button>
+            <div class='md:col-span-2'>
+                <div id='statusContainer'
+                    class='hidden bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700'>
+                    <div class='flex justify-between items-center mb-2'>
+                        <label class='block text-sm font-semibold text-gray-700 dark:text-gray-300'>Status
+                            Filter</label>
+                        <button id='resetStatusBtn'
+                            class='text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-medium'>Reset
+                            to Default</button>
+                    </div>
+                    <div id='statusFilters'
+                        class='flex flex-wrap gap-2 p-2 border border-gray-200 dark:border-gray-600 rounded'>
+                        <!-- Dynamic checkboxes -->
+                    </div>
                 </div>
-                <div id='tagFilters' class='flex flex-wrap gap-2 max-h-24 overflow-y-auto p-2 border border-gray-200 dark:border-gray-600 rounded'>
-                    <!-- Dynamic checkboxes -->
+                <div id='tagsContainer'
+                    class='hidden bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700'>
+                    <div class='flex justify-between items-center mb-2'>
+                        <label class='block text-sm font-semibold text-gray-700 dark:text-gray-300'>Tags Filter</label>
+                        <button id='resetTagsBtn'
+                            class='text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-medium'>Reset
+                            to Default</button>
+                    </div>
+                    <div id='tagFilters'
+                        class='flex flex-wrap gap-2 max-h-40 overflow-y-auto p-2 border border-gray-200 dark:border-gray-600 rounded'>
+                        <!-- Dynamic checkboxes -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -55,11 +89,30 @@
 
     <script>
         let data = [];
-        const channelSelect = document.getElementById("channelSelect");
+        const channelBugs = document.getElementById('channelBugs');
+        const channelFeatures = document.getElementById('channelFeatures');
         const modeSelect = document.getElementById('modeSelect');
+
+        function getActiveChannels() {
+            const chs = [];
+            if (channelBugs.checked) chs.push('bugs');
+            if (channelFeatures.checked) chs.push('features');
+            return chs;
+        }
+        const statusContainer = document.getElementById('statusContainer');
+        const statusFilters = document.getElementById('statusFilters');
+        const resetStatusBtn = document.getElementById('resetStatusBtn');
         const tagsContainer = document.getElementById('tagsContainer');
         const tagFilters = document.getElementById('tagFilters');
         const resetTagsBtn = document.getElementById('resetTagsBtn');
+
+        const DEFAULT_STATUSES = ['open', 'pending', 'unknown'];
+        const DEFAULT_TAGS = ['Blocker', 'High Priority', 'Needs Backport', 'Crash'];
+
+        function getAllStatuses() {
+            const merged = getChannelSnapshot(data[data.length - 1], 'all');
+            return Object.keys(merged.status).sort();
+        }
 
         function isDarkMode() {
             return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -67,76 +120,108 @@
 
         function updateUrl() {
             const params = new URLSearchParams();
-            params.set('channel', channelSelect.value);
+            params.set('channel', getActiveChannels().join(','));
             params.set('mode', modeSelect.value);
-            
             if (modeSelect.value === 'tags') {
                 const selectedTags = Array.from(tagFilters.querySelectorAll('input:checked')).map(cb => cb.value);
                 params.set('tags', selectedTags.join(','));
             }
-            
-            const newUrl = window.location.pathname + '?' + params.toString();
-            window.history.replaceState({}, '', newUrl);
+            if (modeSelect.value === 'status') {
+                const selectedStatuses = Array.from(statusFilters.querySelectorAll('input:checked')).map(cb => cb.value);
+                params.set('statuses', selectedStatuses.join(','));
+            }
+            window.history.replaceState({}, '', window.location.pathname + '?' + params.toString());
         }
 
         function loadFromUrl() {
             const params = new URLSearchParams(window.location.search);
-            if (params.has('channel')) channelSelect.value = params.get('channel');
+            if (params.has('channel')) {
+                const chs = params.get('channel').split(',');
+                channelBugs.checked = chs.includes('bugs');
+                channelFeatures.checked = chs.includes('features');
+            }
             if (params.has('mode')) modeSelect.value = params.get('mode');
-            return params.get('tags')?.split(',') || null;
+            return {
+                tags: params.get('tags')?.split(',').filter(Boolean) || null,
+                statuses: params.get('statuses')?.split(',').filter(Boolean) || null,
+            };
         }
 
-        function getTop10Tags(channel) {
-            const latestTags = data[data.length - 1].channels[channel].tags;
-            return Object.entries(latestTags)
-                .sort((a, b) => b[1] - a[1])
-                .slice(0, 10)
-                .map(e => e[0]);
+        function getChannelSnapshot(entry, channel) {
+            if (channel !== 'all') return entry.channels[channel];
+            const channels = Object.values(entry.channels);
+            const merged = { total: 0, status: {}, tags: {} };
+            for (const ch of channels) {
+                merged.total += ch.total || 0;
+                for (const [s, count] of Object.entries(ch.status || {})) {
+                    merged.status[s] = (merged.status[s] || 0) + count;
+                }
+                for (const [tag, count] of Object.entries(ch.tags || {})) {
+                    merged.tags[tag] = (merged.tags[tag] || 0) + count;
+                }
+            }
+            return merged;
         }
 
-        function updateChart(forceTags = null) {
-            const channel = channelSelect.value;
+        function updateChart(forceTags = null, forceStatuses = null) {
+            const activeChannels = getActiveChannels();
+            const channel = activeChannels.length === 1 ? activeChannels[0] : 'all';
             const mode = modeSelect.value;
             const dark = isDarkMode();
-            
-            if (mode === 'tags') {
-                tagsContainer.classList.remove('dimmed');
-            } else {
-                tagsContainer.classList.add('dimmed');
-            }
+            const isAll = activeChannels.length !== 1;
+
+            statusContainer.classList.toggle('hidden', mode !== 'status');
+            tagsContainer.classList.toggle('hidden', mode !== 'tags');
 
             const dates = data.map(d => d.date);
             let traces = [];
 
             if (mode === 'total') {
-                traces.push({
-                    x: dates,
-                    y: data.map(d => d.channels[channel].total),
-                    type: 'scatter',
-                    mode: 'lines',
-                    fill: 'tozeroy',
-                    name: 'Total Issues',
-                    line: { color: dark ? '#818cf8' : '#6366f1' }
-                });
-            } else if (mode === 'status') {
-                const statuses = ['open', 'pending'];
-                statuses.forEach(status => {
+                activeChannels.forEach(ch => {
                     traces.push({
                         x: dates,
-                        y: data.map(d => (d.channels[channel].status[status] || 0)),
+                        y: data.map(d => d.channels[ch].total),
+                        type: 'scatter',
+                        mode: 'lines',
+                        fill: isAll ? 'none' : 'tozeroy',
+                        name: isAll ? ch.charAt(0).toUpperCase() + ch.slice(1) : 'Total Issues',
+                        line: { color: dark ? '#818cf8' : '#6366f1' }
+                    });
+                });
+            } else if (mode === 'status') {
+                if (!statusFilters.dataset.built) {
+                    statusFilters.dataset.built = 'true';
+                    getAllStatuses().forEach(status => {
+                        const label = document.createElement('label');
+                        label.className = 'inline-flex items-center px-2 py-1 rounded bg-gray-100 dark:bg-gray-700 text-xs cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100 border border-transparent dark:border-gray-600';
+                        const cb = document.createElement('input');
+                        cb.type = 'checkbox';
+                        cb.className = 'mr-1';
+                        cb.value = status;
+                        cb.checked = (forceStatuses || DEFAULT_STATUSES).includes(status);
+                        cb.onchange = () => { updateChart(); updateUrl(); };
+                        label.appendChild(cb);
+                        label.appendChild(document.createTextNode(status.charAt(0).toUpperCase() + status.slice(1)));
+                        statusFilters.appendChild(label);
+                    });
+                }
+                Array.from(statusFilters.querySelectorAll('input:checked')).map(cb => cb.value).forEach(status => {
+                    traces.push({
+                        x: dates,
+                        y: data.map(d => (getChannelSnapshot(d, channel).status[status] || 0)),
                         name: status.charAt(0).toUpperCase() + status.slice(1),
-                        stackgroup: 'one'
+                        stackgroup: 'one',
                     });
                 });
             } else if (mode === 'tags') {
-                const latestTags = data[data.length - 1].channels[channel].tags;
+                const latestTags = getChannelSnapshot(data[data.length - 1], channel).tags;
                 const sortedTags = Object.entries(latestTags)
                     .sort((a, b) => b[1] - a[1])
                     .map(e => e[0]);
-                
+
                 const activeTags = forceTags || Array.from(tagFilters.querySelectorAll('input:checked')).map(cb => cb.value);
                 if (activeTags.length === 0 && !forceTags) {
-                    activeTags.push(...getTop10Tags(channel));
+                    activeTags.push(...DEFAULT_TAGS);
                 }
 
                 if (tagFilters.dataset.channel !== channel || forceTags) {
@@ -161,19 +246,20 @@
                 selectedTags.forEach(tag => {
                     traces.push({
                         x: dates,
-                        y: data.map(d => (d.channels[channel].tags[tag] || 0)),
+                        y: data.map(d => (getChannelSnapshot(d, channel).tags[tag] || 0)),
+                        type: 'scatter',
+                        mode: 'lines',
                         name: tag,
-                        stackgroup: 'one'
                     });
                 });
             }
 
             const layout = {
                 title: {
-                    text: (channel.charAt(0).toUpperCase() + channel.slice(1)) + ' Trends',
-                    font: { 
-                        size: 24, 
-                        family: 'Inter, sans-serif', 
+                    text: (channel === 'all' ? 'All Channels' : channel.charAt(0).toUpperCase() + channel.slice(1)) + ' Trends',
+                    font: {
+                        size: 24,
+                        family: 'Inter, sans-serif',
                         weight: '800',
                         color: dark ? '#f3f4f6' : '#111827'
                     }
@@ -181,26 +267,26 @@
                 hovermode: 'x unified',
                 hoverlabel: {
                     bgcolor: dark ? '#1f2937' : '#ffffff',
-                    font: { 
+                    font: {
                         color: dark ? '#f3f4f6' : '#111827',
                         family: 'Inter, sans-serif'
                     },
                     bordercolor: dark ? '#4b5563' : '#e5e7eb'
                 },
-                xaxis: { 
-                    title: 'Date', 
+                xaxis: {
+                    title: 'Date',
                     gridcolor: dark ? '#374151' : '#f3f4f6',
                     tickfont: { color: dark ? '#9ca3af' : '#4b5563' },
                     titlefont: { color: dark ? '#9ca3af' : '#4b5563' }
                 },
-                yaxis: { 
-                    title: 'Count', 
+                yaxis: {
+                    title: 'Count',
                     gridcolor: dark ? '#374151' : '#f3f4f6',
                     tickfont: { color: dark ? '#9ca3af' : '#4b5563' },
                     titlefont: { color: dark ? '#9ca3af' : '#4b5563' }
                 },
-                legend: { 
-                    orientation: 'h', 
+                legend: {
+                    orientation: 'h',
                     y: -0.2,
                     font: { color: dark ? '#f3f4f6' : '#111827' }
                 },
@@ -212,25 +298,35 @@
             Plotly.newPlot('chart', traces, layout, { responsive: true });
         }
 
-        resetTagsBtn.onclick = () => {
-            const channel = channelSelect.value;
-            const top10 = getTop10Tags(channel);
-            updateChart(top10);
+        resetStatusBtn.onclick = () => {
+            statusFilters.querySelectorAll('input').forEach(cb => {
+                cb.checked = DEFAULT_STATUSES.includes(cb.value);
+            });
+            updateChart();
             updateUrl();
         };
 
-        channelSelect.onchange = () => { updateChart(); updateUrl(); };
+        resetTagsBtn.onclick = () => {
+            const activeChannels = getActiveChannels();
+            const channel = activeChannels.length === 1 ? activeChannels[0] : 'all';
+            updateChart(DEFAULT_TAGS);
+            updateUrl();
+        };
+
+        channelBugs.onchange = () => { updateChart(); updateUrl(); };
+        channelFeatures.onchange = () => { updateChart(); updateUrl(); };
         modeSelect.onchange = () => { updateChart(); updateUrl(); };
-        
+
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => updateChart());
 
         async function init() {
             const response = await fetch('https://raw.githubusercontent.com/ZQuestClassic/discord-scripts/refs/heads/main/summary.json');
             data = await response.json();
-            const initialTags = loadFromUrl();
-            updateChart(initialTags);
+            const { tags: initialTags, statuses: initialStatuses } = loadFromUrl();
+            updateChart(initialTags, initialStatuses);
         }
         init();
     </script>
 </body>
+
 </html>
