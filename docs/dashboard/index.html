@@ -69,14 +69,38 @@
                 <div id='tagsContainer'
                     class='hidden bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700'>
                     <div class='flex justify-between items-center mb-2'>
-                        <label class='block text-sm font-semibold text-gray-700 dark:text-gray-300'>Tags Filter</label>
-                        <button id='resetTagsBtn'
-                            class='text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-medium'>Reset
-                            to Default</button>
+                        <div class='flex items-center gap-3'>
+                            <label class='block text-sm font-semibold text-gray-700 dark:text-gray-300'>Tags</label>
+                            <button id='advancedToggleBtn'
+                                class='text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-medium'>Advanced</button>
+                            <span id='syntaxHint' class='hidden relative group'>
+                                <span class='text-sm text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 cursor-help select-none'>ⓘ</span>
+                                <div class='pointer-events-none absolute left-0 top-6 z-20 hidden group-hover:block w-72 rounded-lg border border-gray-200 bg-white p-3 shadow-lg dark:border-gray-600 dark:bg-gray-900'>
+                                    <p class='mb-2 font-semibold text-gray-800 dark:text-gray-100'>Expression syntax</p>
+                                    <div class='space-y-1 text-xs text-gray-600 dark:text-gray-300 leading-relaxed font-mono'>
+                                        <p><span class='text-indigo-600 dark:text-indigo-400'>Blocker</span> <span class='font-sans text-gray-400'>— has tag</span></p>
+                                        <p><span class='text-indigo-600 dark:text-indigo-400'>-Blocker</span> <span class='font-sans text-gray-400'>— does not have tag</span></p>
+                                        <p><span class='text-indigo-600 dark:text-indigo-400'>A AND B</span> <span class='font-sans text-gray-400'>— both</span></p>
+                                        <p><span class='text-indigo-600 dark:text-indigo-400'>A OR B</span> <span class='font-sans text-gray-400'>— either</span></p>
+                                        <p><span class='text-indigo-600 dark:text-indigo-400'>(A OR B) AND -C</span> <span class='font-sans text-gray-400'>— grouping</span></p>
+                                    </div>
+                                    <p class='mt-2 text-xs text-gray-400 dark:text-gray-500'>Multi-word tags work without quotes:<br><span class='font-mono text-indigo-600 dark:text-indigo-400'>High Priority AND -Closed</span></p>
+                                </div>
+                            </span>
+                        </div>
+                        <div class='flex gap-2'>
+                            <button id='addQueryBtn'
+                                class='hidden text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-medium'>+ Series</button>
+                            <button id='resetTagsBtn'
+                                class='text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-medium'>Reset to Default</button>
+                        </div>
                     </div>
-                    <div id='tagFilters'
-                        class='flex flex-wrap gap-2 max-h-40 overflow-y-auto p-2 border border-gray-200 dark:border-gray-600 rounded'>
-                        <!-- Dynamic checkboxes -->
+                    <div id='simpleTagsList'
+                        class='flex flex-wrap gap-2 p-2 border border-gray-200 dark:border-gray-600 rounded max-h-52 overflow-y-auto'>
+                        <!-- Dynamic tag checkboxes -->
+                    </div>
+                    <div id='queryList' class='hidden space-y-2 max-h-52 overflow-y-auto'>
+                        <!-- Dynamic query builder -->
                     </div>
                 </div>
             </div>
@@ -89,6 +113,16 @@
 
     <script>
         let data = [];
+        let queries = [];
+        let channelDecoded = {};
+        let tagsMode = 'simple';   // 'simple' | 'advanced'
+        let selectedTags = [];
+
+        const QUERY_COLORS = [
+            '#6366f1','#10b981','#f59e0b','#ef4444','#8b5cf6',
+            '#06b6d4','#84cc16','#f97316','#ec4899','#14b8a6',
+        ];
+
         const channelBugs = document.getElementById('channelBugs');
         const channelFeatures = document.getElementById('channelFeatures');
         const modeSelect = document.getElementById('modeSelect');
@@ -103,15 +137,254 @@
         const statusFilters = document.getElementById('statusFilters');
         const resetStatusBtn = document.getElementById('resetStatusBtn');
         const tagsContainer = document.getElementById('tagsContainer');
-        const tagFilters = document.getElementById('tagFilters');
+        const queryList = document.getElementById('queryList');
         const resetTagsBtn = document.getElementById('resetTagsBtn');
+        const addQueryBtn = document.getElementById('addQueryBtn');
+        const advancedToggleBtn = document.getElementById('advancedToggleBtn');
+        const simpleTagsList = document.getElementById('simpleTagsList');
 
         const DEFAULT_STATUSES = ['open', 'pending', 'unknown'];
         const DEFAULT_TAGS = ['Blocker', 'High Priority', 'Needs Backport', 'Crash'];
 
+        const INPUT_CLS = 'text-xs border border-gray-300 dark:border-gray-500 rounded px-1.5 py-0.5 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100';
+
+        // ── Expression parser ─────────────────────────────────────────────────
+        // Grammar:  expr = or_expr
+        //           or_expr  = and_expr  (OR  and_expr)*
+        //           and_expr = not_expr  (AND not_expr)*
+        //           not_expr = '-' not_expr | atom
+        //           atom     = TAG | '(' expr ')'
+        //
+        // Tag names may contain spaces (e.g. "High Priority"); they are greedily
+        // collected up to the next AND/OR/NOT keyword or punctuation.
+
+        function tokenize(expr) {
+            const tokens = [];
+            let i = 0;
+            while (i < expr.length) {
+                while (i < expr.length && (expr[i] === ' ' || expr[i] === '\t')) i++;
+                if (i >= expr.length) break;
+                if (expr[i] === '(') { tokens.push({ type: 'LPAREN' }); i++; continue; }
+                if (expr[i] === ')') { tokens.push({ type: 'RPAREN' }); i++; continue; }
+                if (expr[i] === '-') { tokens.push({ type: 'NOT' });    i++; continue; }
+                const kw = expr.slice(i).match(/^(AND|OR|NOT)(?=[^a-zA-Z0-9]|$)/i);
+                if (kw) { tokens.push({ type: kw[1].toUpperCase() }); i += kw[1].length; continue; }
+                let j = i;
+                while (j < expr.length) {
+                    const c = expr[j];
+                    if (c === '(' || c === ')' || c === '-') break;
+                    if (/^(AND|OR|NOT)(?=[^a-zA-Z0-9]|$)/i.test(expr.slice(j))) break;
+                    j++;
+                }
+                const name = expr.slice(i, j).trim();
+                if (name) tokens.push({ type: 'TAG', value: name });
+                i = j;
+            }
+            return tokens;
+        }
+
+        function parseExpr(tokens) {
+            let pos = 0;
+            const peek = () => tokens[pos];
+            const consume = () => tokens[pos++];
+            function parseOr() {
+                let left = parseAnd();
+                while (peek()?.type === 'OR') { consume(); left = { op: 'or',  l: left, r: parseAnd() }; }
+                return left;
+            }
+            function parseAnd() {
+                let left = parseNot();
+                while (peek()?.type === 'AND') { consume(); left = { op: 'and', l: left, r: parseNot() }; }
+                return left;
+            }
+            function parseNot() {
+                if (peek()?.type === 'NOT') { consume(); return { op: 'not', child: parseNot() }; }
+                return parseAtom();
+            }
+            function parseAtom() {
+                const t = peek();
+                if (!t) return { op: 'lit', v: false };
+                if (t.type === 'TAG')    { consume(); return { op: 'tag', name: t.value }; }
+                if (t.type === 'LPAREN') { consume(); const n = parseOr(); if (peek()?.type === 'RPAREN') consume(); return n; }
+                consume();
+                return { op: 'lit', v: false };
+            }
+            return parseOr();
+        }
+
+        function evalAst(ast, tagIndex, lo, hi) {
+            switch (ast.op) {
+                case 'tag': {
+                    const bit = tagIndex[ast.name];
+                    if (bit === undefined) return false;
+                    return bit < 32 ? (lo & (1 << bit)) !== 0 : (hi & (1 << (bit - 32))) !== 0;
+                }
+                case 'not': return !evalAst(ast.child, tagIndex, lo, hi);
+                case 'and': return evalAst(ast.l, tagIndex, lo, hi) && evalAst(ast.r, tagIndex, lo, hi);
+                case 'or':  return evalAst(ast.l, tagIndex, lo, hi) || evalAst(ast.r, tagIndex, lo, hi);
+                default:    return ast.v;
+            }
+        }
+
         function getAllStatuses() {
             const merged = getChannelSnapshot(data[data.length - 1], 'all');
             return Object.keys(merged.status).sort();
+        }
+
+        function getAllTags() {
+            const set = new Set();
+            if (channelDecoded.bugs)     for (const t of channelDecoded.bugs.tags)     set.add(t);
+            if (channelDecoded.features) for (const t of channelDecoded.features.tags) set.add(t);
+            return Array.from(set).sort();
+        }
+
+        function computeQueryCounts(activeChannels, query) {
+            const counts = new Array(data.length).fill(0);
+            const ast = parseExpr(tokenize(query.expr || ''));
+            for (const ch of activeChannels) {
+                if (!channelDecoded[ch]) continue;
+                const { tags, snapshots } = channelDecoded[ch];
+                const tagIndex = Object.fromEntries(tags.map((t, i) => [t, i]));
+                for (let i = 0; i < snapshots.length && i < data.length; i++) {
+                    const { _tagLos, _tagHis } = snapshots[i];
+                    let c = 0;
+                    for (let j = 0; j < _tagLos.length; j++) {
+                        if (evalAst(ast, tagIndex, _tagLos[j], _tagHis[j])) c++;
+                    }
+                    counts[i] += c;
+                }
+            }
+            return counts;
+        }
+
+        // ── Tag autocomplete ──────────────────────────────────────────────────
+        // Extracts the tag name fragment the user is currently typing, by
+        // splitting the expression on operators/punctuation and taking the
+        // last piece.
+        function getPartialTag(value, cursorPos) {
+            const prefix = value.slice(0, cursorPos);
+            const parts = prefix.split(/\b(?:AND|OR|NOT)\b|[()\-]/i);
+            return parts[parts.length - 1].trimStart();
+        }
+
+        let _acDropdown = null, _acHighlighted = -1;
+        function acItems() { return _acDropdown ? Array.from(_acDropdown.children) : []; }
+        function acClose() { _acDropdown?.remove(); _acDropdown = null; _acHighlighted = -1; }
+        function acHighlight(i) {
+            acItems().forEach((el, idx) => {
+                el.classList.toggle('bg-indigo-50', idx === i);
+                el.classList.toggle('dark:bg-indigo-900', idx === i);
+            });
+            _acHighlighted = i;
+        }
+        function acOpen(input, partial, onSelect) {
+            acClose();
+            if (!partial.trim()) return;
+            const matches = getAllTags().filter(t =>
+                t.toLowerCase().startsWith(partial.toLowerCase()) &&
+                t.toLowerCase() !== partial.toLowerCase()
+            );
+            if (!matches.length) return;
+            const rect = input.getBoundingClientRect();
+            _acDropdown = document.createElement('div');
+            _acDropdown.className = 'fixed z-50 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded shadow-lg max-h-40 overflow-y-auto text-xs';
+            _acDropdown.style.cssText = `top:${rect.bottom + 2}px;left:${rect.left}px;min-width:${rect.width}px`;
+            matches.slice(0, 10).forEach(tag => {
+                const item = document.createElement('div');
+                item.className = 'px-3 py-1.5 cursor-pointer text-gray-900 dark:text-gray-100';
+                item.textContent = tag;
+                item.onmousedown = e => { e.preventDefault(); onSelect(tag); acClose(); };
+                _acDropdown.appendChild(item);
+            });
+            document.body.appendChild(_acDropdown);
+        }
+        function acAttach(input, getExpr, setExpr) {
+            input.addEventListener('input', () => {
+                const partial = getPartialTag(input.value, input.selectionStart);
+                acOpen(input, partial, tag => {
+                    const pos = input.selectionStart;
+                    input.value = input.value.slice(0, pos - partial.length) + tag + input.value.slice(pos);
+                    input.selectionStart = input.selectionEnd = pos - partial.length + tag.length;
+                    setExpr(input.value);
+                });
+                setExpr(input.value);
+            });
+            input.addEventListener('keydown', e => {
+                if (!_acDropdown) return;
+                const count = acItems().length;
+                if (e.key === 'ArrowDown') { e.preventDefault(); acHighlight((_acHighlighted + 1) % count); }
+                else if (e.key === 'ArrowUp') { e.preventDefault(); acHighlight((_acHighlighted - 1 + count) % count); }
+                else if (e.key === 'Enter' && _acHighlighted >= 0) { e.preventDefault(); acItems()[_acHighlighted].onmousedown(e); }
+                else if (e.key === 'Escape' || e.key === 'Tab') acClose();
+            });
+            input.addEventListener('blur', () => setTimeout(acClose, 150));
+        }
+
+        function renderSimpleTags() {
+            simpleTagsList.innerHTML = '';
+            const allTags = getAllTags();
+            allTags.forEach(tag => {
+                const label = document.createElement('label');
+                label.className = 'inline-flex items-center px-2 py-1 rounded bg-gray-100 dark:bg-gray-700 text-xs cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100 border border-transparent dark:border-gray-600';
+                const cb = document.createElement('input');
+                cb.type = 'checkbox';
+                cb.className = 'mr-1';
+                cb.value = tag;
+                cb.checked = selectedTags.includes(tag);
+                cb.onchange = () => {
+                    if (cb.checked) selectedTags = [...selectedTags, tag];
+                    else selectedTags = selectedTags.filter(t => t !== tag);
+                    updateChart();
+                    updateUrl();
+                };
+                label.append(cb, document.createTextNode(tag));
+                simpleTagsList.appendChild(label);
+            });
+        }
+
+        function renderTagsPanel() {
+            const isAdvanced = tagsMode === 'advanced';
+            advancedToggleBtn.textContent = isAdvanced ? 'Simple' : 'Advanced';
+            addQueryBtn.classList.toggle('hidden', !isAdvanced);
+            document.getElementById('syntaxHint').classList.toggle('hidden', !isAdvanced);
+            simpleTagsList.classList.toggle('hidden', isAdvanced);
+            queryList.classList.toggle('hidden', !isAdvanced);
+            if (isAdvanced) renderQueryBuilder();
+            else renderSimpleTags();
+        }
+
+        function renderQueryBuilder() {
+            queryList.innerHTML = '';
+            queries.forEach((query, qi) => {
+                const color = QUERY_COLORS[qi % QUERY_COLORS.length];
+                const row = document.createElement('div');
+                row.className = 'flex items-center gap-2';
+
+                const dot = document.createElement('span');
+                dot.style.cssText = `display:inline-block;width:10px;height:10px;border-radius:50%;background:${color};flex-shrink:0`;
+
+                const nameInput = document.createElement('input');
+                nameInput.type = 'text';
+                nameInput.value = query.name;
+                nameInput.placeholder = 'Label';
+                nameInput.className = INPUT_CLS + ' w-28 flex-shrink-0';
+                nameInput.onchange = () => { query.name = nameInput.value; updateChart(); updateUrl(); };
+
+                const exprInput = document.createElement('input');
+                exprInput.type = 'text';
+                exprInput.value = query.expr;
+                exprInput.placeholder = 'e.g. Blocker AND -Closed';
+                exprInput.className = INPUT_CLS + ' flex-1 min-w-0';
+                acAttach(exprInput, () => query.expr, v => { query.expr = v; updateChart(); updateUrl(); });
+
+                const removeBtn = document.createElement('button');
+                removeBtn.textContent = '×';
+                removeBtn.className = 'text-xs text-red-500 hover:text-red-700 font-bold flex-shrink-0';
+                removeBtn.onclick = () => { queries.splice(qi, 1); renderQueryBuilder(); updateChart(); updateUrl(); };
+
+                row.append(dot, nameInput, exprInput, removeBtn);
+                queryList.appendChild(row);
+            });
         }
 
         function isDarkMode() {
@@ -123,8 +396,9 @@
             params.set('channel', getActiveChannels().join(','));
             params.set('mode', modeSelect.value);
             if (modeSelect.value === 'tags') {
-                const selectedTags = Array.from(tagFilters.querySelectorAll('input:checked')).map(cb => cb.value);
-                params.set('tags', selectedTags.join(','));
+                params.set('tagsMode', tagsMode);
+                if (tagsMode === 'simple') params.set('tags', selectedTags.join(','));
+                else params.set('queries', JSON.stringify(queries));
             }
             if (modeSelect.value === 'status') {
                 const selectedStatuses = Array.from(statusFilters.querySelectorAll('input:checked')).map(cb => cb.value);
@@ -141,8 +415,10 @@
                 channelFeatures.checked = chs.includes('features');
             }
             if (params.has('mode')) modeSelect.value = params.get('mode');
+            if (params.has('tagsMode')) tagsMode = params.get('tagsMode');
             return {
                 tags: params.get('tags')?.split(',').filter(Boolean) || null,
+                queries: JSON.parse(params.get('queries') || 'null'),
                 statuses: params.get('statuses')?.split(',').filter(Boolean) || null,
             };
         }
@@ -163,7 +439,7 @@
             return merged;
         }
 
-        function updateChart(forceTags = null, forceStatuses = null) {
+        function updateChart(forceStatuses = null) {
             const activeChannels = getActiveChannels();
             const channel = activeChannels.length === 1 ? activeChannels[0] : 'all';
             const mode = modeSelect.value;
@@ -214,42 +490,22 @@
                     });
                 });
             } else if (mode === 'tags') {
-                const latestTags = getChannelSnapshot(data[data.length - 1], channel).tags;
-                const sortedTags = Object.entries(latestTags)
-                    .sort((a, b) => b[1] - a[1])
-                    .map(e => e[0]);
-
-                const activeTags = forceTags || Array.from(tagFilters.querySelectorAll('input:checked')).map(cb => cb.value);
-                if (activeTags.length === 0 && !forceTags) {
-                    activeTags.push(...DEFAULT_TAGS);
-                }
-
-                if (tagFilters.dataset.channel !== channel || forceTags) {
-                    tagFilters.innerHTML = '';
-                    tagFilters.dataset.channel = channel;
-                    sortedTags.forEach(tag => {
-                        const label = document.createElement('label');
-                        label.className = 'inline-flex items-center px-2 py-1 rounded bg-gray-100 dark:bg-gray-700 text-xs cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100 border border-transparent dark:border-gray-600';
-                        const cb = document.createElement('input');
-                        cb.type = 'checkbox';
-                        cb.className = 'mr-1';
-                        cb.value = tag;
-                        cb.checked = activeTags.includes(tag);
-                        cb.onchange = () => { updateChart(); updateUrl(); };
-                        label.appendChild(cb);
-                        label.appendChild(document.createTextNode(tag));
-                        tagFilters.appendChild(label);
-                    });
-                }
-
-                const selectedTags = Array.from(tagFilters.querySelectorAll('input:checked')).map(cb => cb.value);
-                selectedTags.forEach(tag => {
+                const allTags = getAllTags();
+                const series = tagsMode === 'simple'
+                    ? selectedTags.map(t => ({ name: t, expr: t }))
+                    : queries;
+                series.forEach((query, qi) => {
+                    const colorIdx = tagsMode === 'simple'
+                        ? allTags.indexOf(query.name) % QUERY_COLORS.length
+                        : qi % QUERY_COLORS.length;
+                    const counts = computeQueryCounts(activeChannels, query);
                     traces.push({
                         x: dates,
-                        y: data.map(d => (getChannelSnapshot(d, channel).tags[tag] || 0)),
+                        y: counts,
                         type: 'scatter',
                         mode: 'lines',
-                        name: tag,
+                        name: query.name,
+                        line: { color: QUERY_COLORS[colorIdx] },
                     });
                 });
             }
@@ -298,18 +554,57 @@
             Plotly.newPlot('chart', traces, layout, { responsive: true });
         }
 
-        resetStatusBtn.onclick = () => {
+        function armReset(btn, action) {
+            if (btn._resetTimer) {
+                clearTimeout(btn._resetTimer);
+                btn._resetTimer = null;
+                btn.textContent = 'Reset to Default';
+                btn.classList.remove('text-red-500', 'dark:text-red-400');
+                btn.classList.add('text-indigo-600', 'dark:text-indigo-400');
+                action();
+                return;
+            }
+            btn.textContent = 'Sure?';
+            btn.classList.remove('text-indigo-600', 'dark:text-indigo-400');
+            btn.classList.add('text-red-500', 'dark:text-red-400');
+            btn._resetTimer = setTimeout(() => {
+                btn._resetTimer = null;
+                btn.textContent = 'Reset to Default';
+                btn.classList.remove('text-red-500', 'dark:text-red-400');
+                btn.classList.add('text-indigo-600', 'dark:text-indigo-400');
+            }, 3000);
+        }
+
+        resetStatusBtn.onclick = () => armReset(resetStatusBtn, () => {
             statusFilters.querySelectorAll('input').forEach(cb => {
                 cb.checked = DEFAULT_STATUSES.includes(cb.value);
             });
             updateChart();
             updateUrl();
+        });
+
+        resetTagsBtn.onclick = () => armReset(resetTagsBtn, () => {
+            if (tagsMode === 'simple') {
+                selectedTags = [...DEFAULT_TAGS];
+            } else {
+                queries = DEFAULT_TAGS.map(t => ({ name: t, expr: t }));
+            }
+            renderTagsPanel();
+            updateChart();
+            updateUrl();
+        });
+
+        addQueryBtn.onclick = () => {
+            queries.push({ name: 'New Series', expr: '' });
+            renderQueryBuilder();
+            updateChart();
+            updateUrl();
         };
 
-        resetTagsBtn.onclick = () => {
-            const activeChannels = getActiveChannels();
-            const channel = activeChannels.length === 1 ? activeChannels[0] : 'all';
-            updateChart(DEFAULT_TAGS);
+        advancedToggleBtn.onclick = () => {
+            tagsMode = tagsMode === 'simple' ? 'advanced' : 'simple';
+            renderTagsPanel();
+            updateChart();
             updateUrl();
         };
 
@@ -318,6 +613,7 @@
         modeSelect.onchange = () => { updateChart(); updateUrl(); };
 
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => updateChart());
+        document.addEventListener('click', e => { if (_acDropdown && !_acDropdown.contains(e.target)) acClose(); });
 
         const BIN_BASE = 'https://raw.githubusercontent.com/ZQuestClassic/discord-scripts/refs/heads/main/';
 
@@ -385,26 +681,39 @@
 
                 const statusCounts = {};
                 const tagCounts = {};
-                for (const [, [statusIdx, tagLo, tagHi]] of state) {
+                const stateVals = Array.from(state.values());
+                const _tagLos = new Uint32Array(stateVals.length);
+                const _tagHis = new Uint32Array(stateVals.length);
+
+                for (let j = 0; j < stateVals.length; j++) {
+                    const [statusIdx, tagLo, tagHi] = stateVals[j];
                     const s = statuses[statusIdx];
                     statusCounts[s] = (statusCounts[s] || 0) + 1;
                     for (let b = 0; b < 32; b++) {
                         if (tagLo & (1 << b)) { const t = tags[b];      tagCounts[t] = (tagCounts[t] || 0) + 1; }
                         if (tagHi & (1 << b)) { const t = tags[32 + b]; if (t) tagCounts[t] = (tagCounts[t] || 0) + 1; }
                     }
+                    _tagLos[j] = tagLo;
+                    _tagHis[j] = tagHi;
                 }
 
-                snapshots.push({ timestamp_ms, total: state.size, status: statusCounts, tags: tagCounts });
+                snapshots.push({ timestamp_ms, total: state.size, status: statusCounts, tags: tagCounts, _tagLos, _tagHis });
             }
 
-            return snapshots;
+            return { statuses, tags, snapshots };
         }
 
         async function loadData() {
-            const [bugSnaps, featSnaps] = await Promise.all([
+            const [bugResult, featResult] = await Promise.all([
                 decodeBin(BIN_BASE + 'snapshot-bugs.bin'),
                 decodeBin(BIN_BASE + 'snapshot-features.bin'),
             ]);
+
+            channelDecoded.bugs     = bugResult;
+            channelDecoded.features = featResult;
+
+            const bugSnaps  = bugResult.snapshots;
+            const featSnaps = featResult.snapshots;
             const count = Math.min(bugSnaps.length, featSnaps.length);
             return Array.from({ length: count }, (_, i) => {
                 const b = bugSnaps[i], f = featSnaps[i];
@@ -420,8 +729,11 @@
 
         async function init() {
             data = await loadData();
-            const { tags: initialTags, statuses: initialStatuses } = loadFromUrl();
-            updateChart(initialTags, initialStatuses);
+            const { statuses: initialStatuses, tags: initialTags, queries: initialQueries } = loadFromUrl();
+            selectedTags = initialTags ?? [...DEFAULT_TAGS];
+            queries = initialQueries ?? DEFAULT_TAGS.map(t => ({ name: t, expr: t }));
+            renderTagsPanel();
+            updateChart(initialStatuses);
         }
         init();
     </script>
