@@ -7,7 +7,7 @@ from datetime import datetime
 from pathlib import Path
 
 
-def calculate_stats(issues):
+def calculate_stats(issues, time_s):
     status_counts = {}
     tag_counts = {}
     for issue in issues:
@@ -17,14 +17,15 @@ def calculate_stats(issues):
             name = tag['name']
             tag_counts[name] = tag_counts.get(name, 0) + 1
 
-    # B/c the Open tag was deleted in these old snapshots
-    tag_counts['Open'] = (
-        tag_counts.get('Open', 0)
-        + status_counts['open']
-        - tag_counts.get('Blockers', 0)
-        - tag_counts.get('High Priority', 0)
-        - tag_counts.get('Low Priority', 0)
-    )
+    # B/c the Open tag was deleted in old snapshots.
+    if time_s < 1777329259:
+        tag_counts['Open'] = (
+            tag_counts.get('Open', 0)
+            + status_counts['open']
+            - tag_counts.get('Blockers', 0)
+            - tag_counts.get('High Priority', 0)
+            - tag_counts.get('Low Priority', 0)
+        )
 
     return {'total': len(issues), 'status': status_counts, 'tags': tag_counts}
 
@@ -59,8 +60,8 @@ def main():
         entry = {
             'date': date_str,
             'channels': {
-                'bugs': calculate_stats(b_snap['issues']),
-                'features': calculate_stats(f_snap['issues']),
+                'bugs': calculate_stats(b_snap['issues'], avg_time),
+                'features': calculate_stats(f_snap['issues'], avg_time),
             },
         }
         history.append(entry)

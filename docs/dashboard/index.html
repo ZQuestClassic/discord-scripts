@@ -319,9 +319,107 @@
 
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => updateChart());
 
+        const BIN_BASE = 'https://raw.githubusercontent.com/ZQuestClassic/discord-scripts/refs/heads/main/';
+
+        async function decodeBin(url) {
+            const buf = await (await fetch(url)).arrayBuffer();
+            const bytes = new Uint8Array(buf);
+            const view = new DataView(buf);
+
+            const magic = String.fromCharCode(bytes[0], bytes[1], bytes[2], bytes[3]);
+            if (magic !== 'SNAP') throw new Error(`Invalid magic: ${magic}`);
+            const version = bytes[4];
+            if (version !== 2) throw new Error(`Unknown version: ${version}`);
+
+            let offset = 5;
+            const dec = new TextDecoder();
+
+            function readStrTable() {
+                const count = bytes[offset++];
+                const strs = [];
+                for (let i = 0; i < count; i++) {
+                    const len = bytes[offset++];
+                    strs.push(dec.decode(bytes.subarray(offset, offset + len)));
+                    offset += len;
+                }
+                return strs;
+            }
+
+            const statuses = readStrTable();
+            const tags = readStrTable();
+
+            const snapshots = [];
+            const state = new Map(); // BigInt id -> [statusIdx, tagLo, tagHi]
+
+            while (offset < buf.byteLength) {
+                const tsLo = view.getUint32(offset, true);
+                const tsHi = view.getUint32(offset + 4, true);
+                const timestamp_ms = tsHi * 0x100000000 + tsLo;
+                offset += 8;
+
+                offset += 4; // entryLength (unused during sequential read)
+
+                const nAdded   = view.getUint16(offset,     true);
+                const nRemoved = view.getUint16(offset + 2, true);
+                offset += 4;
+
+                for (let i = 0; i < nAdded; i++) {
+                    const idLo = view.getUint32(offset,     true);
+                    const idHi = view.getUint32(offset + 4, true);
+                    const id = BigInt(idHi) * 0x100000000n + BigInt(idLo);
+                    offset += 8;
+                    const statusIdx = bytes[offset++];
+                    const tagLo = view.getUint32(offset,     true);
+                    const tagHi = view.getUint32(offset + 4, true);
+                    offset += 8;
+                    state.set(id, [statusIdx, tagLo, tagHi]);
+                }
+
+                for (let i = 0; i < nRemoved; i++) {
+                    const idLo = view.getUint32(offset,     true);
+                    const idHi = view.getUint32(offset + 4, true);
+                    const id = BigInt(idHi) * 0x100000000n + BigInt(idLo);
+                    offset += 8;
+                    state.delete(id);
+                }
+
+                const statusCounts = {};
+                const tagCounts = {};
+                for (const [, [statusIdx, tagLo, tagHi]] of state) {
+                    const s = statuses[statusIdx];
+                    statusCounts[s] = (statusCounts[s] || 0) + 1;
+                    for (let b = 0; b < 32; b++) {
+                        if (tagLo & (1 << b)) { const t = tags[b];      tagCounts[t] = (tagCounts[t] || 0) + 1; }
+                        if (tagHi & (1 << b)) { const t = tags[32 + b]; if (t) tagCounts[t] = (tagCounts[t] || 0) + 1; }
+                    }
+                }
+
+                snapshots.push({ timestamp_ms, total: state.size, status: statusCounts, tags: tagCounts });
+            }
+
+            return snapshots;
+        }
+
+        async function loadData() {
+            const [bugSnaps, featSnaps] = await Promise.all([
+                decodeBin(BIN_BASE + 'snapshot-bugs.bin'),
+                decodeBin(BIN_BASE + 'snapshot-features.bin'),
+            ]);
+            const count = Math.min(bugSnaps.length, featSnaps.length);
+            return Array.from({ length: count }, (_, i) => {
+                const b = bugSnaps[i], f = featSnaps[i];
+                return {
+                    date: new Date((b.timestamp_ms + f.timestamp_ms) / 2).toISOString(),
+                    channels: {
+                        bugs:     { total: b.total, status: b.status, tags: b.tags },
+                        features: { total: f.total, status: f.status, tags: f.tags },
+                    },
+                };
+            });
+        }
+
         async function init() {
-            const response = await fetch('https://raw.githubusercontent.com/ZQuestClassic/discord-scripts/refs/heads/main/summary.json');
-            data = await response.json();
+            data = await loadData();
             const { tags: initialTags, statuses: initialStatuses } = loadFromUrl();
             updateChart(initialTags, initialStatuses);
         }
