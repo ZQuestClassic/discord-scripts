@@ -19,10 +19,12 @@
     </style>
 </head>
 
-<body class='bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200 h-screen overflow-hidden flex flex-col'>
+<body
+    class='bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200 h-screen overflow-hidden flex flex-col'>
     <div class='flex-none px-4 pt-4'>
         <div class='grid grid-cols-1 md:grid-cols-4 gap-4 mb-4'>
-            <div class='bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col gap-5'>
+            <div
+                class='bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col gap-5'>
                 <div>
                     <label class='block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2'>View Mode</label>
                     <select id='modeSelect'
@@ -35,12 +37,14 @@
                 <div>
                     <label class='block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2'>Channel</label>
                     <div class='flex flex-col gap-2'>
-                        <label class='inline-flex items-center gap-2 cursor-pointer text-sm text-gray-700 dark:text-gray-300'>
+                        <label
+                            class='inline-flex items-center gap-2 cursor-pointer text-sm text-gray-700 dark:text-gray-300'>
                             <input type='checkbox' id='channelBugs' value='bugs' checked
                                 class='rounded border-gray-300 dark:border-gray-600 text-indigo-600 focus:ring-indigo-500'>
                             Bugs
                         </label>
-                        <label class='inline-flex items-center gap-2 cursor-pointer text-sm text-gray-700 dark:text-gray-300'>
+                        <label
+                            class='inline-flex items-center gap-2 cursor-pointer text-sm text-gray-700 dark:text-gray-300'>
                             <input type='checkbox' id='channelFeatures' value='features' checked
                                 class='rounded border-gray-300 dark:border-gray-600 text-indigo-600 focus:ring-indigo-500'>
                             Features
@@ -72,25 +76,38 @@
                             <button id='advancedToggleBtn'
                                 class='text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-medium'>Advanced</button>
                             <span id='syntaxHint' class='hidden relative group'>
-                                <span class='text-sm text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 cursor-help select-none'>ⓘ</span>
-                                <div class='pointer-events-none absolute left-0 top-6 z-20 hidden group-hover:block w-72 rounded-lg border border-gray-200 bg-white p-3 shadow-lg dark:border-gray-600 dark:bg-gray-900'>
+                                <span
+                                    class='text-sm text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 cursor-help select-none'>ⓘ</span>
+                                <div
+                                    class='pointer-events-none absolute left-0 top-6 z-20 hidden group-hover:block w-72 rounded-lg border border-gray-200 bg-white p-3 shadow-lg dark:border-gray-600 dark:bg-gray-900'>
                                     <p class='mb-2 font-semibold text-gray-800 dark:text-gray-100'>Expression syntax</p>
-                                    <div class='space-y-1 text-xs text-gray-600 dark:text-gray-300 leading-relaxed font-mono'>
-                                        <p><span class='text-indigo-600 dark:text-indigo-400'>Blocker</span> <span class='font-sans text-gray-400'>— has tag</span></p>
-                                        <p><span class='text-indigo-600 dark:text-indigo-400'>-Blocker</span> <span class='font-sans text-gray-400'>— does not have tag</span></p>
-                                        <p><span class='text-indigo-600 dark:text-indigo-400'>A AND B</span> <span class='font-sans text-gray-400'>— both</span></p>
-                                        <p><span class='text-indigo-600 dark:text-indigo-400'>A OR B</span> <span class='font-sans text-gray-400'>— either</span></p>
-                                        <p><span class='text-indigo-600 dark:text-indigo-400'>(A OR B) AND -C</span> <span class='font-sans text-gray-400'>— grouping</span></p>
+                                    <div
+                                        class='space-y-1 text-xs text-gray-600 dark:text-gray-300 leading-relaxed font-mono'>
+                                        <p><span class='text-indigo-600 dark:text-indigo-400'>Blocker</span> <span
+                                                class='font-sans text-gray-400'>— has tag</span></p>
+                                        <p><span class='text-indigo-600 dark:text-indigo-400'>-Blocker</span> <span
+                                                class='font-sans text-gray-400'>— does not have tag</span></p>
+                                        <p><span class='text-indigo-600 dark:text-indigo-400'>A AND B</span> <span
+                                                class='font-sans text-gray-400'>— both</span></p>
+                                        <p><span class='text-indigo-600 dark:text-indigo-400'>A OR B</span> <span
+                                                class='font-sans text-gray-400'>— either</span></p>
+                                        <p><span class='text-indigo-600 dark:text-indigo-400'>(A OR B) AND -C</span>
+                                            <span class='font-sans text-gray-400'>— grouping</span></p>
                                     </div>
-                                    <p class='mt-2 text-xs text-gray-400 dark:text-gray-500'>Multi-word tags work without quotes:<br><span class='font-mono text-indigo-600 dark:text-indigo-400'>High Priority AND -Closed</span></p>
+                                    <p class='mt-2 text-xs text-gray-400 dark:text-gray-500'>Multi-word tags work
+                                        without quotes:<br><span
+                                            class='font-mono text-indigo-600 dark:text-indigo-400'>High Priority AND
+                                            -Closed</span></p>
                                 </div>
                             </span>
                         </div>
                         <div class='flex gap-2'>
                             <button id='addQueryBtn'
-                                class='hidden text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-medium'>+ Series</button>
+                                class='hidden text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-medium'>+
+                                Series</button>
                             <button id='resetTagsBtn'
-                                class='text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-medium'>Reset to Default</button>
+                                class='text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-medium'>Reset
+                                to Default</button>
                         </div>
                     </div>
                     <div id='simpleTagsList'
@@ -106,7 +123,8 @@
     </div>
 
     <div class='flex-1 min-h-0 px-4 pb-4'>
-        <div class='bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 h-full'>
+        <div
+            class='bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 h-full'>
             <div id='chart' class='chart-container'></div>
         </div>
     </div>
@@ -119,8 +137,8 @@
         let selectedTags = [];
 
         const QUERY_COLORS = [
-            '#6366f1','#10b981','#f59e0b','#ef4444','#8b5cf6',
-            '#06b6d4','#84cc16','#f97316','#ec4899','#14b8a6',
+            '#6366f1', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6',
+            '#06b6d4', '#84cc16', '#f97316', '#ec4899', '#14b8a6',
         ];
 
         const channelBugs = document.getElementById('channelBugs');
@@ -166,7 +184,7 @@
                 if (i >= expr.length) break;
                 if (expr[i] === '(') { tokens.push({ type: 'LPAREN' }); i++; continue; }
                 if (expr[i] === ')') { tokens.push({ type: 'RPAREN' }); i++; continue; }
-                if (expr[i] === '-') { tokens.push({ type: 'NOT' });    i++; continue; }
+                if (expr[i] === '-') { tokens.push({ type: 'NOT' }); i++; continue; }
                 const kw = expr.slice(i).match(/^(AND|OR|NOT)(?=[^a-zA-Z0-9]|$)/i);
                 if (kw) { tokens.push({ type: kw[1].toUpperCase() }); i += kw[1].length; continue; }
                 let j = i;
@@ -189,7 +207,7 @@
             const consume = () => tokens[pos++];
             function parseOr() {
                 let left = parseAnd();
-                while (peek()?.type === 'OR') { consume(); left = { op: 'or',  l: left, r: parseAnd() }; }
+                while (peek()?.type === 'OR') { consume(); left = { op: 'or', l: left, r: parseAnd() }; }
                 return left;
             }
             function parseAnd() {
@@ -204,7 +222,7 @@
             function parseAtom() {
                 const t = peek();
                 if (!t) return { op: 'lit', v: false };
-                if (t.type === 'TAG')    { consume(); return { op: 'tag', name: t.value }; }
+                if (t.type === 'TAG') { consume(); return { op: 'tag', name: t.value }; }
                 if (t.type === 'LPAREN') { consume(); const n = parseOr(); if (peek()?.type === 'RPAREN') consume(); return n; }
                 consume();
                 return { op: 'lit', v: false };
@@ -221,8 +239,8 @@
                 }
                 case 'not': return !evalAst(ast.child, tagIndex, lo, hi);
                 case 'and': return evalAst(ast.l, tagIndex, lo, hi) && evalAst(ast.r, tagIndex, lo, hi);
-                case 'or':  return evalAst(ast.l, tagIndex, lo, hi) || evalAst(ast.r, tagIndex, lo, hi);
-                default:    return ast.v;
+                case 'or': return evalAst(ast.l, tagIndex, lo, hi) || evalAst(ast.r, tagIndex, lo, hi);
+                default: return ast.v;
             }
         }
 
@@ -233,7 +251,7 @@
 
         function getAllTags() {
             const set = new Set();
-            if (channelDecoded.bugs)     for (const t of channelDecoded.bugs.tags)     set.add(t);
+            if (channelDecoded.bugs) for (const t of channelDecoded.bugs.tags) set.add(t);
             if (channelDecoded.features) for (const t of channelDecoded.features.tags) set.add(t);
             return Array.from(set).sort();
         }
@@ -322,9 +340,9 @@
 
         function renderSimpleTags() {
             const TAG_GROUPS = [
-                { label: 'Status',   tags: ['Open', 'Closed', 'Added', 'Fixed', 'Fixed: Needs Testing', 'Added: Needs testing', 'Already Exists', 'Denied', 'Duplicate', 'Solved (No Bug)', 'Stale'] },
+                { label: 'Status', tags: ['Open', 'Closed', 'Added', 'Fixed', 'Fixed: Needs Testing', 'Added: Needs testing', 'Already Exists', 'Denied', 'Duplicate', 'Solved (No Bug)', 'Stale'] },
                 { label: 'Priority', tags: ['Blocker', 'Crash', 'High Priority', 'Low Priority', 'Simple', 'Difficult to add'] },
-                { label: 'Process',  tags: ['Needs Backport', 'DevDiscussion', 'Needs More Info', 'See Pins', 'WIP'] },
+                { label: 'Process', tags: ['Needs Backport', 'DevDiscussion', 'Needs More Info', 'See Pins', 'WIP'] },
                 { label: 'Assignee', tags: ['Connor', 'Deathrider', 'Deedee', 'Emily', 'Moosh', 'Unassigned'] },
             ];
 
@@ -685,24 +703,24 @@
 
                 offset += 4; // entryLength (unused during sequential read)
 
-                const nAdded   = view.getUint16(offset,     true);
+                const nAdded = view.getUint16(offset, true);
                 const nRemoved = view.getUint16(offset + 2, true);
                 offset += 4;
 
                 for (let i = 0; i < nAdded; i++) {
-                    const idLo = view.getUint32(offset,     true);
+                    const idLo = view.getUint32(offset, true);
                     const idHi = view.getUint32(offset + 4, true);
                     const id = BigInt(idHi) * 0x100000000n + BigInt(idLo);
                     offset += 8;
                     const statusIdx = bytes[offset++];
-                    const tagLo = view.getUint32(offset,     true);
+                    const tagLo = view.getUint32(offset, true);
                     const tagHi = view.getUint32(offset + 4, true);
                     offset += 8;
                     state.set(id, [statusIdx, tagLo, tagHi]);
                 }
 
                 for (let i = 0; i < nRemoved; i++) {
-                    const idLo = view.getUint32(offset,     true);
+                    const idLo = view.getUint32(offset, true);
                     const idHi = view.getUint32(offset + 4, true);
                     const id = BigInt(idHi) * 0x100000000n + BigInt(idLo);
                     offset += 8;
@@ -720,7 +738,7 @@
                     const s = statuses[statusIdx];
                     statusCounts[s] = (statusCounts[s] || 0) + 1;
                     for (let b = 0; b < 32; b++) {
-                        if (tagLo & (1 << b)) { const t = tags[b];      tagCounts[t] = (tagCounts[t] || 0) + 1; }
+                        if (tagLo & (1 << b)) { const t = tags[b]; tagCounts[t] = (tagCounts[t] || 0) + 1; }
                         if (tagHi & (1 << b)) { const t = tags[32 + b]; if (t) tagCounts[t] = (tagCounts[t] || 0) + 1; }
                     }
                     _tagLos[j] = tagLo;
@@ -739,10 +757,10 @@
                 decodeBin(BIN_BASE + 'snapshot-features.bin'),
             ]);
 
-            channelDecoded.bugs     = bugResult;
+            channelDecoded.bugs = bugResult;
             channelDecoded.features = featResult;
 
-            const bugSnaps  = bugResult.snapshots;
+            const bugSnaps = bugResult.snapshots;
             const featSnaps = featResult.snapshots;
             const count = Math.min(bugSnaps.length, featSnaps.length);
             return Array.from({ length: count }, (_, i) => {
@@ -750,7 +768,7 @@
                 return {
                     date: new Date((b.timestamp_ms + f.timestamp_ms) / 2).toISOString(),
                     channels: {
-                        bugs:     { total: b.total, status: b.status, tags: b.tags },
+                        bugs: { total: b.total, status: b.status, tags: b.tags },
                         features: { total: f.total, status: f.status, tags: f.tags },
                     },
                 };

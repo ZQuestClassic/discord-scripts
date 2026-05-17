@@ -64,7 +64,12 @@ def encode_string_table(strings: list) -> bytes:
 
 
 def encode_header(statuses: list, tags: list) -> bytes:
-    return MAGIC + bytes([VERSION]) + encode_string_table(statuses) + encode_string_table(tags)
+    return (
+        MAGIC
+        + bytes([VERSION])
+        + encode_string_table(statuses)
+        + encode_string_table(tags)
+    )
 
 
 def issue_record(issue: dict, status_idx: dict, tag_idx: dict) -> tuple[int, int]:
@@ -77,9 +82,14 @@ def issue_record(issue: dict, status_idx: dict, tag_idx: dict) -> tuple[int, int
     return status, tag_bits
 
 
-def convert(snapshots: list, output_path: str,
-            statuses: list, tags: list,
-            status_idx: dict, tag_idx: dict) -> None:
+def convert(
+    snapshots: list,
+    output_path: str,
+    statuses: list,
+    tags: list,
+    status_idx: dict,
+    tag_idx: dict,
+) -> None:
     stat_added = stat_removed = stat_unchanged = 0
 
     with open(output_path, 'wb') as f:
@@ -94,16 +104,26 @@ def convert(snapshots: list, output_path: str,
                 for iss in snap['issues']
             }
 
-            added   = [(id_, s, tb) for id_, (s, tb) in curr.items() if prev.get(id_) != (s, tb)]
+            added = [
+                (id_, s, tb)
+                for id_, (s, tb) in curr.items()
+                if prev.get(id_) != (s, tb)
+            ]
             removed = [id_ for id_ in prev if id_ not in curr]
 
-            stat_added     += len(added)
-            stat_removed   += len(removed)
+            stat_added += len(added)
+            stat_removed += len(removed)
             stat_unchanged += len(curr) - len(added)
 
-            added_bytes   = b''.join(struct.pack('<QBQ', id_, s, tb) for id_, s, tb in added)
+            added_bytes = b''.join(
+                struct.pack('<QBQ', id_, s, tb) for id_, s, tb in added
+            )
             removed_bytes = b''.join(struct.pack('<Q', id_) for id_ in removed)
-            payload = struct.pack('<HH', len(added), len(removed)) + added_bytes + removed_bytes
+            payload = (
+                struct.pack('<HH', len(added), len(removed))
+                + added_bytes
+                + removed_bytes
+            )
 
             f.write(struct.pack('<QI', timestamp_ms, len(payload)))
             f.write(payload)
@@ -112,7 +132,9 @@ def convert(snapshots: list, output_path: str,
 
     size = os.path.getsize(output_path)
     print(f'  {output_path}: {size:,} bytes ({size / 1_048_576:.2f} MB)')
-    print(f'    upserted: {stat_added:,}   removed: {stat_removed:,}   unchanged: {stat_unchanged:,}')
+    print(
+        f'    upserted: {stat_added:,}   removed: {stat_removed:,}   unchanged: {stat_unchanged:,}'
+    )
 
 
 def main() -> None:
@@ -129,10 +151,10 @@ def main() -> None:
     print(f'  {len(tags)} tags: {tags}')
 
     status_idx = {s: i for i, s in enumerate(statuses)}
-    tag_idx    = {t: i for i, t in enumerate(tags)}
+    tag_idx = {t: i for i, t in enumerate(tags)}
 
     print()
-    convert(bugs,     'snapshot-bugs.bin',     statuses, tags, status_idx, tag_idx)
+    convert(bugs, 'snapshot-bugs.bin', statuses, tags, status_idx, tag_idx)
     convert(features, 'snapshot-features.bin', statuses, tags, status_idx, tag_idx)
 
 

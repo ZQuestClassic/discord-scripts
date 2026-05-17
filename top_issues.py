@@ -418,11 +418,14 @@ def _encode_str_table(strings: list[str]) -> bytes:
 
 
 def _decode_str_table(data: bytes, offset: int) -> tuple[list[str], int]:
-    count = data[offset]; offset += 1
+    count = data[offset]
+    offset += 1
     strings = []
     for _ in range(count):
-        l = data[offset]; offset += 1
-        strings.append(data[offset:offset + l].decode()); offset += l
+        l = data[offset]
+        offset += 1
+        strings.append(data[offset : offset + l].decode())
+        offset += l
     return strings, offset
 
 
@@ -433,7 +436,9 @@ def _read_bin_file(path: Path) -> tuple[list[str], list[str], bytes, dict]:
         return [], [], b'', {}
 
     data = path.read_bytes()
-    assert data[:4] == BIN_MAGIC and data[4] == BIN_VERSION, f'Unexpected header in {path}'
+    assert (
+        data[:4] == BIN_MAGIC and data[4] == BIN_VERSION
+    ), f'Unexpected header in {path}'
     offset = 5
     statuses, offset = _decode_str_table(data, offset)
     tags, offset = _decode_str_table(data, offset)
@@ -446,10 +451,12 @@ def _read_bin_file(path: Path) -> tuple[list[str], list[str], bytes, dict]:
         n_added, n_removed = struct.unpack_from('<HH', data, offset)
         offset += 4
         for _ in range(n_added):
-            id_, s, tb = struct.unpack_from('<QBQ', data, offset); offset += 17
+            id_, s, tb = struct.unpack_from('<QBQ', data, offset)
+            offset += 17
             state[id_] = (s, tb)
         for _ in range(n_removed):
-            id_, = struct.unpack_from('<Q', data, offset); offset += 8
+            (id_,) = struct.unpack_from('<Q', data, offset)
+            offset += 8
             del state[id_]
 
     return statuses, tags, data[entries_start:], state
@@ -468,7 +475,7 @@ def _issues_to_state(issues: List[Issue], status_idx: dict, tag_idx: dict) -> di
 
 
 def _encode_delta_entry(timestamp_ms: int, prev: dict, curr: dict) -> bytes:
-    added   = [(id_, s, tb) for id_, (s, tb) in curr.items() if prev.get(id_) != (s, tb)]
+    added = [(id_, s, tb) for id_, (s, tb) in curr.items() if prev.get(id_) != (s, tb)]
     removed = [id_ for id_ in prev if id_ not in curr]
     payload = (
         struct.pack('<HH', len(added), len(removed))
@@ -486,19 +493,21 @@ def update_snapshots_bin(issues_per_channel: dict[str, List[Issue]]):
 
         # Extend tables with any new strings (append to end to preserve existing indices).
         n_statuses_before = len(statuses)
-        n_tags_before     = len(tags)
+        n_tags_before = len(tags)
         seen_statuses, seen_tags = set(statuses), set(tags)
         for issue in issues:
             if issue.status not in seen_statuses:
-                statuses.append(issue.status); seen_statuses.add(issue.status)
+                statuses.append(issue.status)
+                seen_statuses.add(issue.status)
             for tag in issue.tags:
                 if tag.name not in seen_tags:
-                    tags.append(tag.name); seen_tags.add(tag.name)
+                    tags.append(tag.name)
+                    seen_tags.add(tag.name)
 
         assert len(tags) <= 64, f'Too many tags for uint64 bitmask: {len(tags)}'
 
         status_idx = {s: i for i, s in enumerate(statuses)}
-        tag_idx    = {t: i for i, t in enumerate(tags)}
+        tag_idx = {t: i for i, t in enumerate(tags)}
 
         curr_state = _issues_to_state(issues, status_idx, tag_idx)
 
@@ -512,7 +521,12 @@ def update_snapshots_bin(issues_per_channel: dict[str, List[Issue]]):
             logger.info(f'DRY_RUN, skipping snapshot-{channel_name}.bin update.')
             continue
 
-        header = BIN_MAGIC + bytes([BIN_VERSION]) + _encode_str_table(statuses) + _encode_str_table(tags)
+        header = (
+            BIN_MAGIC
+            + bytes([BIN_VERSION])
+            + _encode_str_table(statuses)
+            + _encode_str_table(tags)
+        )
         new_entry = _encode_delta_entry(int(time.time() * 1000), prev_state, curr_state)
 
         if tables_changed:

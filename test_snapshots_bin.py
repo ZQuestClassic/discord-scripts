@@ -13,22 +13,32 @@ sys.argv = ['top_issues.py', 'dummy_token']
 
 import top_issues  # noqa: E402
 
-sys.argv = sys.argv[:1]  # restore so unittest doesn't treat 'dummy_token' as a test name
+sys.argv = sys.argv[
+    :1
+]  # restore so unittest doesn't treat 'dummy_token' as a test name
 from top_issues import (
-    BIN_MAGIC, BIN_VERSION,
-    Issue, Tag,
-    _decode_str_table, _encode_str_table,
-    _encode_delta_entry, _issues_to_state, _read_bin_file,
+    BIN_MAGIC,
+    BIN_VERSION,
+    Issue,
+    Tag,
+    _decode_str_table,
+    _encode_str_table,
+    _encode_delta_entry,
+    _issues_to_state,
+    _read_bin_file,
     update_snapshots_bin,
 )
 
-
 # ── helpers ──────────────────────────────────────────────────────────────────
+
 
 def make_issue(id_: int, status: str, tags: list[str]) -> Issue:
     return Issue(
-        id=id_, name=f'Issue {id_}', status=status,
-        url=f'https://example.com/{id_}', votes=0,
+        id=id_,
+        name=f'Issue {id_}',
+        status=status,
+        url=f'https://example.com/{id_}',
+        votes=0,
         tags=[Tag(name=t, emoji='x') for t in tags],
         message_count=0,
     )
@@ -36,10 +46,14 @@ def make_issue(id_: int, status: str, tags: list[str]) -> Issue:
 
 def write_bin(path: Path, statuses: list, tags: list, snapshots: list) -> None:
     """Write a fresh .bin file from a list of (timestamp_ms, [Issue]) pairs."""
-    header = (BIN_MAGIC + bytes([BIN_VERSION])
-              + _encode_str_table(statuses) + _encode_str_table(tags))
+    header = (
+        BIN_MAGIC
+        + bytes([BIN_VERSION])
+        + _encode_str_table(statuses)
+        + _encode_str_table(tags)
+    )
     status_idx = {s: i for i, s in enumerate(statuses)}
-    tag_idx    = {t: i for i, t in enumerate(tags)}
+    tag_idx = {t: i for i, t in enumerate(tags)}
     prev, body = {}, b''
     for ts_ms, issues in snapshots:
         curr = _issues_to_state(issues, status_idx, tag_idx)
@@ -49,6 +63,7 @@ def write_bin(path: Path, statuses: list, tags: list, snapshots: list) -> None:
 
 
 # ── string table ─────────────────────────────────────────────────────────────
+
 
 class TestStringTable(unittest.TestCase):
     def test_round_trip_empty(self):
@@ -73,6 +88,7 @@ class TestStringTable(unittest.TestCase):
 
 # ── _read_bin_file ────────────────────────────────────────────────────────────
 
+
 class TestReadBinFile(unittest.TestCase):
     def test_nonexistent_returns_empty(self):
         statuses, tags, raw, state = _read_bin_file(Path('/tmp/_no_such_file_.bin'))
@@ -95,10 +111,15 @@ class TestReadBinFile(unittest.TestCase):
         with tempfile.NamedTemporaryFile(suffix='.bin', delete=False) as f:
             path = Path(f.name)
         issues = [make_issue(1, 'open', []), make_issue(2, 'open', [])]
-        write_bin(path, ['open'], [], [
-            (1000, issues),
-            (2000, [make_issue(1, 'open', [])]),   # issue 2 removed
-        ])
+        write_bin(
+            path,
+            ['open'],
+            [],
+            [
+                (1000, issues),
+                (2000, [make_issue(1, 'open', [])]),  # issue 2 removed
+            ],
+        )
         _, _, _, state = _read_bin_file(path)
         self.assertIn(1, state)
         self.assertNotIn(2, state)
@@ -106,15 +127,21 @@ class TestReadBinFile(unittest.TestCase):
     def test_delta_status_change(self):
         with tempfile.NamedTemporaryFile(suffix='.bin', delete=False) as f:
             path = Path(f.name)
-        write_bin(path, ['closed', 'open'], [], [
-            (1000, [make_issue(1, 'open', [])]),
-            (2000, [make_issue(1, 'closed', [])]),
-        ])
+        write_bin(
+            path,
+            ['closed', 'open'],
+            [],
+            [
+                (1000, [make_issue(1, 'open', [])]),
+                (2000, [make_issue(1, 'closed', [])]),
+            ],
+        )
         statuses, _, _, state = _read_bin_file(path)
         self.assertEqual(statuses[state[1][0]], 'closed')
 
 
 # ── update_snapshots_bin ─────────────────────────────────────────────────────
+
 
 class TestUpdateSnapshotsBin(unittest.TestCase):
     def setUp(self):
@@ -156,21 +183,29 @@ class TestUpdateSnapshotsBin(unittest.TestCase):
     def test_new_issue_appends(self):
         self.run_update({'bugs': [make_issue(1, 'open', [])]})
         size = self.bin_path('bugs').stat().st_size
-        self.run_update({'bugs': [make_issue(1, 'open', []), make_issue(2, 'open', [])]})
+        self.run_update(
+            {'bugs': [make_issue(1, 'open', []), make_issue(2, 'open', [])]}
+        )
         self.assertGreater(self.bin_path('bugs').stat().st_size, size)
 
     # state correctness
 
     def test_removed_issue_absent_from_state(self):
-        self.run_update({'bugs': [make_issue(1, 'open', []), make_issue(2, 'open', [])]})
+        self.run_update(
+            {'bugs': [make_issue(1, 'open', []), make_issue(2, 'open', [])]}
+        )
         self.run_update({'bugs': [make_issue(1, 'open', [])]})
         _, _, _, state = self.read_state('bugs')
         self.assertIn(1, state)
         self.assertNotIn(2, state)
 
     def test_state_correct_after_multiple_runs(self):
-        self.run_update({'bugs': [make_issue(1, 'open', ['Blocker']), make_issue(2, 'pending', [])]})
-        self.run_update({'bugs': [make_issue(1, 'closed', []), make_issue(3, 'open', ['Crash'])]})
+        self.run_update(
+            {'bugs': [make_issue(1, 'open', ['Blocker']), make_issue(2, 'pending', [])]}
+        )
+        self.run_update(
+            {'bugs': [make_issue(1, 'closed', []), make_issue(3, 'open', ['Crash'])]}
+        )
 
         statuses, tags, _, state = self.read_state('bugs')
         self.assertNotIn(2, state)
@@ -199,7 +234,14 @@ class TestUpdateSnapshotsBin(unittest.TestCase):
         statuses_before, tags_before, _, _ = self.read_state('bugs')
         blocker_bit_before = tags_before.index('Blocker')
 
-        self.run_update({'bugs': [make_issue(1, 'open', ['Blocker']), make_issue(2, 'open', ['Crash'])]})
+        self.run_update(
+            {
+                'bugs': [
+                    make_issue(1, 'open', ['Blocker']),
+                    make_issue(2, 'open', ['Crash']),
+                ]
+            }
+        )
         statuses_after, tags_after, _, state = self.read_state('bugs')
 
         # Blocker's bit position must not have shifted
@@ -219,14 +261,16 @@ class TestUpdateSnapshotsBin(unittest.TestCase):
     # multiple channels independent
 
     def test_multiple_channels_written_independently(self):
-        self.run_update({
-            'bugs':     [make_issue(1, 'open', ['Blocker'])],
-            'features': [make_issue(2, 'open', ['Simple'])],
-        })
+        self.run_update(
+            {
+                'bugs': [make_issue(1, 'open', ['Blocker'])],
+                'features': [make_issue(2, 'open', ['Simple'])],
+            }
+        )
         self.assertTrue(self.bin_path('bugs').exists())
         self.assertTrue(self.bin_path('features').exists())
 
-        _, _, _, bugs_state    = self.read_state('bugs')
+        _, _, _, bugs_state = self.read_state('bugs')
         _, _, _, features_state = self.read_state('features')
         self.assertIn(1, bugs_state)
         self.assertNotIn(2, bugs_state)
