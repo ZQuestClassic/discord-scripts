@@ -674,7 +674,11 @@
                 const base = DISCORD_URL_BASE[ch] ?? '';
                 const urls = [];
                 for (const [id, [statusIdx, tagLo, tagHi]] of latestState) {
-                    if (matchFn(statusIdx, tagLo, tagHi, statuses, tagIndex)) urls.push(base + id.toString());
+                    if (matchFn(statusIdx, tagLo, tagHi, statuses, tagIndex)) {
+                        const idStr = id.toString();
+                        const title = issueTitles[idStr];
+                        urls.push(title ? `${base}${idStr}  ${title}` : `${base}${idStr}`);
+                    }
                 }
                 return urls;
             }
@@ -814,11 +818,15 @@
             return { statuses, tags, snapshots, latestState: state };
         }
 
+        let issueTitles = {}; // id string -> title string
+
         async function loadData() {
-            const [bugResult, featResult] = await Promise.all([
+            const [bugResult, featResult, titlesRes] = await Promise.all([
                 decodeBin(BIN_BASE + 'snapshot-bugs.bin'),
                 decodeBin(BIN_BASE + 'snapshot-features.bin'),
+                fetch(BIN_BASE + 'issue_titles.json').then(r => r.ok ? r.json() : {}).catch(() => ({})),
             ]);
+            issueTitles = titlesRes;
 
             channelDecoded.bugs = bugResult;
             channelDecoded.features = featResult;

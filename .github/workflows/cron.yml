@@ -28,8 +28,8 @@ jobs:
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add summary.json
-          git commit -m "Update summary.json" || exit 0
+          git add summary.json issue_titles.json *.bin
+          git commit -m "Update issue data files" || exit 0
           git push
 
   workflow-keepalive:

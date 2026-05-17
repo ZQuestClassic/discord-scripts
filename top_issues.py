@@ -538,6 +538,20 @@ def update_snapshots_bin(issues_per_channel: dict[str, List[Issue]]):
             logger.info(f'snapshot-{channel_name}.bin updated')
 
 
+def update_issue_titles(issues_per_channel: dict[str, List[Issue]]):
+    path = root_dir / 'issue_titles.json'
+    try:
+        existing = json.loads(path.read_text()) if path.exists() else {}
+    except Exception:
+        existing = {}
+    for issues in issues_per_channel.values():
+        for issue in issues:
+            existing[str(issue.id)] = issue.name
+    if not DRY_RUN:
+        path.write_text(json.dumps(existing, indent=2, ensure_ascii=False))
+    logger.info(f'issue_titles.json updated ({len(existing)} entries)')
+
+
 def update_summary(issues_per_channel: dict[str, List[Issue]]):
     summary_path = root_dir / 'summary.json'
 
@@ -601,6 +615,7 @@ async def on_ready():
 
     update_summary(issues_per_channel)
     update_snapshots_bin(issues_per_channel)
+    update_issue_titles(issues_per_channel)
 
     logger.info('done')
     await bot.close()
