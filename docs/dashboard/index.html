@@ -51,6 +51,12 @@
                         </label>
                     </div>
                 </div>
+                <div class='mt-auto'>
+                    <button id='copyIssuesBtn'
+                        class='w-full text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-medium border border-indigo-200 dark:border-indigo-700 rounded-lg py-1.5 px-2 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition-colors'>
+                        Copy issues to clipboard
+                    </button>
+                </div>
             </div>
 
             <div class='md:col-span-3'>
@@ -92,7 +98,8 @@
                                         <p><span class='text-indigo-600 dark:text-indigo-400'>A OR B</span> <span
                                                 class='font-sans text-gray-400'>— either</span></p>
                                         <p><span class='text-indigo-600 dark:text-indigo-400'>(A OR B) AND -C</span>
-                                            <span class='font-sans text-gray-400'>— grouping</span></p>
+                                            <span class='font-sans text-gray-400'>— grouping</span>
+                                        </p>
                                     </div>
                                     <p class='mt-2 text-xs text-gray-400 dark:text-gray-500'>Multi-word tags work
                                         without quotes:<br><span
@@ -649,6 +656,62 @@
             updateUrl();
         };
 
+        const DISCORD_URL_BASE = {
+            bugs: 'https://discord.com/channels/876899628556091432/',
+            features: 'https://discord.com/channels/876899628556091432/',
+        };
+
+        const copyIssuesBtn = document.getElementById('copyIssuesBtn');
+        copyIssuesBtn.onclick = async () => {
+            const activeChannels = getActiveChannels();
+            const mode = modeSelect.value;
+            const lines = [];
+
+            function issueUrls(ch, matchFn) {
+                const { statuses, tags, latestState } = channelDecoded[ch] ?? {};
+                if (!latestState) return [];
+                const tagIndex = Object.fromEntries(tags.map((t, i) => [t, i]));
+                const base = DISCORD_URL_BASE[ch] ?? '';
+                const urls = [];
+                for (const [id, [statusIdx, tagLo, tagHi]] of latestState) {
+                    if (matchFn(statusIdx, tagLo, tagHi, statuses, tagIndex)) urls.push(base + id.toString());
+                }
+                return urls;
+            }
+
+            if (mode === 'total') {
+                for (const ch of activeChannels) {
+                    const urls = issueUrls(ch, () => true);
+                    if (!urls.length) continue;
+                    lines.push(`# ${ch}`, ...urls, '');
+                }
+            } else if (mode === 'status') {
+                const checked = Array.from(statusFilters.querySelectorAll('input:checked')).map(cb => cb.value);
+                for (const status of checked) {
+                    const urls = activeChannels.flatMap(ch =>
+                        issueUrls(ch, (si, _lo, _hi, statuses) => statuses[si] === status)
+                    );
+                    if (urls.length) lines.push(`# ${status}`, ...urls, '');
+                }
+            } else if (mode === 'tags') {
+                const series = tagsMode === 'simple'
+                    ? selectedTags.map(t => ({ name: t, expr: t }))
+                    : queries;
+                for (const query of series) {
+                    const ast = parseExpr(tokenize(query.expr || ''));
+                    const urls = activeChannels.flatMap(ch =>
+                        issueUrls(ch, (_si, lo, hi, _s, tagIndex) => evalAst(ast, tagIndex, lo, hi))
+                    );
+                    if (urls.length) lines.push(`# ${query.name}`, ...urls, '');
+                }
+            }
+
+            if (!lines.length) return;
+            await navigator.clipboard.writeText(lines.join('\n').trimEnd());
+            copyIssuesBtn.textContent = 'Copied!';
+            setTimeout(() => { copyIssuesBtn.textContent = 'Copy issues to clipboard'; }, 2000);
+        };
+
         advancedToggleBtn.onclick = () => {
             tagsMode = tagsMode === 'simple' ? 'advanced' : 'simple';
             renderTagsPanel();
@@ -748,7 +811,7 @@
                 snapshots.push({ timestamp_ms, total: state.size, status: statusCounts, tags: tagCounts, _tagLos, _tagHis });
             }
 
-            return { statuses, tags, snapshots };
+            return { statuses, tags, snapshots, latestState: state };
         }
 
         async function loadData() {
