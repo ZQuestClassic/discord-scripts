@@ -548,7 +548,9 @@ def update_issue_titles(issues_per_channel: dict[str, List[Issue]]):
         for issue in issues:
             existing[str(issue.id)] = issue.name
     if not DRY_RUN:
-        path.write_text(json.dumps(existing, indent=2, ensure_ascii=False))
+        sorted_keys = sorted(existing.keys(), key=lambda x: int(x))
+        sorted_dict = {k: existing[k] for k in sorted_keys}
+        path.write_text(json.dumps(sorted_dict, indent=2, ensure_ascii=False))
     logger.info(f'issue_titles.json updated ({len(existing)} entries)')
 
 
