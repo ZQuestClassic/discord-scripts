@@ -2856,5 +2856,6 @@
   "1505624907357360208": "hammer sprite facing down draws below Link on middle frame",
   "1505651388775010569": "View Combo Label In Favorite combo tooltip.",
   "1505688567475605554": "Charge/Spin Jumping",
-  "1505705177359843408": "3.0.0 Quest file invalid when trying to launch for playtester but not for me"
+  "1505705177359843408": "3.0.0 Quest file invalid when trying to launch for playtester but not for me",
+  "1505770047476334633": "mapdata->LayerOpacity[layer] returns wrong value for translucent layers."
 }
