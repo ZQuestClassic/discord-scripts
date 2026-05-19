@@ -2654,7 +2654,7 @@
   "1494131643823161534": "[3.0] Replay Crashes ZC",
   "1494139866316013578": "Crash in `HeroClass::handleSpotlights`",
   "1494332601412882674": "bitmap->Free crash in 2.55.13",
-  "1494501078564339911": "[2.55.13] The start of a dmapdata Script running in the Passive Subscreen script repeats",
+  "1494501078564339911": "[2.55.13, 3.0] The start of a dmapdata Script running in the Passive Subscreen script repeats",
   "1494522560329683055": "[2.55, 3.0] Class Destructors break after returning from user function",
   "1494547414990721115": "Swim detection for combo triggers",
   "1494560884100563096": "Enemies that get shoved into a corner by solid FFC stay stuck",
@@ -2857,5 +2857,9 @@
   "1505651388775010569": "View Combo Label In Favorite combo tooltip.",
   "1505688567475605554": "Charge/Spin Jumping",
   "1505705177359843408": "3.0.0 Quest file invalid when trying to launch for playtester but not for me",
-  "1505770047476334633": "mapdata->LayerOpacity[layer] returns wrong value for translucent layers."
+  "1505770047476334633": "mapdata->LayerOpacity[layer] returns wrong value for translucent layers.",
+  "1506121429874376704": "Significant performance issues in large regions",
+  "1506171489760575640": "region minimap connects to unmarked screens in region",
+  "1506174475819941930": "visited squares showing on dmaps with custom map graphic",
+  "1506184105094807592": "Set DMap Minimap color per DMap or Subscreen widget"
 }
