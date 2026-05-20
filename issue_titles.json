@@ -2600,7 +2600,7 @@
   "1484664815728463943": "weapon data script access",
   "1484751209612054669": "turn the level palette 'Auto Dark' feature into a normal palette editor feature",
   "1484781010397823066": "engine subscreen scripts unable to close/stop closing of subscreen",
-  "1484782230344564871": "debugger; script-scoped globals not accessible",
+  "1484782230344564871": "debugger; script-scoped globals not accessible via `.` (but are with `::`)",
   "1484846091500257280": "some scopes don't un-mark object stack positions when closing",
   "1485030403755610294": "ffcs set to layer `-2` and `-3` not drawing in classic draw order",
   "1485041054963990558": "Open Tile Page (Access in) Open Combo Page",
@@ -2861,5 +2861,6 @@
   "1506121429874376704": "Significant performance issues in large regions",
   "1506171489760575640": "region minimap connects to unmarked screens in region",
   "1506174475819941930": "visited squares showing on dmaps with custom map graphic",
-  "1506184105094807592": "Set DMap Minimap color per DMap or Subscreen widget"
+  "1506184105094807592": "Set DMap Minimap color per DMap or Subscreen widget",
+  "1506305303464116396": "Darkness Indicator Gone"
 }
