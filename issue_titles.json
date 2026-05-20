@@ -2862,5 +2862,7 @@
   "1506171489760575640": "region minimap connects to unmarked screens in region",
   "1506174475819941930": "visited squares showing on dmaps with custom map graphic",
   "1506184105094807592": "Set DMap Minimap color per DMap or Subscreen widget",
-  "1506305303464116396": "Darkness Indicator Gone"
+  "1506305303464116396": "Darkness Indicator Gone",
+  "1506528985012506664": "[3.0] Item animation seems to scale with zoom in editor",
+  "1506578862677430396": "New Dungeon Cellar System"
 }
