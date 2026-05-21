@@ -2864,5 +2864,7 @@
   "1506184105094807592": "Set DMap Minimap color per DMap or Subscreen widget",
   "1506305303464116396": "Darkness Indicator Gone",
   "1506528985012506664": "[3.0] Item animation seems to scale with zoom in editor",
-  "1506578862677430396": "New Dungeon Cellar System"
+  "1506578862677430396": "New Dungeon Cellar System",
+  "1506882531063238696": "Screen->DrawLayer disrespects trigger/state stuff.",
+  "1506883704130244638": "Map being marked as visited when it wasnt"
 }
