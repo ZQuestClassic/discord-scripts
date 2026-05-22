@@ -2868,5 +2868,6 @@
   "1506882531063238696": "Screen->DrawLayer disrespects trigger/state stuff.",
   "1506883704130244638": "Map being marked as visited when it wasnt",
   "1507065004258627794": "\"Active During Holdup\" flag for NPC scripts",
-  "1507074844741861458": "weapon-specific attributes"
+  "1507074844741861458": "weapon-specific attributes",
+  "1507254471409799228": "Broken help link in debugger."
 }
