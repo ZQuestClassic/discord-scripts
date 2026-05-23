@@ -2869,5 +2869,10 @@
   "1506883704130244638": "Map being marked as visited when it wasnt",
   "1507065004258627794": "\"Active During Holdup\" flag for NPC scripts",
   "1507074844741861458": "weapon-specific attributes",
-  "1507254471409799228": "Broken help link in debugger."
+  "1507254471409799228": "Broken help link in debugger.",
+  "1507566984886358166": "Allow assigning negative (special) values for item pickup messages",
+  "1507587209308409996": "too much time spent in refresh_rgb_tables",
+  "1507608992916967464": "[3.0] _c_item_id_internal is a little slow",
+  "1507634922494365756": "ending triforce animation smearing",
+  "1507703095021277184": "Screen->ComboData[] loader compile errors in 2.55"
 }
