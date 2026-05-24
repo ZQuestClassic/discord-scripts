@@ -2874,5 +2874,6 @@
   "1507587209308409996": "too much time spent in refresh_rgb_tables",
   "1507608992916967464": "[3.0] _c_item_id_internal is a little slow",
   "1507634922494365756": "ending triforce animation smearing",
-  "1507703095021277184": "Screen->ComboData[] not documented as added in 3.0"
+  "1507703095021277184": "Screen->ComboData[] not documented as added in 3.0",
+  "1508045486433763458": "\"Items Disappear During Hold Up\" QR does not work."
 }
