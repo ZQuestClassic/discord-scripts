@@ -2875,5 +2875,7 @@
   "1507608992916967464": "[3.0] _c_item_id_internal is a little slow",
   "1507634922494365756": "ending triforce animation smearing",
   "1507703095021277184": "Screen->ComboData[] not documented as added in 3.0",
-  "1508045486433763458": "\"Items Disappear During Hold Up\" QR does not work."
+  "1508045486433763458": "\"Items Disappear During Hold Up\" QR does not work.",
+  "1508095305566916719": "2 More Hookshot Sprites",
+  "1508140446248079442": "Light beams from previous rooms stay on screen during NES room walk-in"
 }
