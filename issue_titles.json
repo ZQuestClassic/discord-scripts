@@ -2877,5 +2877,7 @@
   "1507703095021277184": "Screen->ComboData[] not documented as added in 3.0",
   "1508045486433763458": "\"Items Disappear During Hold Up\" QR does not work.",
   "1508095305566916719": "2 More Hookshot Sprites",
-  "1508140446248079442": "Light beams from previous rooms stay on screen during NES room walk-in"
+  "1508140446248079442": "Light beams from previous rooms stay on screen during NES room walk-in",
+  "1508301512093466696": "Labels for maps",
+  "1508356906912321566": "script return level palette to default"
 }
