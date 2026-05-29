@@ -2882,5 +2882,7 @@
   "1508356906912321566": "script return level palette to default",
   "1509295793193095289": "`Game->Reload()` doesn't reset control state (possibly test mode only?)",
   "1509323711503798413": "Cycle combos in ZQ Color issues",
-  "1509380517810929804": "Enemies Obey Slopes Flag"
+  "1509380517810929804": "Enemies Obey Slopes Flag",
+  "1509749564721205379": "Reduce compiler warnings when building ZC",
+  "1509803675605008384": "Phantom Hitboxes in chase fight in Stellar Seas (2.55.14)"
 }
