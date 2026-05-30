@@ -2884,5 +2884,7 @@
   "1509323711503798413": "Cycle combos in ZQ Color issues",
   "1509380517810929804": "Enemies Obey Slopes Flag",
   "1509749564721205379": "Reduce compiler warnings when building ZC",
-  "1509803675605008384": "Phantom Hitboxes in chase fight in Stellar Seas (2.55.14)"
+  "1509803675605008384": "Phantom Hitboxes in chase fight in Stellar Seas (2.55.14)",
+  "1509951566646349917": "Enemy Amount Expanded",
+  "1509955841120538664": "'Carrables Can't Leave Screen' + NES bomb wall = softlock."
 }
