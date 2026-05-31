@@ -2889,5 +2889,9 @@
   "1509955841120538664": "'Carrables Can't Leave Screen' + NES bomb wall = softlock.",
   "1510198124772069386": "Overhead checkbox for all combos",
   "1510204245725544580": "Tile remapping in combo import",
-  "1510212985610571826": "Resizeable data array for items and enemies."
+  "1510212985610571826": "Resizeable data array for items and enemies.",
+  "1510261350574592221": "Option for shooters to freeze during strings and item hold up",
+  "1510273032390705264": "Button Item widgets shouldn't be invisible",
+  "1510291604009914439": "Per String \"Message Freeze Action\" Toggling.",
+  "1510396979874627624": "[2.55.14] Door Combos 'Auto' button is broken."
 }
