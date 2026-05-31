@@ -2893,5 +2893,7 @@
   "1510261350574592221": "Option for shooters to freeze during strings and item hold up",
   "1510273032390705264": "Button Item widgets shouldn't be invisible",
   "1510291604009914439": "Per String \"Message Freeze Action\" Toggling.",
-  "1510396979874627624": "[2.55.14] Door Combos 'Auto' button is broken."
+  "1510396979874627624": "[2.55.14] Door Combos 'Auto' button is broken.",
+  "1510522005810708570": "\"Bridges Cover Less Stuff\" rule should be split into two rules",
+  "1510594342018879488": "Script access to new FFC flags and attributes."
 }
