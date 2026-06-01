@@ -2895,5 +2895,9 @@
   "1510291604009914439": "Per String \"Message Freeze Action\" Toggling.",
   "1510396979874627624": "[2.55.14] Door Combos 'Auto' button is broken.",
   "1510522005810708570": "\"Bridges Cover Less Stuff\" rule should be split into two rules",
-  "1510594342018879488": "Script access to new FFC flags and attributes."
+  "1510594342018879488": "Script access to new FFC flags and attributes.",
+  "1510758741023260762": "[2.55.14] Sending an empty subscreen widget label to printf() crashes console.",
+  "1510762716405563432": "[Docs]: more strcmp() info",
+  "1510770878110236722": "\"Weapons Better Screen Edge Hitbox\" QR is not enabled by default",
+  "1510778382009368707": "Combo feature:  \"Use Label\""
 }
