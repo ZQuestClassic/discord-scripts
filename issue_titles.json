@@ -2899,5 +2899,7 @@
   "1510758741023260762": "[2.55.14] Sending an empty subscreen widget label to printf() crashes console.",
   "1510762716405563432": "[Docs]: more strcmp() info",
   "1510770878110236722": "\"Weapons Better Screen Edge Hitbox\" QR is not enabled by default",
-  "1510778382009368707": "Combo feature:  \"Use Label\""
+  "1510778382009368707": "Combo feature:  \"Use Label\"",
+  "1511031518905106452": "Multiple levels of hookshot grabs",
+  "1511065018974605444": "Combo trigger condition - Minimum/maximum item level requirement."
 }
