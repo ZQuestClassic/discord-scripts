@@ -2901,5 +2901,6 @@
   "1510770878110236722": "\"Weapons Better Screen Edge Hitbox\" QR is not enabled by default",
   "1510778382009368707": "Combo feature:  \"Use Label\"",
   "1511031518905106452": "Multiple levels of hookshot grabs",
-  "1511065018974605444": "Combo trigger condition - Minimum/maximum item level requirement."
+  "1511065018974605444": "Combo trigger condition - Minimum/maximum item level requirement.",
+  "1511650807161032704": "autowalk relative to player on screen load walks to wrong place"
 }
