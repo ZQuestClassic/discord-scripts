@@ -1827,7 +1827,7 @@
   "1350461317584130048": "Issue compiling function with boolean as last optional parameter",
   "1350514887096401980": "OGGs can also be used as SFX",
   "1350536831057268841": "Slopes used in secrets loses their slopiness",
-  "1350572943528300664": "Built In Panning/Moving Backgrounds for Z3",
+  "1350572943528300664": "Built In Panning/Moving Backgrounds for 3.0 ZQ",
   "1350626678119993374": "String Warps Crash",
   "1350645295888728104": "String Warps Crash (3.0)",
   "1350891043553542225": "Scripts and namespaces share the same unique name constraints",
@@ -2904,5 +2904,8 @@
   "1511065018974605444": "Combo trigger condition - Minimum/maximum item level requirement.",
   "1511650807161032704": "autowalk relative to player on screen load walks to wrong place",
   "1512268650248142848": "String Editor - Centering.",
-  "1512296348550959285": "Impossible condition in `enemy::FireBreath`"
+  "1512296348550959285": "Impossible condition in `enemy::FireBreath`",
+  "1512461645706690680": "[Debugger] Giant class objects fail to fit on my screen",
+  "1512479693197148170": "[Debugger] F12 Does not work when ZC player is paused by breakpoint.",
+  "1512541188090101790": "Scripts fail to draw for 1 frame after closing active subscreen."
 }
