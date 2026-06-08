@@ -2912,5 +2912,7 @@
   "1512791385907003402": "ZQ editor crashes with \"Show Misalignments\" option turned on.",
   "1512886727528677497": "`SpawnScreen` won't work for script-spawned sprites",
   "1513236376915673229": "[Debugger] Open debugger behind main game window.",
-  "1513281674845098094": "[3.0] Changing maps crashes ZQ"
+  "1513281674845098094": "[3.0] Changing maps crashes ZQ",
+  "1513425279568056340": "Yuurand f6/death screen all black (text is black instead of white) (2.55)",
+  "1513485186870808720": "generic scripts break when saving in test play"
 }
