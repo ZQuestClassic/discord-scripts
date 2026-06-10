@@ -37603,5 +37603,66 @@
         }
       }
     }
+  },
+  {
+    "date": "2026-06-10T00:43:41.637908",
+    "channels": {
+      "bugs": {
+        "total": 1739,
+        "status": {
+          "closed": 1404,
+          "open": 318,
+          "pending": 17
+        },
+        "tags": {
+          "Needs Backport": 46,
+          "Closed": 1394,
+          "Fixed": 1070,
+          "Solved (No Bug)": 178,
+          "Open": 318,
+          "Low Priority": 30,
+          "Duplicate": 47,
+          "High Priority": 17,
+          "Deathrider": 23,
+          "Blocker": 15,
+          "Crash": 31,
+          "Needs More Info": 40,
+          "Emily": 7,
+          "Fixed: Needs Testing": 3,
+          "Denied": 13,
+          "Stale": 18,
+          "Connor": 12
+        }
+      },
+      "features": {
+        "total": 1169,
+        "status": {
+          "open": 522,
+          "closed": 574,
+          "pending": 71,
+          "unknown": 2
+        },
+        "tags": {
+          "Open": 524,
+          "High Priority": 24,
+          "Emily": 50,
+          "Closed": 573,
+          "Added": 302,
+          "Denied": 142,
+          "Difficult to add": 45,
+          "Low Priority": 102,
+          "Needs Backport": 11,
+          "Already Exists": 91,
+          "DevDiscussion": 3,
+          "Deathrider": 20,
+          "WIP": 3,
+          "Blocker": 6,
+          "Connor": 12,
+          "Needs More Info": 5,
+          "See Pins": 2,
+          "Added: Needs testing": 1
+        }
+      }
+    }
   }
 ]
