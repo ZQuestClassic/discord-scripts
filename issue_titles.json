@@ -2918,5 +2918,6 @@
   "1513682874870530179": "[3.0] Mysterious errors on retry in Hookshot 0",
   "1513955163793129674": "Mass advanced paste in combo pages editor.",
   "1513967706368380928": "Item requirements not working",
-  "1513968616519897128": "Save File Failed to Update Across ZC Versions"
+  "1513968616519897128": "Save File Failed to Update Across ZC Versions",
+  "1514121933535318126": "Combo trigger condition - TrigGroup Equal"
 }
