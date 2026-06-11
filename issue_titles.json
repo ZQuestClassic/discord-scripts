@@ -2919,5 +2919,10 @@
   "1513955163793129674": "Mass advanced paste in combo pages editor.",
   "1513967706368380928": "Item requirements not working",
   "1513968616519897128": "Save File Failed to Update Across ZC Versions",
-  "1514121933535318126": "Combo trigger condition - TrigGroup Equal"
+  "1514121933535318126": "Combo trigger condition - TrigGroup Equal",
+  "1514255851961979001": "Internal WriteTileBlock() function",
+  "1514262061482250351": "Summoning enemies have an inconsistently large summoning cap",
+  "1514265771474161844": "Improve summoners",
+  "1514424239988539512": "Option in View Map for hiding \"Only Visible In Editor\" Combos",
+  "1514434578020827266": "Setting Link's direction seems to be killing some item SFX?"
 }
