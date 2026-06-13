@@ -2884,7 +2884,7 @@
   "1509323711503798413": "Cycle combos in ZQ Color issues",
   "1509380517810929804": "Enemies Obey Slopes Flag",
   "1509749564721205379": "Reduce compiler warnings when building ZC",
-  "1509803675605008384": "Phantom Hitboxes in chase fight in Stellar Seas (2.55.14)",
+  "1509803675605008384": "[2.55.14, 3.0] Phantom Hitboxes in chase fight in Stellar Seas",
   "1509951566646349917": "Enemy Amount Expanded",
   "1509955841120538664": "'Carrables Can't Leave Screen' + NES bomb wall = softlock.",
   "1510198124772069386": "Overhead checkbox for all combos",
@@ -2925,5 +2925,6 @@
   "1514265771474161844": "Improve summoners",
   "1514424239988539512": "Option in View Map for hiding \"Only Visible In Editor\" Combos",
   "1514434578020827266": "Setting Link's direction seems to be killing some item SFX?",
-  "1514711710219632782": "Per combo state"
+  "1514711710219632782": "Per combo state",
+  "1515049692382232576": "Mass copy/paste and delete widgets in subscreen editor."
 }
