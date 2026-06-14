@@ -2927,5 +2927,6 @@
   "1514434578020827266": "Setting Link's direction seems to be killing some item SFX?",
   "1514711710219632782": "Per combo state",
   "1515049692382232576": "Mass copy/paste and delete widgets in subscreen editor.",
-  "1515416470027243600": "[3.0.0 Prerelease.192] Pit Collision with Big Link Hitbox broken"
+  "1515416470027243600": "[3.0.0 Prerelease.192] Pit Collision with Big Link Hitbox broken",
+  "1515595754708926557": "[3.0 Prerelease 193 2026-06-06] ZQuest editor crashes when attemp. to use certain keyboard shortcuts"
 }
