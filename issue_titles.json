@@ -2931,5 +2931,6 @@
   "1515595754708926557": "[3.0 Prerelease 193 2026-06-06] ZQuest editor crashes when attemp. to use certain keyboard shortcuts",
   "1515849235763953775": "[3.0.0 Prerelease.192] Green combo effect modifications don't work with sensitive warps+FFCs.",
   "1515857886646112466": "FFC Effect X and Y offset",
-  "1515912918963589190": "Hero is unable to fall through 1 tile wide hole between solid combos in sideview."
+  "1515912918963589190": "Hero is unable to fall through 1 tile wide hole between solid combos in sideview.",
+  "1516249046463942756": "FFC flag: Changer->One Time Use."
 }
