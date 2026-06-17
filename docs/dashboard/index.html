@@ -831,13 +831,40 @@
             channelDecoded.bugs = bugResult;
             channelDecoded.features = featResult;
 
-            const bugSnaps = bugResult.snapshots;
-            const featSnaps = featResult.snapshots;
-            const count = Math.min(bugSnaps.length, featSnaps.length);
-            return Array.from({ length: count }, (_, i) => {
-                const b = bugSnaps[i], f = featSnaps[i];
+            // The two channels are independent delta logs: each only gets an entry
+            // when that channel changes, so they have different lengths and their
+            // timestamps don't line up. Merge onto a single sorted timeline of every
+            // timestamp, then resample each channel via carry-forward (each point uses
+            // the channel's most recent snapshot at-or-before that time). This keeps
+            // channelDecoded[ch].snapshots index-aligned with `data` and drops nothing.
+            const tsSet = new Set();
+            for (const r of [bugResult, featResult]) {
+                for (const s of r.snapshots) tsSet.add(s.timestamp_ms);
+            }
+            const timeline = Array.from(tsSet).sort((a, b) => a - b);
+
+            // Used for timeline points before a channel's first snapshot exists.
+            const EMPTY = { timestamp_ms: 0, total: 0, status: {}, tags: {}, _tagLos: new Uint32Array(0), _tagHis: new Uint32Array(0) };
+
+            function resample(snaps) {
+                const out = new Array(timeline.length);
+                let idx = 0, cur = EMPTY;
+                for (let i = 0; i < timeline.length; i++) {
+                    while (idx < snaps.length && snaps[idx].timestamp_ms <= timeline[i]) {
+                        cur = snaps[idx++];
+                    }
+                    out[i] = cur;
+                }
+                return out;
+            }
+
+            bugResult.snapshots = resample(bugResult.snapshots);
+            featResult.snapshots = resample(featResult.snapshots);
+
+            return timeline.map((ts, i) => {
+                const b = bugResult.snapshots[i], f = featResult.snapshots[i];
                 return {
-                    date: new Date((b.timestamp_ms + f.timestamp_ms) / 2).toISOString(),
+                    date: new Date(ts).toISOString(),
                     channels: {
                         bugs: { total: b.total, status: b.status, tags: b.tags },
                         features: { total: f.total, status: f.status, tags: f.tags },
