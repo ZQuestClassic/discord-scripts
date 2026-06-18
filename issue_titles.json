@@ -2936,5 +2936,6 @@
   "1516543771448316106": "State leaks when loading new quest",
   "1516588583853494425": "npc->MoveTowardHero",
   "1516608620110938142": "[2.55.14] Crash caused by my bestiary script having too many entries",
-  "1516771929632280647": "Run at Screen Init flag for combo scripts"
+  "1516771929632280647": "Run at Screen Init flag for combo scripts",
+  "1516956306982834176": "Custom Armos Combos Doesnt Clear Combo on Enemy Spawn"
 }
