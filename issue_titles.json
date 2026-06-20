@@ -2939,5 +2939,7 @@
   "1516771929632280647": "Run at Screen Init flag for combo scripts",
   "1516956306982834176": "Custom Armos Combos Doesnt Clear Combo on Enemy Spawn",
   "1516968462587658300": "[Enemy Editor] Lift the tile size limit for enemies.",
-  "1516985643404890244": "More Than Eight Whistle Warps"
+  "1516985643404890244": "More Than Eight Whistle Warps",
+  "1517703606059532348": "Expand Max Dmaps Capacity",
+  "1517734208905150696": "Amulet-Translucent Effect Script Draws"
 }
