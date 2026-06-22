@@ -2276,7 +2276,7 @@
   "1432574406756012043": "[2.55-3.0] FFC Platform (and FFC overall) HitYOffset by -1",
   "1432900364381978637": "[2.55+] Scrolling, Entrance/Exit, and Cave/Item Cellar Warps doesn't play the Warp Combo SFX",
   "1432901994078666843": "HitOffsets and DrawOffsets For FFC Editor",
-  "1432908718298890300": "Combo Trigger Import / Export",
+  "1432908718298890300": "Combo Trigger external copy/paste",
   "1433270909443117086": "[3.0] switch block changing other layers is broken?",
   "1435414105774100521": "Status SCCs",
   "1435425370286460968": "[2.55.11, 3.0] Drowning in water while \"Walk Through Walls\" cheat is activated",
@@ -2942,5 +2942,6 @@
   "1516985643404890244": "More Than Eight Whistle Warps",
   "1517703606059532348": "Expand Max Dmaps Capacity",
   "1517734208905150696": "Amulet-Translucent Effect Script Draws",
-  "1518016998406230026": "Color 0 displays black regardless a different color"
+  "1518016998406230026": "Color 0 displays black regardless a different color",
+  "1518345501961883799": "Item Cost Leniency"
 }
