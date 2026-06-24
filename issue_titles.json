@@ -2953,5 +2953,9 @@
   "1518696231319244820": "Editor Access To Screen->D Array",
   "1518880785405448272": "Combo triggers - allow rendering fail prompt for other trigger causes",
   "1518958418428166144": "Combodata this->Screen",
-  "1518961282420572281": "DrawOrigin - DRAW_ORIGIN_WORLD"
+  "1518961282420572281": "DrawOrigin - DRAW_ORIGIN_WORLD",
+  "1519077544941322270": "Litems use wrong DMap ID",
+  "1519100510710268064": "Game->LoadMSubData tries to load active subscreen, instead of map subscreen.",
+  "1519131293214965901": "combo selection panels can be on different modes",
+  "1519176940165009640": "[2.55, 3.0] Own() does not work in subscreendata scripts"
 }
