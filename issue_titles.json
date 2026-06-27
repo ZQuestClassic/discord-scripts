@@ -2960,5 +2960,6 @@
   "1519176940165009640": "[2.55, 3.0] Own() does not work in subscreendata scripts",
   "1519369329466937576": "Windows 11 Refuses to Open ZC 2.55.0",
   "1519439488080810024": "Timer Waits Until Trigger Below",
-  "1519766866027872347": "Big (Big 2x2, 4-four frames, four directional) enemies attack frames don't animate correctly."
+  "1519766866027872347": "Big (Big 2x2, 4-four frames, four directional) enemies attack frames don't animate correctly.",
+  "1520322637459488889": "(Experimental) JIT options"
 }
