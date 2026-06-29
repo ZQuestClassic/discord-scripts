@@ -2963,5 +2963,6 @@
   "1519766866027872347": "Big (Big 2x2, 4-four frames, four directional) enemies attack frames don't animate correctly.",
   "1520322637459488889": "(Experimental) JIT options",
   "1520535383828598824": "Make Screen Locator Easier to See.",
-  "1520574632984317952": "Passive Subscreen on zc 3.0 version"
+  "1520574632984317952": "Passive Subscreen on zc 3.0 version",
+  "1520844840407924756": "Off-Center rotation is broken for all Script draws"
 }
