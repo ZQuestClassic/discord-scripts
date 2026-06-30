@@ -2965,5 +2965,6 @@
   "1520535383828598824": "Make Screen Locator Easier to See.",
   "1520574632984317952": "Passive Subscreen on zc 3.0 version",
   "1520844840407924756": "Off-Center rotation is broken for all Script draws",
-  "1520986469748179105": "Goto instead if item scc"
+  "1520986469748179105": "Goto instead if item scc",
+  "1521276657451663401": "Quest does not respect \"Life in Hearts\" init setting"
 }
