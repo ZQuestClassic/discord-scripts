@@ -2971,5 +2971,6 @@
   "1521625240617091082": "[2.55, 3.0] continue life wrongly bounded to byte range",
   "1521747265939574944": "[1.92 compat] pit warp bug",
   "1521761146661503137": "[1.92 compat] conveyor / scrolling sidewarp direction issue",
-  "1521859302640451744": "itemdata->Weapon and itemdata->WeaponScript deprecated too soon"
+  "1521859302640451744": "itemdata->Weapon and itemdata->WeaponScript deprecated too soon",
+  "1522018850743390318": "[Debugger] ShowHitboxes and Show Walkability cheats don`t work when ZC is paused by debugger."
 }
