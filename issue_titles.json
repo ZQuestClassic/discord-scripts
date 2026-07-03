@@ -2972,5 +2972,8 @@
   "1521747265939574944": "[1.92 compat] pit warp bug",
   "1521761146661503137": "[1.92 compat] conveyor / scrolling sidewarp direction issue",
   "1521859302640451744": "itemdata->Weapon and itemdata->WeaponScript deprecated too soon",
-  "1522018850743390318": "[Debugger] ShowHitboxes and Show Walkability cheats don`t work when ZC is paused by debugger."
+  "1522018850743390318": "[Debugger] ShowHitboxes and Show Walkability cheats don`t work when ZC is paused by debugger.",
+  "1522304644838064268": "[3.0] zplayer won't run - GetDpiForWindow could not be located",
+  "1522385153325011176": "[2.55, 3.0] zelda.nsf is in the wrong location",
+  "1522424915108823140": "QR - Precise FFC Wraparound"
 }
