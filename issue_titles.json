@@ -2975,5 +2975,6 @@
   "1522018850743390318": "[Debugger] ShowHitboxes and Show Walkability cheats don`t work when ZC is paused by debugger.",
   "1522304644838064268": "[3.0] zplayer won't run - GetDpiForWindow could not be located",
   "1522385153325011176": "[2.55, 3.0] zelda.nsf is in the wrong location",
-  "1522424915108823140": "QR - Precise FFC Wraparound"
+  "1522424915108823140": "QR - Precise FFC Wraparound",
+  "1522943086970540163": "[3.0] SNES .spc files are a bit on the quiet side"
 }
