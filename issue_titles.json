@@ -2976,5 +2976,7 @@
   "1522304644838064268": "[3.0] zplayer won't run - GetDpiForWindow could not be located",
   "1522385153325011176": "[2.55, 3.0] zelda.nsf is in the wrong location",
   "1522424915108823140": "QR - Precise FFC Wraparound",
-  "1522943086970540163": "[3.0] SNES .spc files are a bit on the quiet side"
+  "1522943086970540163": "[3.0] SNES .spc files are a bit on the quiet side",
+  "1523034061210390651": "Item->WeaponData->InitD[] arguments are errantly multiplied by 10000",
+  "1523114661032230963": "npc->AnimStyle"
 }
