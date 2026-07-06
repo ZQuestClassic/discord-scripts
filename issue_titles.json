@@ -2976,7 +2976,7 @@
   "1522304644838064268": "[3.0] zplayer won't run - GetDpiForWindow could not be located",
   "1522385153325011176": "[2.55, 3.0] zelda.nsf is in the wrong location",
   "1522424915108823140": "QR - Precise FFC Wraparound",
-  "1522943086970540163": "[3.0] SNES .spc files are a bit on the quiet side",
+  "1522943086970540163": "[2.55, 3.0] SNES .spc files are a bit on the quiet side",
   "1523034061210390651": "Item->WeaponData->InitD[] arguments are errantly multiplied by 10000",
   "1523114661032230963": "npc->AnimStyle",
   "1523342673665327338": "Scripts tied to Passive Subscreens",
@@ -2984,5 +2984,6 @@
   "1523407029761347665": "Hover Boots Automatically Hover Over Water Option",
   "1523413307120291850": "Reset all DMaps",
   "1523465817143119872": "Old quest passive subscreen entirely broken",
-  "1523488684496785559": "[3.0] SCC \"GoIfAnyScreenState\" doesn't work correctly."
+  "1523488684496785559": "[2.55, 3.0] Some SCCs use off-by-1 map",
+  "1523547027236192336": "[3.0] Roc's Feather \"Decay on Release\" attribute flag does not work with value 0"
 }
