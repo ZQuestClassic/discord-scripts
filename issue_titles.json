@@ -2978,5 +2978,11 @@
   "1522424915108823140": "QR - Precise FFC Wraparound",
   "1522943086970540163": "[3.0] SNES .spc files are a bit on the quiet side",
   "1523034061210390651": "Item->WeaponData->InitD[] arguments are errantly multiplied by 10000",
-  "1523114661032230963": "npc->AnimStyle"
+  "1523114661032230963": "npc->AnimStyle",
+  "1523342673665327338": "Scripts tied to Passive Subscreens",
+  "1523348144497365134": "Screen/Bitmap->Arc() is broken",
+  "1523407029761347665": "Hover Boots Automatically Hover Over Water Option",
+  "1523413307120291850": "Reset all DMaps",
+  "1523465817143119872": "Old quest passive subscreen entirely broken",
+  "1523488684496785559": "[3.0] SCC \"GoIfAnyScreenState\" doesn't work correctly."
 }
