@@ -2985,5 +2985,9 @@
   "1523413307120291850": "Reset all DMaps",
   "1523465817143119872": "Old quest passive subscreen entirely broken",
   "1523488684496785559": "[2.55, 3.0] Some SCCs use off-by-1 map",
-  "1523547027236192336": "[3.0] Roc's Feather \"Decay on Release\" attribute flag does not work with value 0"
+  "1523547027236192336": "[3.0] Roc's Feather \"Decay on Release\" attribute flag does not work with value 0",
+  "1523722638927728660": "[2.55, 3.0] `_effectflag` bottom/right 8px bad collision with newer 4-way hero movement",
+  "1523725955804172289": "Flag for Byrna items to prevent other item usage",
+  "1523759576133144796": "More animation styles for enemies",
+  "1523792027790213343": "A Link To The Past Curved Stairs"
 }
