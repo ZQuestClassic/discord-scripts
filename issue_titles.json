@@ -2989,5 +2989,6 @@
   "1523722638927728660": "[2.55, 3.0] `_effectflag` bottom/right 8px bad collision with newer 4-way hero movement",
   "1523725955804172289": "Flag for Byrna items to prevent other item usage",
   "1523759576133144796": "More animation styles for enemies",
-  "1523792027790213343": "A Link To The Past Curved Stairs"
+  "1523792027790213343": "A Link To The Past Curved Stairs",
+  "1524247569881104545": "varargs functions break when nested"
 }
