@@ -2990,5 +2990,6 @@
   "1523725955804172289": "Flag for Byrna items to prevent other item usage",
   "1523759576133144796": "More animation styles for enemies",
   "1523792027790213343": "A Link To The Past Curved Stairs",
-  "1524247569881104545": "varargs functions break when nested"
+  "1524247569881104545": "varargs functions break when nested",
+  "1524503663186542864": "Slopes fail to work, when appeared as result of combo trigger"
 }
