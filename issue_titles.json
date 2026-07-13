@@ -2992,10 +2992,11 @@
   "1523792027790213343": "A Link To The Past Curved Stairs",
   "1524247569881104545": "varargs functions break when nested",
   "1524503663186542864": "Slopes fail to work, when appeared as result of combo trigger",
-  "1524958221205241996": "It is ashortcut",
+  "1524958221205241996": "[3.0] typo in string editor \"It is ashortcut\"",
   "1525228850387095562": "Option like SkipF6 that disables F6 entirely",
   "1525358901451690004": "(3.0) Manhandla core offset",
   "1525520874072047667": "String Control Code: Set Screen D sets the Arg as a Long. Unable to input values from 2^18 onwards",
   "1525547873968718035": "stray string sfx",
-  "1525658357585674351": "Wand Fire Doesn't Burn Ice Automatically?"
+  "1525658357585674351": "Wand Fire Doesn't Burn Ice Automatically?",
+  "1525871827874873456": "Note browser improvements."
 }
