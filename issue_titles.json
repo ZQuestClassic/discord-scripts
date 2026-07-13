@@ -2998,5 +2998,6 @@
   "1525520874072047667": "String Control Code: Set Screen D sets the Arg as a Long. Unable to input values from 2^18 onwards",
   "1525547873968718035": "stray string sfx",
   "1525658357585674351": "Wand Fire Doesn't Burn Ice Automatically?",
-  "1525871827874873456": "Note browser improvements."
+  "1525871827874873456": "Note browser improvements.",
+  "1526076459590881400": "Show combo script name in combo tooltip."
 }
