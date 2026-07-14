@@ -2999,5 +2999,7 @@
   "1525547873968718035": "stray string sfx",
   "1525658357585674351": "Wand Fire Doesn't Burn Ice Automatically?",
   "1525871827874873456": "Note browser improvements.",
-  "1526076459590881400": "Show combo script name in combo tooltip."
+  "1526076459590881400": "Show combo script name in combo tooltip.",
+  "1526281150157295788": "scrolling string textboxes",
+  "1526358644361396466": "control schemes off by one (or clamped to one less than max)"
 }
