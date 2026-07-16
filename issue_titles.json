@@ -3003,5 +3003,6 @@
   "1526281150157295788": "scrolling string textboxes",
   "1526358644361396466": "control schemes off by one (or clamped to one less than max)",
   "1526600049931452476": "Preview string with portrait in string editor.",
-  "1526846863607726192": "FFC Pink Solidity Not Showing"
+  "1526846863607726192": "FFC Pink Solidity Not Showing",
+  "1527139127479242803": "Custom SCCs"
 }
