@@ -3004,5 +3004,8 @@
   "1526358644361396466": "control schemes off by one (or clamped to one less than max)",
   "1526600049931452476": "Preview string with portrait in string editor.",
   "1526846863607726192": "FFC Pink Solidity Not Showing",
-  "1527139127479242803": "Custom SCCs"
+  "1527139127479242803": "Custom SCCs",
+  "1527405912606900456": "[Item Editor] Item Specific Boomerang/Arrow Pickup",
+  "1527457442898772108": "FFCs Can Paste halfway Top & Left",
+  "1527592044179099728": "Jumping within coyote time counts as extra jump for Roc Feather attribute."
 }
