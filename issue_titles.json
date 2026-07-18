@@ -3007,5 +3007,9 @@
   "1527139127479242803": "Custom SCCs",
   "1527405912606900456": "[Item Editor] Item Specific Boomerang/Arrow Pickup",
   "1527457442898772108": "FFCs Can Paste halfway Top & Left",
-  "1527592044179099728": "Jumping within coyote time counts as extra jump for Roc Feather attribute."
+  "1527592044179099728": "Jumping within coyote time counts as extra jump for Roc Feather attribute.",
+  "1527860943260880928": "[2.55.15 +] Scripted Wind Sfx Persists if Weapon is Killed",
+  "1527937799716737074": "counter regen",
+  "1527952989262712912": "ZC Player: Hide Death Count in file select",
+  "1527977921321369701": "Combo trigger effect - set combo placed flag."
 }
