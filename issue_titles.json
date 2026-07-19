@@ -3011,5 +3011,7 @@
   "1527860943260880928": "[2.55.15 +] Scripted Wind Sfx Persists if Weapon is Killed",
   "1527937799716737074": "counter regen",
   "1527952989262712912": "ZC Player: Hide Death Count in file select",
-  "1527977921321369701": "Combo trigger effect - set combo placed flag."
+  "1527977921321369701": "Combo trigger effect - set combo placed flag.",
+  "1528130210610938037": "Export/Import screen notes.",
+  "1528185914377900052": "An \"Ignore Boots\" or \"Ignore Boots below a certain level\" flag or attribute for Damage combos"
 }
