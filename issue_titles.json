@@ -3015,5 +3015,8 @@
   "1528130210610938037": "Export/Import screen notes.",
   "1528185914377900052": "An \"Ignore Boots\" or \"Ignore Boots below a certain level\" flag or attribute for Damage combos",
   "1528339009057591336": "Export function missing folder architecture",
-  "1528422179216035962": "Darknutz /shielded enemies that block bomb blasts hit issue"
+  "1528422179216035962": "Darknutz /shielded enemies that block bomb blasts hit issue",
+  "1528685961238679602": "3.0: Overwrite Protection lists wrong NPC IDs",
+  "1528723652647059668": "Script access to enemy SpecialSound",
+  "1528755722081538170": "[Docs] npc->SpawnSprite and npc->DeathSprite are labeled as bound to old limits."
 }
