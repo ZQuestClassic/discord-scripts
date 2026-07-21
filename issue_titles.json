@@ -1659,7 +1659,7 @@
   "1318435737498161222": "Potential Performance Degradation",
   "1318514386045763594": "zoom out next-screen-preview graphical bug",
   "1319146472444264518": "[2.55.7] Cheat re-bindings don't work",
-  "1319166577660395633": "`CloseScreen(WIPE_FADEBLACK)` followed by `OpenScreen(WIPE_FADEBLACK)` does not work as expected",
+  "1319166577660395633": "`ClosingWipe(WIPE_FADEBLACK)` followed by `OpeningWipe(WIPE_FADEBLACK)` does not work as expected",
   "1319517440924975194": "Zoom In / Zoom Out - Transition Warp Effect",
   "1319714296590110740": "4-way movement without gridlock warp issues",
   "1319869085609361489": "Add wavy and zap effects to `WipeEffect`",
@@ -3015,8 +3015,9 @@
   "1528130210610938037": "Export/Import screen notes.",
   "1528185914377900052": "An \"Ignore Boots\" or \"Ignore Boots below a certain level\" flag or attribute for Damage combos",
   "1528339009057591336": "Export function missing folder architecture",
-  "1528422179216035962": "Darknutz /shielded enemies that block bomb blasts hit issue",
+  "1528422179216035962": "[not a bug, I guess] Darknutz /shielded enemies that block bomb blasts hit issue",
   "1528685961238679602": "3.0: Overwrite Protection lists wrong NPC IDs",
   "1528723652647059668": "Script access to enemy SpecialSound",
-  "1528755722081538170": "[Docs] npc->SpawnSprite and npc->DeathSprite are labeled as bound to old limits."
+  "1528755722081538170": "[Docs] npc->SpawnSprite and npc->DeathSprite are labeled as bound to old limits.",
+  "1529107979121590363": "Push block flags on Graves dont spawn enemies when touched"
 }
