@@ -1123,7 +1123,7 @@
   "1202157297321914390": "(Sideview) Player can interact with solid Conveyors and Step->Next Combos by standing \"on top\" of...",
   "1202440110973390879": "OOB access in ffscript for Panoply",
   "1202719549372370984": "Continuous Fill",
-  "1202753685889753190": "midi pitch bend bugs",
+  "1202753685889753190": "[2.55, 3.0] midi pitch bend bugs",
   "1202908144632860712": "WebSocket support in ZScript",
   "1203047730637971457": "[2.55 - Jan 31] Cheat > Show Layer > Hitboxes doesn't draw enemies with BFlags[0] set to true",
   "1203203538499543042": "ZC Crashes on Screens with Combo Cycling Torches in Dark Rooms (2.55 01-31-24)",
@@ -3001,7 +3001,7 @@
   "1525871827874873456": "Note browser improvements.",
   "1526076459590881400": "Show combo script name in combo tooltip.",
   "1526281150157295788": "scrolling string textboxes",
-  "1526358644361396466": "control schemes off by one (or clamped to one less than max)",
+  "1526358644361396466": "[2.55, 3.0] control schemes off by one (or clamped to one less than max)",
   "1526600049931452476": "Preview string with portrait in string editor.",
   "1526846863607726192": "FFC Pink Solidity Not Showing",
   "1527139127479242803": "Custom SCCs",
@@ -3019,5 +3019,10 @@
   "1528685961238679602": "3.0: Overwrite Protection lists wrong NPC IDs",
   "1528723652647059668": "Script access to enemy SpecialSound",
   "1528755722081538170": "[Docs] npc->SpawnSprite and npc->DeathSprite are labeled as bound to old limits.",
-  "1529107979121590363": "Push block flags on Graves dont spawn enemies when touched"
+  "1529107979121590363": "Push block flags on Graves dont spawn enemies when touched",
+  "1529206920379105291": "[2.55, 3.0] Ganon MIDI compatibility bug for 1.90 quests",
+  "1529257001274703892": "View -> Show Screen Info also shows Screen Notes",
+  "1529270161528328322": "Crash In Mystical Harps ZQ 3.0 Latest",
+  "1529376409955471413": "Configurable Armos enemy limit",
+  "1529564383678693406": "Combo Effects - Passive MP Mod"
 }
