@@ -3024,5 +3024,9 @@
   "1529257001274703892": "View -> Show Screen Info also shows Screen Notes",
   "1529270161528328322": "Crash In Mystical Harps ZQ 3.0 Latest",
   "1529376409955471413": "Configurable Armos enemy limit",
-  "1529564383678693406": "Combo Effects - Passive MP Mod"
+  "1529564383678693406": "Combo Effects - Passive MP Mod",
+  "1530032203625402439": "Setting \"this->Flags[NPCF_ONLY_LENS] = true;\" also makes them transparent",
+  "1530139339378659348": "3.0: Modifying Screen Scripts causes them to not run until closing and reopening ZC",
+  "1530144181274542211": "3.0: Weapons who use DrawOrigin to operate draw commands log errors when despawning",
+  "1530176002557345892": "ffcs that go out of bounds stop running but don't clear script value"
 }
