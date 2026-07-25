@@ -2980,7 +2980,7 @@
   "1523034061210390651": "Item->WeaponData->InitD[] arguments are errantly multiplied by 10000",
   "1523114661032230963": "npc->AnimStyle",
   "1523342673665327338": "Scripts tied to Passive Subscreens",
-  "1523348144497365134": "Screen/Bitmap->Arc() is broken",
+  "1523348144497365134": "[2.55, 3.0] Screen/Bitmap->Arc() is broken",
   "1523407029761347665": "Hover Boots Automatically Hover Over Water Option",
   "1523413307120291850": "Reset all DMaps",
   "1523465817143119872": "[2.55, 3.0] Old quest passive subscreen entirely broken",
@@ -3028,5 +3028,7 @@
   "1530032203625402439": "Setting \"this->Flags[NPCF_ONLY_LENS] = true;\" also makes them transparent",
   "1530139339378659348": "3.0: Modifying Screen Scripts causes them to not run until closing and reopening ZC",
   "1530144181274542211": "3.0: Weapons who use DrawOrigin to operate draw commands log errors when despawning",
-  "1530176002557345892": "ffcs that go out of bounds stop running but don't clear script value"
+  "1530176002557345892": "ffcs that go out of bounds stop running but don't clear script value",
+  "1530239690806923274": "2.55 Input->KeyPress[KEY_F6] incorrect behaviour",
+  "1530364397191434291": "3.0: Blank Guy strings cause the game to softlock"
 }
