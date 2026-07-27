@@ -3032,5 +3032,8 @@
   "1530239690806923274": "[2.55, 3.0] Input->KeyPress[KEY_F6] incorrect behaviour",
   "1530364397191434291": "[3.0] Blank Guy strings cause the game to softlock",
   "1531005603449929835": "[3.0] Show Misalignments - false alarm for adjacent screens within the same region",
-  "1531087960659984426": "QR - Treat invalid screens as fully solid in ZC Player."
+  "1531087960659984426": "QR - Treat invalid screens as fully solid in ZC Player.",
+  "1531111795035607192": ".tsv import breaks string margins.",
+  "1531210621369192518": "3.0: Diving state persists after Warping",
+  "1531219397245403156": "3.0: Direct warping from a region to between two screens breaks"
 }
