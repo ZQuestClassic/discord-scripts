@@ -3030,5 +3030,7 @@
   "1530144181274542211": "3.0: Weapons who use DrawOrigin to operate draw commands log errors when despawning",
   "1530176002557345892": "ffcs that go out of bounds stop running but don't clear script value",
   "1530239690806923274": "[2.55, 3.0] Input->KeyPress[KEY_F6] incorrect behaviour",
-  "1530364397191434291": "[3.0] Blank Guy strings cause the game to softlock"
+  "1530364397191434291": "[3.0] Blank Guy strings cause the game to softlock",
+  "1531005603449929835": "[3.0] Show Misalignments - false alarm for adjacent screens within the same region",
+  "1531087960659984426": "QR - Treat invalid screens as fully solid in ZC Player."
 }
