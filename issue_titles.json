@@ -3033,11 +3033,13 @@
   "1530364397191434291": "[3.0] Blank Guy strings cause the game to softlock",
   "1531005603449929835": "[3.0] Show Misalignments - false alarm for adjacent screens within the same region",
   "1531087960659984426": "QR - Treat invalid screens as fully solid in ZC Player.",
-  "1531111795035607192": ".tsv import breaks string margins.",
+  "1531111795035607192": "[2.55, 3.0] .tsv import breaks string margins",
   "1531210621369192518": "3.0: Diving state persists after Warping",
   "1531219397245403156": "[3.0] Direct warping from a region between two screens puts player in wrong location",
   "1531337307175653408": "Multiple different eweapons/attacks per enemy.",
   "1531447701361922059": "[2.55, 3.0] rehydratelake compares wrong type",
   "1531451470619087000": "Enemy editor - Move the Size tab from flags category to main dialog.",
-  "1531464035747495998": "Getting bundles randomly gives 8 rupees."
+  "1531464035747495998": "Getting bundles randomly gives 8 rupees.",
+  "1531542988239405057": "Allow outlines in custom save menus",
+  "1531544928793006120": "Title string in custom save menus"
 }
