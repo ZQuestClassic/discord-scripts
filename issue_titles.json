@@ -2795,7 +2795,7 @@
   "1502442163483578529": "byrna \"Invincible Player\" flag does not work",
   "1502621966002163742": "enemy ambush",
   "1502630239254089839": "more pit pull granularity",
-  "1502718806517223546": "[3.0] ZQ can crash on editing resizeable script screen data",
+  "1502718806517223546": "[2.55, 3.0] ZQ can crash on editing resizeable script screen data",
   "1502729469884895232": "Ensure accuracy of version info in web docs",
   "1502801842298683594": "Using JSON for refactoring export/import quest components",
   "1502842909974728845": "[2.55] `Game->LoadTempScreenForComboPos` symbol has wrong num of params",
@@ -3035,5 +3035,9 @@
   "1531087960659984426": "QR - Treat invalid screens as fully solid in ZC Player.",
   "1531111795035607192": ".tsv import breaks string margins.",
   "1531210621369192518": "3.0: Diving state persists after Warping",
-  "1531219397245403156": "3.0: Direct warping from a region to between two screens breaks"
+  "1531219397245403156": "[3.0] Direct warping from a region between two screens puts player in wrong location",
+  "1531337307175653408": "Multiple different eweapons/attacks per enemy.",
+  "1531447701361922059": "[2.55, 3.0] rehydratelake compares wrong type",
+  "1531451470619087000": "Enemy editor - Move the Size tab from flags category to main dialog.",
+  "1531464035747495998": "Getting bundles randomly gives 8 rupees."
 }
