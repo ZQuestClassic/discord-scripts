@@ -3042,5 +3042,6 @@
   "1531464035747495998": "Getting bundles randomly gives 8 rupees.",
   "1531542988239405057": "Allow outlines in custom save menus",
   "1531544928793006120": "Title string in custom save menus",
-  "1531725345361887262": "Cave exit animations only play on the top left screen when in a region."
+  "1531725345361887262": "Cave exit animations only play on the top left screen when in a region.",
+  "1531848018343628961": "Combo trigger condition property - cooldown applies to all combo instances"
 }
