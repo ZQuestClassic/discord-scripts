@@ -3044,5 +3044,6 @@
   "1531544928793006120": "Title string in custom save menus",
   "1531725345361887262": "Cave exit animations only play on the top left screen when in a region.",
   "1531848018343628961": "Combo trigger condition property - cooldown applies to all combo instances",
-  "1532025037287198821": "[3.0] Set Enemy Weapon Bomb Blasts to always have Collision via Weapon Data"
+  "1532025037287198821": "[3.0] Set Enemy Weapon Bomb Blasts to always have Collision via Weapon Data",
+  "1532492950842380318": "Editing New FFCs give out nonsense."
 }
