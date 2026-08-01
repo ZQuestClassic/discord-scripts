@@ -3047,5 +3047,6 @@
   "1532025037287198821": "[3.0] Set Enemy Weapon Bomb Blasts to always have Collision via Weapon Data",
   "1532492950842380318": "Editing New FFCs give out nonsense.",
   "1532611776775065630": "Weird MHarps Crash",
-  "1532632699485949962": "Script types that don't recognize boolean InitD as a checkbox"
+  "1532632699485949962": "Script types that don't recognize boolean InitD as a checkbox",
+  "1532881969720066149": "a bunch of textfields are broken"
 }
