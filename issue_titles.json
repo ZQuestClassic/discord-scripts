@@ -3052,5 +3052,10 @@
   "1532973551282290849": "[2.55, 3.0] Shooter combos fail to run scripts for custom lweapons",
   "1532980229642125444": "\"@Info\" and \"@Setup\" annotation fields for scripts",
   "1533166682737082418": "SCCs for Heart Pieces",
-  "1533266319401681006": "npcdata->Flags[] are broken and outputs wrong data"
+  "1533266319401681006": "[3.0] npcdata->Flags[] are broken and outputs wrong data",
+  "1533348151090483200": "Setting enemy HP via script don`t prevent enemy from dying.",
+  "1533349401643450448": "Brang combo trigger as FFC does not work",
+  "1533382158222229617": "Conditional script annotations",
+  "1533385291707187251": "Special draw layers for drawing directly above or below a script's sprite",
+  "1533414450596679816": "Combo script annotations don't update when closing the script popup"
 }
