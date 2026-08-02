@@ -3050,5 +3050,7 @@
   "1532632699485949962": "Script types that don't recognize boolean InitD as a checkbox",
   "1532881969720066149": "a bunch of textfields are broken",
   "1532973551282290849": "[2.55, 3.0] Shooter combos fail to run scripts for custom lweapons",
-  "1532980229642125444": "\"@Info\" and \"@Setup\" annotation fields for scripts"
+  "1532980229642125444": "\"@Info\" and \"@Setup\" annotation fields for scripts",
+  "1533166682737082418": "SCCs for Heart Pieces",
+  "1533266319401681006": "npcdata->Flags[] are broken and outputs wrong data"
 }
