@@ -3057,5 +3057,7 @@
   "1533349401643450448": "Brang combo trigger as FFC does not work",
   "1533382158222229617": "Conditional script annotations",
   "1533385291707187251": "Special draw layers for drawing directly above or below a script's sprite",
-  "1533414450596679816": "Combo script annotations don't update when closing the script popup"
+  "1533414450596679816": "Combo script annotations don't update when closing the script popup",
+  "1533569805234339901": "Export annotations for attributes and flags",
+  "1533576637063500058": "`@Export` support for Arrays + Classes"
 }
