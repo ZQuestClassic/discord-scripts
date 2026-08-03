@@ -3059,5 +3059,8 @@
   "1533385291707187251": "Special draw layers for drawing directly above or below a script's sprite",
   "1533414450596679816": "Combo script annotations don't update when closing the script popup",
   "1533569805234339901": "Export annotations for attributes and flags",
-  "1533576637063500058": "`@Export` support for Arrays + Classes"
+  "1533576637063500058": "`@Export` support for Arrays + Classes",
+  "1533654985425027213": "Ability to delete test init data.",
+  "1533657122397491362": "Dropdown  \"@Export\" data type",
+  "1533712094367846481": "consistent instance variable order"
 }
