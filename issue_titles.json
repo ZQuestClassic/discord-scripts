@@ -3032,7 +3032,7 @@
   "1530239690806923274": "[2.55, 3.0] Input->KeyPress[KEY_F6] incorrect behaviour",
   "1530364397191434291": "[3.0] Blank Guy strings cause the game to softlock",
   "1531005603449929835": "[3.0] Show Misalignments - false alarm for adjacent screens within the same region",
-  "1531087960659984426": "QR - Treat invalid screens as fully solid in ZC Player.",
+  "1531087960659984426": "QR - Smart Scroll No Invalid Screens",
   "1531111795035607192": "[2.55, 3.0] .tsv import breaks string margins",
   "1531210621369192518": "3.0: Diving state persists after Warping",
   "1531219397245403156": "[3.0] Direct warping from a region between two screens puts player in wrong location",
@@ -3063,6 +3063,10 @@
   "1533654985425027213": "Ability to delete test init data.",
   "1533657122397491362": "Dropdown  \"@Export\" data type",
   "1533712094367846481": "consistent instance variable order",
-  "1533872851738820688": "[2.55] ZQuest silently crashes when recent quests include a non-existent drive",
-  "1533914151368396921": "Magic in Blocks toggle for InitData"
+  "1533872851738820688": "[2.55, 3.0] ZQuest silently crashes when recent quests include a non-existent drive",
+  "1533914151368396921": "Magic in Blocks toggle for InitData",
+  "1534009817864339516": "New Draw Order fails to render transparency on Background layer 2",
+  "1534115008424837130": "use constants in annotations",
+  "1534132391923159070": "SCC hex values",
+  "1534145017008881745": "[Misc text in save menus] Crash on attempt to edit coordinates."
 }
