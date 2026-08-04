@@ -3062,5 +3062,7 @@
   "1533576637063500058": "`@Export` support for Arrays + Classes",
   "1533654985425027213": "Ability to delete test init data.",
   "1533657122397491362": "Dropdown  \"@Export\" data type",
-  "1533712094367846481": "consistent instance variable order"
+  "1533712094367846481": "consistent instance variable order",
+  "1533872851738820688": "[2.55] ZQuest silently crashes when recent quests include a non-existent drive",
+  "1533914151368396921": "Magic in Blocks toggle for InitData"
 }
