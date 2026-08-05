@@ -3068,5 +3068,6 @@
   "1534009817864339516": "New Draw Order fails to render transparency on Background layer 2",
   "1534115008424837130": "use constants in annotations",
   "1534132391923159070": "SCC hex values",
-  "1534145017008881745": "[Misc text in save menus] Crash on attempt to edit coordinates."
+  "1534145017008881745": "[Misc text in save menus] Crash on attempt to edit coordinates.",
+  "1534416538847936762": "Gradual toggle for counter SCCs"
 }
