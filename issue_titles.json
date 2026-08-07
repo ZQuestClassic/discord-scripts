@@ -2058,7 +2058,7 @@
   "1388286068343832779": "`npcdata::BFlags[]`, `npc::Behavior[]` bounds index incorrectly",
   "1388733705517924373": "Map, Compass and Boss Key Current Item Subscreen elements display default Item IDs",
   "1389060276258865293": "combo trigger consume keys",
-  "1389071935547117588": "Shadow cutoff on strings",
+  "1389071935547117588": "[2.55, 3.0] Shadow cutoff on strings",
   "1389319106410577940": "Solidity highlighting not on bottom 8px",
   "1389536771565686875": "ffc under-layers",
   "1390073964340056288": "\"Fire Weapon\" trigger",
