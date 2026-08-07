@@ -3071,5 +3071,6 @@
   "1534145017008881745": "[Misc text in save menus] Crash on attempt to edit coordinates.",
   "1534416538847936762": "Gradual toggle for counter SCCs",
   "1534711166469931180": "(Linux) Trying to make a save file crashes the player",
-  "1534736905722134658": "(Linux) Well, my game crashed."
+  "1534736905722134658": "(Linux) Well, my game crashed.",
+  "1535126249519849473": "Script access for exported attributes."
 }
