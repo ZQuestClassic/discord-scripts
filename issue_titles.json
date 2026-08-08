@@ -2457,7 +2457,7 @@
   "1463524930913042677": "DMap name longer?",
   "1463728272750674123": "QR String Compare Button",
   "1464128315106267137": "dmapdata InitD[] ZScript access is broken",
-  "1464625182135161067": "Unable to write to bitmaps on screen init during instant warps",
+  "1464625182135161067": "[2.55, 3.0] Unable to write to bitmaps on screen init during instant warps",
   "1464646301370290228": "Wand Magic Falling in Pits",
   "1464746611619135700": "Setting doors in Doors dialog blacks out the screen",
   "1465063433345962094": "Push Block sensitivity",
@@ -2907,7 +2907,7 @@
   "1512296348550959285": "Impossible condition in `enemy::FireBreath`",
   "1512461645706690680": "[Debugger] Giant class objects fail to fit on my screen",
   "1512479693197148170": "[Debugger] F12 Does not work when ZC player is paused by breakpoint.",
-  "1512541188090101790": "Scripts fail to draw for 1 frame after closing active subscreen.",
+  "1512541188090101790": "[2.55, 3.0] Scripts fail to draw for 1 frame after closing active subscreen",
   "1512648074474819674": "[2.55.14] memory leak during Chase fight in Stellar Seas",
   "1512791385907003402": "ZQ editor crashes with \"Show Misalignments\" option turned on.",
   "1512886727528677497": "`SpawnScreen` won't work for script-spawned sprites",
@@ -3073,5 +3073,6 @@
   "1534711166469931180": "(Linux) Trying to make a save file crashes the player",
   "1534736905722134658": "(Linux) Well, my game crashed.",
   "1535126249519849473": "Script access for exported attributes.",
-  "1535355551108829366": "Randomized Message sfx While String Plays."
+  "1535355551108829366": "Randomized Message sfx While String Plays.",
+  "1535601346122752000": "Bigger FFCs  -  8 x 8 or lower"
 }
