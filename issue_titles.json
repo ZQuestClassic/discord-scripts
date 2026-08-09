@@ -3074,5 +3074,7 @@
   "1534736905722134658": "(Linux) Well, my game crashed.",
   "1535126249519849473": "Script access for exported attributes.",
   "1535355551108829366": "Randomized Message sfx While String Plays.",
-  "1535601346122752000": "Bigger FFCs  -  8 x 8 or lower"
+  "1535601346122752000": "Bigger FFCs  -  8 x 8 or lower",
+  "1535884424632082462": "(3.0) Enhanced music not working based on DMap, works when set to screen individually.",
+  "1535900998990561350": "[3.0] Adjacent string lines peek into the text box (segmented scrolling)"
 }
