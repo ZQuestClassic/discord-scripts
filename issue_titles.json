@@ -3077,5 +3077,7 @@
   "1535601346122752000": "Bigger FFCs  -  8 x 8 or lower",
   "1535884424632082462": "(3.0) Enhanced music not working based on DMap, works when set to screen individually.",
   "1535900998990561350": "[3.0] Adjacent string lines peek into the text box (segmented scrolling)",
-  "1536276237851430933": "Sideview - Allow enemies to walk on combos flagged as NoEnemy flags (96 amd 97)"
+  "1536276237851430933": "Sideview - Allow enemies to walk on combos flagged as NoEnemy flags (96 amd 97)",
+  "1536355886971363418": "QR - Invincibility Frames carry over cross regions/screens.",
+  "1536486417071476777": "Controller only works when I don't have Steam open"
 }
