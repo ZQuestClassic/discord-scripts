@@ -3079,5 +3079,8 @@
   "1535900998990561350": "[3.0] Adjacent string lines peek into the text box (segmented scrolling)",
   "1536276237851430933": "Sideview - Allow enemies to walk on combos flagged as NoEnemy flags (96 amd 97)",
   "1536355886971363418": "QR - Invincibility Frames carry over cross regions/screens.",
-  "1536486417071476777": "Controller only works when I don't have Steam open"
+  "1536486417071476777": "Controller only works when I don't have Steam open",
+  "1536593122094616596": "Better Recolor on Tile Ripping",
+  "1536611269564702791": "Scripted angular boomerangs behave illogically",
+  "1536630611907838022": "Unhardcode the Selection Items"
 }
