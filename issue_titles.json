@@ -3082,5 +3082,7 @@
   "1536486417071476777": "Controller only works when I don't have Steam open",
   "1536593122094616596": "Better Recolor on Tile Ripping",
   "1536611269564702791": "Scripted angular boomerangs behave illogically",
-  "1536630611907838022": "Unhardcode the Selection Items"
+  "1536630611907838022": "Unhardcode the Selection Items",
+  "1536840388860448828": "eweapon->weapon",
+  "1536856061821329498": "Make the Block [X] combotypes work on layers"
 }
