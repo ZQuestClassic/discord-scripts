@@ -3084,5 +3084,9 @@
   "1536611269564702791": "Scripted angular boomerangs behave illogically",
   "1536630611907838022": "Unhardcode the Selection Items",
   "1536840388860448828": "eweapon->weapon",
-  "1536856061821329498": "Make the Block [X] combotypes work on layers"
+  "1536856061821329498": "Make the Block [X] combotypes work on layers",
+  "1537275170106908783": "Message strings not appearing when using signposts or picking up items",
+  "1537279853035003975": "Copy and paste numbers in P in tile pages",
+  "1537296861461872800": "Tiles disappear after setting combo",
+  "1537296879199723612": "[2.55] Missing MISCSFX constants in std"
 }
