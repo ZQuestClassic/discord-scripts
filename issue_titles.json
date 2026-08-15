@@ -3088,5 +3088,7 @@
   "1537275170106908783": "Message strings not appearing when using signposts or picking up items",
   "1537279853035003975": "Copy and paste numbers in P in tile pages",
   "1537296861461872800": "Tiles disappear after setting combo",
-  "1537296879199723612": "[2.55] Missing MISCSFX constants in std"
+  "1537296879199723612": "[2.55] Missing MISCSFX constants in std",
+  "1537906742451634227": "Mass-set type of warp",
+  "1537946778278830141": "Boomerang to not be destroyed (and come back) upon kill flag"
 }
