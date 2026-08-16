@@ -3092,5 +3092,7 @@
   "1537906742451634227": "Mass-set type of warp",
   "1537946778278830141": "Boomerang to not be destroyed (and come back) upon kill flag",
   "1538003551991636018": "\"Auto\" button for side warp screen",
-  "1538010677426393200": "Editor plugins"
+  "1538010677426393200": "Editor plugins",
+  "1538347161731993622": "[2.55.16] Cancelling loading a passworded quest counts as the quest failing to load",
+  "1538406400105910313": "Improved Sound Features"
 }
