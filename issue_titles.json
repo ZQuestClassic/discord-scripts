@@ -3090,5 +3090,7 @@
   "1537296861461872800": "Tiles disappear after setting combo",
   "1537296879199723612": "[2.55] Missing MISCSFX constants in std",
   "1537906742451634227": "Mass-set type of warp",
-  "1537946778278830141": "Boomerang to not be destroyed (and come back) upon kill flag"
+  "1537946778278830141": "Boomerang to not be destroyed (and come back) upon kill flag",
+  "1538003551991636018": "\"Auto\" button for side warp screen",
+  "1538010677426393200": "Editor plugins"
 }
