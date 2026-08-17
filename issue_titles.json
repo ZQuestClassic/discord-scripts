@@ -3094,5 +3094,8 @@
   "1538003551991636018": "\"Auto\" button for side warp screen",
   "1538010677426393200": "Editor plugins",
   "1538347161731993622": "[2.55.16] Cancelling loading a passworded quest counts as the quest failing to load",
-  "1538406400105910313": "Improved Sound Features"
+  "1538406400105910313": "Improved Sound Features",
+  "1538631897629073568": "[2.55, 3.0] sprintf/printf issues re: hex, padding",
+  "1538632105016172684": "[2.55, 3.0] Address issues re: quest `Files` directory",
+  "1538632243914870866": "[2.55, 3.0] Internal functions should resize arrays when given as input"
 }
