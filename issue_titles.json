@@ -3097,5 +3097,6 @@
   "1538406400105910313": "Improved Sound Features",
   "1538631897629073568": "[2.55, 3.0] sprintf/printf issues re: hex, padding",
   "1538632105016172684": "[2.55, 3.0] Address issues re: quest `Files` directory",
-  "1538632243914870866": "[2.55, 3.0] Internal functions should resize arrays when given as input"
+  "1538632243914870866": "[2.55, 3.0] Internal functions should resize arrays when given as input",
+  "1538719609723551805": "[2.55, 3.0] Improve initial load UX in editor"
 }
