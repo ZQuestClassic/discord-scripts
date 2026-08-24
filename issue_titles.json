@@ -3101,5 +3101,6 @@
   "1538719609723551805": "[2.55, 3.0] Improve initial load UX in editor",
   "1539831618259259502": "Fairy Item: Cannot Capture with Bug Net",
   "1540186118774071407": "[2.55, 3.0] Replay uploading consent is broken",
-  "1540226526082105414": "Auto convert \\n to \\Newline\\ and strip \\r when pasting into the string editor"
+  "1540226526082105414": "Auto convert \\n to \\Newline\\ and strip \\r when pasting into the string editor",
+  "1541362480557723678": "Bugged visuals in Lost Isle's intro cutscene"
 }
