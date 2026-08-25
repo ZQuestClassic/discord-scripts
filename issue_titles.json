@@ -3102,5 +3102,8 @@
   "1539831618259259502": "Fairy Item: Cannot Capture with Bug Net",
   "1540186118774071407": "[2.55, 3.0] Replay uploading consent is broken",
   "1540226526082105414": "Auto convert \\n to \\Newline\\ and strip \\r when pasting into the string editor",
-  "1541362480557723678": "Bugged visuals in Lost Isle's intro cutscene"
+  "1541362480557723678": "Bugged visuals in Lost Isle's intro cutscene",
+  "1541435082332569600": "Combo trigger effect - Move FFC.",
+  "1541486961179631687": "Audiostream desynch on Esc menu",
+  "1541534214434984058": "Unknown Quest Crash in 2.55.0"
 }
