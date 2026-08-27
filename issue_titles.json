@@ -3105,5 +3105,7 @@
   "1541362480557723678": "[2.55, 3.0] Bugged visuals in Lost Isle's intro cutscene",
   "1541435082332569600": "Combo trigger effect - Move FFC.",
   "1541486961179631687": "[2.55, 3.0] Audiostream desync on Esc menu",
-  "1541534214434984058": "Unknown Quest Crash in 2.55.0"
+  "1541534214434984058": "Unknown Quest Crash in 2.55.0",
+  "1542183386234486815": "Update Screen during frozen scripts",
+  "1542184105163227156": "`Script->` pointer"
 }
