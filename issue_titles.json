@@ -3107,5 +3107,8 @@
   "1541486961179631687": "[2.55, 3.0] Audiostream desync on Esc menu",
   "1541534214434984058": "Unknown Quest Crash in 2.55.0",
   "1542183386234486815": "Update Screen during frozen scripts",
-  "1542184105163227156": "`Script->` pointer"
+  "1542184105163227156": "`Script->` pointer",
+  "1542413917504929802": "Bush/Tall Grass->Next Ignore Setting \"Spawn Item\"",
+  "1542742935135723560": "Setting QR For \"Combos Run Scripts\" Does Nothing If ZScript->Quest Script Settings Isn't Set",
+  "1542768684039282738": "Better streamlining for MIDI under the new music system"
 }
