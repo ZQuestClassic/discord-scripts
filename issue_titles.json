@@ -1656,7 +1656,7 @@
   "1318027291711901787": "Enemy death and Spawn sprite labels are swapped",
   "1318311896390045758": "Sprites and SFX for enemy parts",
   "1318433689750999122": "Oddity of player collision on left side of solid FFC",
-  "1318435737498161222": "Potential Performance Degradation",
+  "1318435737498161222": "[2.55, 3.0] Potential Performance Degradation",
   "1318514386045763594": "zoom out next-screen-preview graphical bug",
   "1319146472444264518": "[2.55.7] Cheat re-bindings don't work",
   "1319166577660395633": "`ClosingWipe(WIPE_FADEBLACK)` followed by `OpeningWipe(WIPE_FADEBLACK)` does not work as expected",
@@ -3110,5 +3110,7 @@
   "1542184105163227156": "`Script->` pointer",
   "1542413917504929802": "Bush/Tall Grass->Next Ignore Setting \"Spawn Item\"",
   "1542742935135723560": "Setting QR For \"Combos Run Scripts\" Does Nothing If ZScript->Quest Script Settings Isn't Set",
-  "1542768684039282738": "Better streamlining for MIDI under the new music system"
+  "1542768684039282738": "Better streamlining for MIDI under the new music system",
+  "1544110053684944926": "2.55 Itemdata script's first Waitframe() waits for two frames",
+  "1544116431761834004": "2.55 Tile overwrite protection for enemies that don't exist"
 }
