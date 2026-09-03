@@ -3112,5 +3112,6 @@
   "1542742935135723560": "Setting QR For \"Combos Run Scripts\" Does Nothing If ZScript->Quest Script Settings Isn't Set",
   "1542768684039282738": "Better streamlining for MIDI under the new music system",
   "1544110053684944926": "2.55 Itemdata script's first Waitframe() waits for two frames",
-  "1544116431761834004": "2.55 Tile overwrite protection for enemies that don't exist"
+  "1544116431761834004": "2.55 Tile overwrite protection for enemies that don't exist",
+  "1544932617504432238": "Copy Button On Select Dmaps"
 }
