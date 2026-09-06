@@ -3114,5 +3114,8 @@
   "1544110053684944926": "2.55 Itemdata script's first Waitframe() waits for two frames",
   "1544116431761834004": "2.55 Tile overwrite protection for enemies that don't exist",
   "1544932617504432238": "Copy Button On Select Dmaps",
-  "1545377618533032017": "2.55 Copying Colours by dragging messes up view area in palette editor with Palette Cycling on."
+  "1545377618533032017": "2.55 Copying Colours by dragging messes up view area in palette editor with Palette Cycling on.",
+  "1546010501941698590": "Max Out Counters and similar settings don't apply to Button Counter widget",
+  "1546015485299138570": "Subscreen widget lister",
+  "1546070528358621224": "Weird selection rects when editing things on the bottom of an Overlay subscreen"
 }
