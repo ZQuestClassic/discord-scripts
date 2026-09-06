@@ -2672,7 +2672,7 @@
   "1495583223093395608": "ZScript: Viewport Bounds Offsets",
   "1495638634932469861": "out-of-bounds view when loading quest",
   "1495934718926131351": "[3.0] Link's sword disappears when sliding on ice",
-  "1495954886427148529": "Palette editor displaying wrong palette while clicking/copying colors",
+  "1495954886427148529": "[2.55, 3.0] Palette editor displaying wrong palette while clicking/copying colors",
   "1496012286454923295": "[3.0] PlaySoundEx()'s frequency arg has complete broken",
   "1496033320918847589": "[3.0] Dark Room Preview appears misaligned",
   "1496094098082365570": "Special hover text for signposts",
