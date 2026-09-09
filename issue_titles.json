@@ -2292,7 +2292,7 @@
   "1436207096789209129": "[2.55.11+] Damage Combos goes through FFCs",
   "1436671111352811520": "Newer Hero Movement only snaps to a solid edge on the Y axis",
   "1436805209895735449": "IsWater and IsPit STD boolean update",
-  "1436871556763619501": "[compat] Hammering through blocks in Link's Birthday DX",
+  "1436871556763619501": "[2.55, 3.0] Hammering vertically through blocks in Link's Birthday DX",
   "1436988721860710430": "[2.55+] Stairs Combos cut Midi during an Instawarp to a screen with the same music.",
   "1437241713830658238": "holding shift while already dragging a screen object not changing snap mode",
   "1437474218664263690": "warpex has no documentation",
@@ -3121,5 +3121,6 @@
   "1546366971334099004": "[3.0] Strange Warp Location Into Region",
   "1546484152667349094": "Option to display @ExportEnum dropdowns in numerical order",
   "1546823327480418324": "WeaponTypeToID() has no handling for script weapon types",
-  "1546837252435480646": "DMap editor - \"Disable/Enable All\" button for banned items list."
+  "1546837252435480646": "DMap editor - \"Disable/Enable All\" button for banned items list.",
+  "1546906874769842186": "@ExportEngineValue outputs numbers not *10000"
 }
