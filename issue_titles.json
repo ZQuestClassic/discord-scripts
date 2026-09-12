@@ -3122,5 +3122,6 @@
   "1546484152667349094": "Option to display @ExportEnum dropdowns in numerical order",
   "1546823327480418324": "WeaponTypeToID() has no handling for script weapon types",
   "1546837252435480646": "DMap editor - \"Disable/Enable All\" button for banned items list.",
-  "1546906874769842186": "@ExportEngineValue outputs numbers not *10000"
+  "1546906874769842186": "@ExportEngineValue outputs numbers not *10000",
+  "1548031384227029044": "Sword Poke Sideview One Combo Too Low"
 }
