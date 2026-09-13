@@ -1613,7 +1613,7 @@
   "1312148352967905340": "enemy editor attributes ? buttons",
   "1312175549145288824": "Item -> Copy (and paste) closes out item editor",
   "1312233679006732409": "New combo triggers",
-  "1312547999334793348": "[compat] Spark fell through tiles on 2.55.7",
+  "1312547999334793348": "[compat, 2.55, 3.0] Spark fell through tiles",
   "1312548272166010901": "Bug net can reflect weapons?",
   "1312549356208914487": "Cannot save after adding enemies to screen",
   "1312645787733196840": "Spacebar map overlay",
@@ -3123,5 +3123,6 @@
   "1546823327480418324": "WeaponTypeToID() has no handling for script weapon types",
   "1546837252435480646": "DMap editor - \"Disable/Enable All\" button for banned items list.",
   "1546906874769842186": "@ExportEngineValue outputs numbers not *10000",
-  "1548031384227029044": "Sword Poke Sideview One Combo Too Low"
+  "1548031384227029044": "Sword Poke Sideview One Combo Too Low",
+  "1548586733489225768": "Vertical DMap Offsetting"
 }
