@@ -3124,5 +3124,9 @@
   "1546837252435480646": "DMap editor - \"Disable/Enable All\" button for banned items list.",
   "1546906874769842186": "@ExportEngineValue outputs numbers not *10000",
   "1548031384227029044": "Sword Poke Sideview One Combo Too Low",
-  "1548586733489225768": "Vertical DMap Offsetting"
+  "1548586733489225768": "Vertical DMap Offsetting",
+  "1548724073020788808": "(Linux) Launcher opens, but Player and Editor don't",
+  "1548724634344488970": "Some awkward interactions between pitfalls and ZScript",
+  "1548739521242341386": "[3.0] Combo script waitdraw causes issue with future waitframes",
+  "1548750123281023116": "hookshot handle has active hitbox"
 }
