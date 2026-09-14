@@ -2770,7 +2770,7 @@
   "1500854251226796255": "Draws to negative layers don't work when scrolling",
   "1500872538996342976": "[3.0] Chest prevents ExState 5 from carrying over",
   "1500884211383402607": "[3.0] sprite DrawXOffset and DrawYOffset reading broken values above offsets of 21",
-  "1500952954528727281": "[compat] Switch does not appear after block push in Quest 744",
+  "1500952954528727281": "[compat, 2.55, 3.0] Switch does not appear after block push in Quest 744",
   "1501075029507575898": "spotlight ffcs broken",
   "1501205933760708708": "SPLAYER_UNDER_PLAYER_DRAW",
   "1501429800143687730": "[2.55] dither pattern between screens is not seamless",
@@ -3128,5 +3128,6 @@
   "1548724073020788808": "(Linux) Launcher opens, but Player and Editor don't",
   "1548724634344488970": "Some awkward interactions between pitfalls and ZScript",
   "1548739521242341386": "[3.0] Combo script waitdraw causes issue with future waitframes",
-  "1548750123281023116": "hookshot handle has active hitbox"
+  "1548750123281023116": "hookshot handle has active hitbox",
+  "1549008980620349490": "Crash on attempt to edit FFC script with exported parameters."
 }
