@@ -3129,5 +3129,6 @@
   "1548724634344488970": "Some awkward interactions between pitfalls and ZScript",
   "1548739521242341386": "[3.0] Combo script waitdraw causes issue with future waitframes",
   "1548750123281023116": "hookshot handle has active hitbox",
-  "1549008980620349490": "Crash on attempt to edit FFC script with exported parameters."
+  "1549008980620349490": "Crash on attempt to edit FFC script with exported parameters.",
+  "1549201572527870012": "Music Fades On Screen Exit"
 }
