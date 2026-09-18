@@ -3133,5 +3133,6 @@
   "1549201572527870012": "Music Fades On Screen Exit",
   "1549562924614287480": "Combo Trigger: Non positional button check",
   "1549581621882265740": "Music Loader Copies Song Name",
-  "1550065275943129149": "Completely Flip Sword Slash"
+  "1550065275943129149": "Completely Flip Sword Slash",
+  "1550285208224534559": "Combo trigger: Way to tie item pickup / enemy death to position state"
 }
