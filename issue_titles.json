@@ -3134,5 +3134,11 @@
   "1549562924614287480": "Combo Trigger: Non positional button check",
   "1549581621882265740": "Music Loader Copies Song Name",
   "1550065275943129149": "Completely Flip Sword Slash",
-  "1550285208224534559": "Combo trigger: Way to tie item pickup / enemy death to position state"
+  "1550285208224534559": "Combo trigger: Way to tie item pickup / enemy death to position state",
+  "1551419633767022612": "Tiered Secrets Not Working",
+  "1551521592209576036": "[3.0, 2.55] Scripted bomb blasts do not blow open NES door bomb walls",
+  "1551613797964189706": "Cutscene Trigger Input Disable Request",
+  "1551673685654372392": "Big digdogger ignores whistle defense",
+  "1551691909120917616": "Invisible player after whistle whirlwind carries the player over damaging deep water",
+  "1551957537740300320": "Release not found for latest build"
 }
