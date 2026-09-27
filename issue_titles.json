@@ -3145,5 +3145,6 @@
   "1552139234817605722": "[2.55.17 Prerelease] Unexpected Gamepad Controller Scheme",
   "1552581417899262033": "Sideview Swimming - Shields are unable to block eweapons at all.",
   "1552928190333321337": "ALL Cheat Keys Locked Behind Cheat Code",
-  "1553239462761472081": "Prevent logs from growing unbounded"
+  "1553239462761472081": "Prevent logs from growing unbounded",
+  "1553459029550825585": "ZInfo access to read references"
 }
