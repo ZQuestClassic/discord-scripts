@@ -3148,5 +3148,6 @@
   "1553239462761472081": "Prevent logs from growing unbounded",
   "1553459029550825585": "ZInfo access to read references",
   "1553702159219171400": "Splash sprite and SFX for deep liquids.",
-  "1553703818821111838": "[2.55] String control code can hardlock ZC to the point where F11 does not close."
+  "1553703818821111838": "[2.55] String control code can hardlock ZC to the point where F11 does not close.",
+  "1553849308980449341": "Torch and new darkess on screen 80/81 jank"
 }
