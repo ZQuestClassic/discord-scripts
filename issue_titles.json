@@ -3151,5 +3151,7 @@
   "1553703818821111838": "[2.55] String control code can hardlock ZC to the point where F11 does not close.",
   "1553849308980449341": "Torch and new darkess on screen 80/81 jank",
   "1554120206463279226": "Nayrus Love Damage Reduction",
-  "1555433596167389204": "Reading prompt has option to appear above subject"
+  "1555433596167389204": "Reading prompt has option to appear above subject",
+  "1555979640663703552": "Bitmap->DrawAll() / Capture Buffer",
+  "1556012804719382601": "[3.0] bitmap->Write broken when qr_BITMAP_AND_FILESYSTEM_PATHS_ALWAYS_RELATIVE is off"
 }
