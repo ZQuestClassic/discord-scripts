@@ -3156,5 +3156,6 @@
   "1556012804719382601": "[3.0] bitmap->Write broken when qr_BITMAP_AND_FILESYSTEM_PATHS_ALWAYS_RELATIVE is off",
   "1556688796995559475": "[3.0] Slopes across sidewarps in regions are buggy",
   "1557103742447525960": "See Walkability in > Open Combo Page",
-  "1557494938986348636": "[3.0] Only the first trigger of a given input on a combo functions"
+  "1557494938986348636": "[3.0] Only the first trigger of a given input on a combo functions",
+  "1557949663615909998": "Color importing from picture crash"
 }
