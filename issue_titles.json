@@ -3157,5 +3157,5 @@
   "1556688796995559475": "[3.0] Slopes across sidewarps in regions are buggy",
   "1557103742447525960": "See Walkability in > Open Combo Page",
   "1557494938986348636": "[3.0] Only the first trigger of a given input on a combo functions",
-  "1557949663615909998": "Color importing from picture crash"
+  "1557949663615909998": "[2.55, 3.0] Color importing from picture crashes (if filename is long)"
 }
