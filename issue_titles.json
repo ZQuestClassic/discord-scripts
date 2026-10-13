@@ -3158,5 +3158,8 @@
   "1557103742447525960": "See Walkability in > Open Combo Page",
   "1557494938986348636": "[3.0] Only the first trigger of a given input on a combo functions",
   "1557949663615909998": "[2.55, 3.0] Color importing from picture crashes (if filename is long)",
-  "1558591398297608292": "Ability to Copy and Paste tiles on the screen"
+  "1558591398297608292": "Ability to Copy and Paste tiles on the screen",
+  "1559473261618921553": "Magic Mirror - Mirror-only Combo Flag/Item Flag",
+  "1559538573961597040": "Lock Blocks Don't Trigger Other Flags When Triggered",
+  "1559590618764673165": "Draws Flash for 1 Frame on DMap Transition"
 }
