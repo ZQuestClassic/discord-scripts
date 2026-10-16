@@ -3163,5 +3163,6 @@
   "1559538573961597040": "Lock Blocks Don't Trigger Other Flags When Triggered",
   "1559590618764673165": "Draws Flash for 1 Frame on DMap Transition",
   "1560132624796880956": "Exported script attributes values don`t shift automatically when new one was inserted in the middle.",
-  "1560218495138926612": "Dungeon Doors Function Without Push"
+  "1560218495138926612": "Dungeon Doors Function Without Push",
+  "1560446564265238580": "Copy control scheme"
 }
