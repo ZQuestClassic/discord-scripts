@@ -3169,5 +3169,6 @@
   "1561232944838746162": "Crashing in the rosemaster on getting second sword upgrade",
   "1561405025329221773": "Unknown Crash on Quest Load- 2.55.0",
   "1561867394522288319": "Dmap Pulldown List Order",
-  "1561896393084379186": "Combo trigger -> Spawn item as dropdown list."
+  "1561896393084379186": "Combo trigger -> Spawn item as dropdown list.",
+  "1561985889972781208": "Screen Data field to fake map position"
 }
