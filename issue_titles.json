@@ -3167,5 +3167,7 @@
   "1560446564265238580": "Copy control scheme",
   "1560868316397183028": "Better palette importing for ZC",
   "1561232944838746162": "Crashing in the rosemaster on getting second sword upgrade",
-  "1561405025329221773": "Unknown Crash on Quest Load- 2.55.0"
+  "1561405025329221773": "Unknown Crash on Quest Load- 2.55.0",
+  "1561867394522288319": "Dmap Pulldown List Order",
+  "1561896393084379186": "Combo trigger -> Spawn item as dropdown list."
 }
