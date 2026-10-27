@@ -3171,5 +3171,10 @@
   "1561867394522288319": "Dmap Pulldown List Order",
   "1561896393084379186": "Combo trigger -> Spawn item as dropdown list.",
   "1561985889972781208": "Screen Data field to fake map position",
-  "1562642207067082793": "Wizard for Pitfall combos 3.0"
+  "1562642207067082793": "Wizard for Pitfall combos 3.0",
+  "1563790874016485417": "[2.55, 3.0] Weird coloring in tile editor after changing color 0",
+  "1564395906516779140": "Initial Delay On Combo Graphic",
+  "1564520895308111882": "Compilation false positive with similarly named legacy and exported init arguments in the script.",
+  "1564537013158551552": "Copy/paste side warp/tile warp data between screens",
+  "1564605041246076969": "Multiple copy/adv paste"
 }
