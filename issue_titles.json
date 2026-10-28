@@ -3176,5 +3176,7 @@
   "1564395906516779140": "Initial Delay On Combo Graphic",
   "1564520895308111882": "Compilation false positive with similarly named legacy and exported init arguments in the script.",
   "1564537013158551552": "Copy/paste side warp/tile warp data between screens",
-  "1564605041246076969": "Multiple copy/adv paste"
+  "1564605041246076969": "Multiple copy/adv paste",
+  "1564728448864362616": "Take ZQuest Snapshot shows the open meny",
+  "1564822873103929345": "[3.0] Testing not working after editing Header Info"
 }
