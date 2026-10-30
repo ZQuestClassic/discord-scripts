@@ -3179,5 +3179,7 @@
   "1564605041246076969": "Multiple copy/adv paste",
   "1564728448864362616": "Take ZQuest Snapshot shows the open meny",
   "1564822873103929345": "[3.0] Testing not working after editing Header Info",
-  "1564839184978542693": "[2.55, 3.0] Non-ascii letters/symbols no longer render correctrly"
+  "1564839184978542693": "[2.55, 3.0] Non-ascii letters/symbols no longer render correctrly",
+  "1565478833032003644": "Two config options?",
+  "1565488192013082767": "[3.0] zplayer and zlauncher 3.0 segfauls when there is no x11 display"
 }
