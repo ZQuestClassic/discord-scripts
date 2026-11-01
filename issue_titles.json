@@ -3184,5 +3184,7 @@
   "1565488192013082767": "[3.0] zplayer and zlauncher 3.0 segfauls when there is no x11 display",
   "1565758711564083210": "Damage Combos Oddity- 2.55.0",
   "1565790719019450560": "Latest build no longer runs",
-  "1566147823483887799": "[2.55.17] [3.0 Prerelease 235] 'Selection Text' doesn't appear on passive subscreen"
+  "1566147823483887799": "[2.55.17] [3.0 Prerelease 235] 'Selection Text' doesn't appear on passive subscreen",
+  "1566325806127517756": "EWeapons fly right through hero without dealing damage.",
+  "1566381467561631784": "\"Imitate Weapon Type\" does not affect Shield Block Flags"
 }
