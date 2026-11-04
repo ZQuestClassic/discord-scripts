@@ -3188,5 +3188,7 @@
   "1566325806127517756": "EWeapons fly right through hero without dealing damage.",
   "1566381467561631784": "\"Imitate Weapon Type\" does not affect Shield Block Flags",
   "1566534651005378570": "[3.0] Bug with FCCs since the Halloween update.",
-  "1567260136920322118": "Linked FFC mimicking is imprecise"
+  "1567260136920322118": "Linked FFC mimicking is imprecise",
+  "1567500897280593960": "Slash Sword Through Block Length",
+  "1567569655860691054": "Failed to load saves"
 }
