@@ -3195,5 +3195,6 @@
   "1567985004678750270": "[3.0] Crash in Yuurand while floating into a specific tile warp",
   "1568941728008769566": "Shortcut For Secret Combos - Multi",
   "1569851657578225876": "Eyeball functionality for signposts",
-  "1570112870098800730": "[3.0] Water solidity doesn't match combo on combo map"
+  "1570112870098800730": "[3.0] Water solidity doesn't match combo on combo map",
+  "1570216029878231111": "Setting sprite H and W in Sprite Data"
 }
