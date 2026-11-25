@@ -3199,5 +3199,6 @@
   "1570216029878231111": "Setting sprite H and W in Sprite Data",
   "1570356033195614288": "Dmaps Also Play Ambience & Boss Roar",
   "1571755844003954728": "Combo trigger effect - Set counter to specific value",
-  "1572787377934573659": "Game->SkipF6 does not ban custom F6 save menu"
+  "1572787377934573659": "Game->SkipF6 does not ban custom F6 save menu",
+  "1574939843530858636": "[Flatpak] Desktop entries for zplayer, zeditor and zlauncher"
 }
